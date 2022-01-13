@@ -11,11 +11,11 @@ else
     echo 'NORUNSH = ' $NORUNSH
 fi
 
-if ! grep -q kakao /etc/apt/sources.list; then
-    cp /etc/apt/sources.list /etc/apt/sources.list.$(date '+%Y%m%d%k%M%S').bak
-    sed -i -s -r -e 's/archive.ubuntu.com/mirror.kakao.com/g' /etc/apt/sources.list
-    sed -i -s -r -e 's/security.ubuntu.com/mirror.kakao.com/g' /etc/apt/sources.list
-fi
+#if ! grep -q kakao /etc/apt/sources.list; then
+#    cp /etc/apt/sources.list /etc/apt/sources.list.$(date '+%Y%m%d%k%M%S').bak
+#    sed -i -s -r -e 's/archive.ubuntu.com/mirror.kakao.com/g' /etc/apt/sources.list
+#    sed -i -s -r -e 's/security.ubuntu.com/mirror.kakao.com/g' /etc/apt/sources.list
+#fi
 apt-get update; apt-get upgrade -y;
 
 
