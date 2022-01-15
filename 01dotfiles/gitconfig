@@ -36,3 +36,5 @@
 	pl = pull --recurse-submodules=yes --rebase=true --autostash
 	ps = push
 	reb = rebase --autostash
+[core]
+	editor = vim
