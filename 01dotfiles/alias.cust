@@ -15,24 +15,30 @@ fi
 
 
 ##############################################
-# SEPCIAL
+# ETC
 ##############################################
+# change default terminal
+alias chterm='sudo update-alternatives --config x-terminal-emulator'
+
+# build(make) and grep  errors
+alias mage='make -j12 2>&1 | greps error'
+
 alias tlog='tee "log$(date +%s%N)$$"'
 
 
 ##############################################
-# LS
+# DOCKER
 ##############################################
-alias l='ls -l'
-alias la='ls -aF'
-alias ll='ls -alF'
+alias dps='docker ps -a'
+alias dcreate='docker run -dit --name $1 -v $PWD:$PWD -w $PWD $2'
+alias dmake='docker exec -t $1 make -j16'
 
 
 ##############################################
 # FIND
 ############################################## 
 # findn: name-specific
-# USAGE: $ findni . "*cust"
+# USAGE: $ findn . "*cust"
 function findn() {
         find "$1" -name "$2" 2>/dev/null
 }
@@ -55,6 +61,45 @@ alias grepr='grep -inHIR $1 2>/dev/null'
 
 
 ##############################################
+# LS
+##############################################
+alias l='ls -l'
+alias la='ls -aF'
+alias ll='ls -ahlF'
+alias lz='ls -alZ'
+
+
+##############################################
+# VIRSH
+##############################################
+alias virq='virsh -c qemu:///system'
+#alias virqs='virsh -c qemu+ssh://$(LIBVIRTD_SERVER)/system'
+alias virqdl='virsh -c qemu:///system list --all'
+alias virqdd='virsh -c qemu:///system dumpxml'
+alias virqnl='virsh -c qemu:///system net-list'
+alias virqnd='virsh -c qemu:///system net-dumpxml'
+alias virqdhcp='virsh -c qemu:///system net-dhcp-leases default'
+
+
+##############################################
+# STRACE
+##############################################
+# USAGE: 
+# $ sstrace <command> or <.sh file>
+# $ sstrace -p <pid>
+alias sstrace='strace -s 65535 -f -tt -o strace.$(date +%Y%m%d-%H%M%S).dump'
+
+
+##############################################
+# TCPDUMP
+##############################################
+# USAGE: $ tdump "host 1.2.3.4 and port 8080"
+function tdump() {
+sudo tcpdump -U -i eno1 $1 -w - | tee "tcpdump.$(date +%Y%m%d-%H%M%S).pcap" | tcpdump -qns 0 -A -r -
+}
+
+
+##############################################
 # XARGS
 ##############################################
 # xargsp: xargs runs with multiple process
@@ -67,16 +112,3 @@ alias xargsp='xargs -P`nproc` -i bash -c'
 # USAGE: $ xclips ~/ssh/id_rsa.pub
 alias xclips='xclip -selection clipboard <'
 
-
-##############################################
-# ETC
-##############################################
-# change default terminal
-alias chterm='sudo update-alternatives --config x-terminal-emulator'
-
-
-##############################################
-# CUSTOM COMBINATIONS
-##############################################
-# build(make) and grep  errors
-alias mage='make -j12 2>&1 | greps error'
