@@ -17,6 +17,9 @@ fi
 ##############################################
 # ETC
 ##############################################
+# sudovi
+alias sudovi='sudo vi'
+
 # change default terminal
 alias chterm='sudo update-alternatives --config x-terminal-emulator'
 
