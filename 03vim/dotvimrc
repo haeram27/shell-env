@@ -24,6 +24,10 @@ Plug 'vim-airline/vim-airline'
 " Youcompleteme
 Plug 'valloric/youcompleteme'
 
+" vim-go
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
+
 call plug#end()
 
 
@@ -74,8 +78,8 @@ let g:airline_symbols.dirty='⚡'
 " >>>>>>>> YCM Configs >>>>>>>>
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf = 0
-"let g:ycm_key_list_select_completion = [['<C-j>', '<Down>']]
-"let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
+let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_warning_symbol = '>*'
 
@@ -96,9 +100,14 @@ nnoremap <leader>p :YcmCompleter GetParent<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Key Mapping :: BEGIN
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" <F1> folding
-"map <F1> v]}zf
-map <F1> :tabnew<cr>
+" Custom Shortcuts
+let mapleader = ","
+"let mapleader = " "
+map <leader>n :set number<cr>
+map <leader>nn :set nonumber<cr>
+
+
+" <F1> terminator help online key
 " <F2> change window
 map <F2> <C-w><C-w>
 " <F3> NERDTree
@@ -110,13 +119,12 @@ map <F4> :TagbarToggle<cr>
 map <F5> [i
 " <F6> gd  goto declaration
 map <F6> gd
-" <F7> pt pastetoggle
-set pt=<F7>
-" <F8> Dox
-map <F8> :Dox<cr>
-" bnext, bprev
-map <F11> :bp<cr>
-map <F12> :bn<cr>
+" <F7> previous buffer
+map <F7> :bp<cr>
+" <F8> next buffer
+map <F8> :bn<cr>
+" <F9> new tab
+map <F9> :tabnew<cr>
 " tabn
 map <S-Tab> gt<cr>
 
@@ -126,12 +134,9 @@ map <S-Tab> gt<cr>
 "vmap <C-v> c<ESC>"+p
 "imap <C-v> <C-r><C-o>+
 
+"insert tab
+inoremap <S-Tab> <C-V><Tab>
 
-" Custom Shortcuts
-let mapleader = ","
-"let mapleader = " "
-map <leader>n :set number<cr>
-map <leader>nn :set nonumber<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Key Mapping :: END
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
