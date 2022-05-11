@@ -104,22 +104,14 @@ if [[ ! -f ~/.p10k.zsh ]]; then
 fi
 
 
-#################################
+#####################
 ## configuration for VcXsrv(xorg server) to run terminator using WSL through x11 server
-#################################
-export LIBGL_ALWAYS_INDIRECT=1
+#####################
 # set DISPLAY to use X terminal in WSL
-# in WSL2 the localhost and network interfaces are not the same than windows
-if grep -q WSL2 /proc/version; then
-    # this is to get IP address of ethernet adapter (REAL)
-        export DISPLAY=$(route.exe print | grep 0.0.0.0 | head -1 | awk '{print $4}'):0.0
-else
-    # In WSL1 the DISPLAY can be the localhost address
-    if grep -q icrosoft /proc/version; then
-        # this is to get IP address of ethernet adapter (WSL)
-        export DISPLAY="`grep nameserver /etc/resolv.conf | sed 's/nameserver //'`:0.0"
-    fi
-fi
+WSL_WINDOWS_HOST_IPADDR=$(awk '/nameserver / {print $2; exit;}' /etc/resolv.conf 2>/dev/null)
+export DISPLAY=$WSL_WINDOWS_HOST_IPADDR:0.0
+export PULSE_SERVER=tcp:$WSL_WINDOWS_HOST_IPADDR
+export LIBGL_ALWAYS_INDIRECT=1
 
 
 #################################
