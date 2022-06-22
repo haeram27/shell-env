@@ -22,6 +22,18 @@ fi
 [[ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && . ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 [[ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && . ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+
+#################################
+# HISTORY
+#################################
+# history file for zsh
+export HISTFILE=~/.zsh_history
+# history size in cache
+export HISTSIZE=2000
+# history size in file
+export SAVEHIST=2000
+
+
 #################################
 # VIEW
 #################################
