@@ -22,7 +22,7 @@ function install() {
 
     # gitstatus dir is required by p10k
     tar xvfz ./gitstatus.tgz
-    mkdir ~/.cache; mv ./gitstatus ~/.cache/
+    mkdir ~/.cache; mv ./gitstatus ~/.cache/; rm -rf ./gitstatus >/dev/null
 
     chmod 644 ~/.[^.]*.cust ~/.gitconfig ~/.p10k.zsh ~/.zshrc
     chmod 700 ~/.zsh

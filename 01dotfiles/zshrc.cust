@@ -1,22 +1,9 @@
 #################################
-# SYSTEM
-#################################
-# -c: max core file size
-ulimit -c unlimited
-
-# umask color to prevent green BG on dir name
-if [[ "$(umask)" == '000' ]]
-then
-    umask 022
-fi
-
-
-#################################
 # CUSTOM CONFIGURATIONS
 #################################
 [[ -f ~/.alias.cust ]] && . ~/.alias.cust
 [[ -f ~/.bindkey.cust ]] && . ~/.bindkey.cust
-#[[ -f ~/.env.cust ]] && . ~/.env.cust
+[[ -f ~/.env.cust ]] && . ~/.env.cust
 
 [[ -f /usr/share/autojump/autojump.zsh ]] && . /usr/share/autojump/autojump.zsh
 [[ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && . ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -35,17 +22,7 @@ export SAVEHIST=2000
 
 
 #################################
-# VIEW
-#################################
-# ls command - color configuration
-export CLICOLOR=1
-export LS_COLORS="di=1;36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=0;41:sg=30;46:tw=0;42:ow=30;43"
-export LSCOLORS="Gxfxcxdxbxegedxbagxcad"
-export TIME_STYLE='long-iso'
-
-
-#################################
-# Shell prompt format and color
+# PROMPT STYLE
 #################################
 # Find and set branch name var if in git repository.
 sw_prompt_shell_type()
@@ -116,27 +93,3 @@ if [[ ! -f ~/.p10k.zsh ]]; then
 fi
 
 
-#####################
-## configuration for VcXsrv(xorg server) to run terminator using WSL through x11 server
-#####################
-# set DISPLAY to use X terminal in WSL
-WSL_WINDOWS_HOST_IPADDR=$(awk '/nameserver / {print $2; exit;}' /etc/resolv.conf 2>/dev/null)
-export DISPLAY=$WSL_WINDOWS_HOST_IPADDR:0.0
-export PULSE_SERVER=tcp:$WSL_WINDOWS_HOST_IPADDR
-export LIBGL_ALWAYS_INDIRECT=1
-
-
-#################################
-# PATH
-#################################
-## ANDROID PATH
-# ANDROID_HOME=$HOME/sw/dev/env/android/sdk
-# ANDROID_PlATFORM_TOOLS=${ANDROID_HOME}/platform-tools
-# ANDROID_BUILD_TOOLS=${ANDROID_HOME}/build-tools/28.0.0-rc1
-# PATH="${PATH}:${ANDROID_PlATFORM_TOOLS}:${ANDROID_BUILD_TOOLS}"
-#
-#
-## GO PATH
-if [ -d "/usr/local/go/bin" ] ; then
-    PATH=$PATH:/usr/local/go/bin
-fi
