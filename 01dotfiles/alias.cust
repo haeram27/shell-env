@@ -39,7 +39,9 @@ alias g='git'
 # DOCKER
 ##############################################
 alias d='docker'
-alias dps='docker ps -a'
+alias dps='docker ps --format "table {{.ID}}\t{{.Image}}\t{{.Command}}\t{{.RunningFor}}\t{{.Status}}\t{{.Names}}"'
+alias dpsa='docker ps -a'
+alias dpsi='docker ps --format "table {{.ID}}\t{{.Image}}"'
 alias dcreate='docker run -dit --name $1 -v $PWD:$PWD -w $PWD $2'
 alias dmake='docker exec -t $1 make -j16'
 
@@ -48,6 +50,9 @@ alias dmake='docker exec -t $1 make -j16'
 # KUBECTL
 #############################################
 alias k='kubectl'
+alias mk='minikube'
+alias mkk='minikube kubectl'
+alias rk='rancher kubectl'
 
 
 ##############################################
