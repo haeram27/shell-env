@@ -18,7 +18,10 @@ fi
 # ETC
 ##############################################
 # sudovi
-alias sudovi='sudo vi'
+alias suvi='sudo vi'
+
+# sudosu
+alias susu='sudo su'
 
 # change default terminal
 alias chterm='sudo update-alternatives --config x-terminal-emulator'
@@ -29,30 +32,19 @@ alias mage='make -j12 2>&1 | greps error'
 alias tlog='tee "log$(date +%s%N)$$"'
 
 
-#############################################
-# GIT
-#############################################
-alias g='git'
+##############################################
+# HISTORY
+##############################################
+alias his='history'
 
 
 ##############################################
-# DOCKER
+# LS
 ##############################################
-alias d='docker'
-alias dps='docker ps --format "table {{.ID}}\t{{.Image}}\t{{.Command}}\t{{.RunningFor}}\t{{.Status}}\t{{.Names}}"'
-alias dpsa='docker ps -a'
-alias dpsi='docker ps --format "table {{.ID}}\t{{.Image}}"'
-alias dcreate='docker run -dit --name $1 -v $PWD:$PWD -w $PWD $2'
-alias dmake='docker exec -t $1 make -j16'
-
-
-#############################################
-# KUBECTL
-#############################################
-alias k='kubectl'
-alias mk='minikube'
-alias mkk='minikube kubectl'
-alias rk='rancher kubectl'
+alias l='ls -l'
+alias la='ls -aF'
+alias ll='ls -ahlF'
+alias lz='ls -alZ'
 
 
 ##############################################
@@ -69,6 +61,7 @@ function findl() {
         find -L "$1" -name "$2" 2>/dev/null
 }
 
+
 ##############################################
 # GREP
 ##############################################
@@ -79,27 +72,6 @@ alias grepp='grep -inH $1 $2 2>/dev/null'
 # grepr: grep for recursive searching
 # USAGE: $ grepr "alias grepr" .
 alias grepr='grep -inHIR $1 2>/dev/null'
-
-
-##############################################
-# LS
-##############################################
-alias l='ls -l'
-alias la='ls -aF'
-alias ll='ls -ahlF'
-alias lz='ls -alZ'
-
-
-##############################################
-# VIRSH
-##############################################
-alias virq='virsh -c qemu:///system'
-#alias virqs='virsh -c qemu+ssh://$(LIBVIRTD_SERVER)/system'
-alias virqdl='virsh -c qemu:///system list --all'
-alias virqdd='virsh -c qemu:///system dumpxml'
-alias virqnl='virsh -c qemu:///system net-list'
-alias virqnd='virsh -c qemu:///system net-dumpxml'
-alias virqdhcp='virsh -c qemu:///system net-dhcp-leases default'
 
 
 ##############################################
@@ -116,7 +88,7 @@ alias sstrace='strace -s 65535 -f -tt -o strace.$(date +%Y%m%d-%H%M%S).dump'
 ##############################################
 # USAGE: $ tdump "host 1.2.3.4 and port 8080"
 function tdump() {
-sudo tcpdump -U -i eno1 $1 -w - | tee "tcpdump.$(date +%Y%m%d-%H%M%S).pcap" | tcpdump -qns 0 -A -r -
+  sudo tcpdump -U -i eno1 $1 -w - | tee "tcpdump.$(date +%Y%m%d-%H%M%S).pcap" | tcpdump -qns 0 -A -r -
 }
 
 
@@ -133,3 +105,44 @@ alias xargsp='xargs -P`nproc` -i bash -c'
 # USAGE: $ xclips ~/ssh/id_rsa.pub
 alias xclips='xclip -selection clipboard <'
 
+
+##############################################
+# VIRSH
+##############################################
+alias virq='virsh -c qemu:///system'
+#alias virqs='virsh -c qemu+ssh://$(LIBVIRTD_SERVER)/system'
+alias virqdl='virsh -c qemu:///system list --all'
+alias virqdd='virsh -c qemu:///system dumpxml'
+alias virqnl='virsh -c qemu:///system net-list'
+alias virqnd='virsh -c qemu:///system net-dumpxml'
+alias virqdhcp='virsh -c qemu:///system net-dhcp-leases default'
+
+
+#############################################
+# GIT
+#############################################
+#alias g='git'
+
+
+##############################################
+# DOCKER
+##############################################
+alias d='docker'
+alias dps='docker ps -a --format "table {{.ID}}\t{{.Image}}\t{{.Command}}\t{{.RunningFor}}\t{{.Status}}\t{{.Names}}"'
+alias dpsa='docker ps -a'
+alias dpsi='docker ps -a --format "table {{.ID}}\t{{.Image}}"'
+alias dpsp='docker ps -a --format "table {{.ID}}\t{{.Image}}\t{{.Ports}}"'
+alias dst='docker stats --no-stream'
+alias dsts='docker stats'
+alias dcreate='docker run -dit --name $1 -v $PWD:$PWD -w $PWD $2'
+alias dmake='docker exec -t $1 make -j16'
+
+
+#############################################
+# KUBECTL
+#############################################
+alias kc='kubectl'
+alias mk='minikube'
+alias mkk='minikube kubectl'
+alias ra='rancher'
+alias rak='rancher kubectl'
