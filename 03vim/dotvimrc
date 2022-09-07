@@ -22,11 +22,10 @@ Plug 'majutsushi/tagbar'
 Plug 'vim-airline/vim-airline'
 
 " Youcompleteme
-Plug 'valloric/youcompleteme'
+" Plug 'valloric/youcompleteme'
 
 " vim-go
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-
+Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries'}
 
 call plug#end()
 
@@ -74,22 +73,8 @@ let g:airline_symbols.linenr = '☰'
 let g:airline_symbols.maxlinenr = ''
 let g:airline_symbols.dirty='⚡'
 " <<<<<<<< vim-airline Configs <<<<<<<<
-
-" >>>>>>>> YCM Configs >>>>>>>>
-let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_warning_symbol = '>*'
-
-nnoremap <leader>g :YcmCompleter GoTo<CR>
-nnoremap <leader>gg :YcmCompleter GoToImprecise<CR>
-nnoremap <leader>d :YcmCompleter GoToDeclaration<CR>
-nnoremap <leader>t :YcmCompleter GetType<CR>
-nnoremap <leader>p :YcmCompleter GetParent<CR>
-" <<<<<<<< YCM Configs <<<<<<<<
 " <<<< Configs for Plugin <<<<<<<<<<<<<<<<<<<<<<<<<<
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-plug :: END
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -100,14 +85,11 @@ nnoremap <leader>p :YcmCompleter GetParent<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Key Mapping :: BEGIN
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Custom Shortcuts
-let mapleader = ","
-"let mapleader = " "
-map <leader>n :set number<cr>
-map <leader>nn :set nonumber<cr>
+let g:mapleader = ","
 
-
-" <F1> terminator help online key
+" <F1> folding
+"map <F1> v]}zf
+map <F1> :tabnew<cr>
 " <F2> change window
 map <F2> <C-w><C-w>
 " <F3> NERDTree
@@ -119,12 +101,13 @@ map <F4> :TagbarToggle<cr>
 map <F5> [i
 " <F6> gd  goto declaration
 map <F6> gd
-" <F7> previous buffer
-map <F7> :bp<cr>
-" <F8> next buffer
-map <F8> :bn<cr>
-" <F9> new tab
-map <F9> :tabnew<cr>
+" <F7> pt pastetoggle
+set pt=<F7>
+" <F8> Dox
+map <F8> :Dox<cr>
+" bnext, bprev
+map <F11> :bp<cr>
+map <F12> :bn<cr>
 " tabn
 map <S-Tab> gt<cr>
 
@@ -133,10 +116,6 @@ map <S-Tab> gt<cr>
 "vmap <C-x> "+c
 "vmap <C-v> c<ESC>"+p
 "imap <C-v> <C-r><C-o>+
-
-"insert tab
-inoremap <S-Tab> <C-V><Tab>
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Key Mapping :: END
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -147,28 +126,43 @@ inoremap <S-Tab> <C-V><Tab>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim options :: BEGIN
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if &term =~ '256color'
-  " disable Background Color Erase (BCE) so that color schemes
-  " render properly when inside 256-color tmux and GNU screen.
-  " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
-  set t_ut=
-endif
+filetype off                    " Reset filetype detection first ...
+filetype plugin indent on       " ... and enable filetype detection
 
-syntax on
-filetype on
+set nocompatible                " Enables us Vim specific features
 
-set nocompatible
 "set visualbell
+set noerrorbells                " No beeps
 
-set encoding=utf-8
+set encoding=utf-8              " Set default encoding to UTF-8
 set fileencodings=utf-8,cp949,default,latin1
 set termencoding=utf-8
 
-set number
+set ttyfast                     " Indicate fast terminal conn for faster redraw
+set ttymouse=xterm2             " Indicate terminal type for mouse codes
+set ttyscroll=3                 " Speedup scrolling
+set laststatus=2                " Show status line always
+set splitright                  " Vertical windows should be split to right
+set splitbelow                  " Horizontal windows should split to bottom
+set autowrite                   " Automatically save before :next, :make etc.
+set hidden                      " Buffer should still exist if window is closed
+set fileformats=unix,dos,mac    " Prefer Unix over Windows over OS 9 formats
+set completeopt=menu,menuone    " Show popup menu, even if there is one entry
+set pumheight=10                " Completion window max size
+set nocursorcolumn              " Do not highlight column (speeds up highlighting)
+set nocursorline                " Do not highlight cursor (speeds up highlighting)
+set lazyredraw                  " Wait to redraw
+
+set autoread                    " Automatically read changed files
+set noswapfile                  " Don't use swapfile
+set nobackup                    " Don't create annoying backup files
+
+set showcmd                     " Show me what I'm typing
+set number                      " Show line numbers
 set ruler
 "set list
 
-set autoindent
+set autoindent                  " Enabile Autoindent
 set smartindent
 "set cindent
 "set copyindent
@@ -181,17 +175,19 @@ set nosmarttab
 set softtabstop=-1
 set shiftwidth=4
 
-set showmatch
-set backspace=indent,eol,start
-set backspace=2
+set backspace=indent,eol,start  " Makes backspace key more powerful.
+
+set noshowmode                  " We show the mode with airline or lightline
+"set showmatch
+"set noshowmatch                 " Do not show matching brackets by flickering
+
+set hlsearch                    " Highlight found searches
+set wrapscan
+set incsearch                   " Shows the match while typing
+set ignorecase                  " Search case insensitive...
+set smartcase                   " ... but not it begins with upper case
 
 set history=500
-set hlsearch
-
-set wrapscan
-
-set showcmd
-set timeout timeoutlen=3000 ttimeoutlen=-1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim options :: END
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -207,6 +203,21 @@ set timeout timeoutlen=3000 ttimeoutlen=-1
 " 2) /usr/share/vim/vim81/colors/
 " 3) ~/.vim/color
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"syntax on          "set syntax as vim default over user settings
+syntax enable       "keep user's current color settings. :help syntax
+
+" Terminal options
+if &term =~ '256color'
+  " disable Background Color Erase (BCE) so that color schemes
+  " render properly when inside 256-color tmux and GNU screen.
+  " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
+  set t_ut=        " clearing uses the current background color
+endif
+set t_Co=256       " termcap-colors
+
+let g:rehash256 = 1
+let g:molokai_original = 1
+
 "color default
 colorscheme molokai
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -240,3 +251,19 @@ set csverb
 " dev:: END
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" custom vimrc:: BEGIN
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"let $VIM = '@@HOME@@/.vim'
+"let $CUST = $VIM.'/custom.vimrc'
+let $VIMRC4VIMGO = '@@HOME@@/.vimrc.vimgo.cust'
+
+if filereadable($VIMRC4VIMGO)
+  source $VIMRC4VIMGO
+endif
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" dev:: END
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
