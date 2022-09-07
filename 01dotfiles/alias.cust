@@ -141,7 +141,7 @@ alias dmake='docker exec -t $1 make -j16'
 #############################################
 # KUBECTL
 #############################################
-alias kc='kubectl'
+alias kk='kubectl'
 alias mk='minikube'
 alias mkk='minikube kubectl'
 alias ra='rancher'
