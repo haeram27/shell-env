@@ -93,3 +93,8 @@ if [[ ! -f ~/.p10k.zsh ]]; then
 fi
 
 
+#################################
+# kubernetes
+#################################
+# kubectl autocompletion 
+[[ $commands[kubectl] ]] && source <(kubectl completion zsh)
