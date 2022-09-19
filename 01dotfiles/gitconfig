@@ -35,6 +35,19 @@
 	subui = submodule update -f --init --recursive
 	pl = pull --recurse-submodules=yes --rebase=true --autostash
 	ps = push
+	psf = push -f
 	reb = rebase --autostash
+	rebi = rebase -i --autostash
 [core]
 	editor = vim
+
+# disable ssl verification: use only for git on windows
+# git config --global http.sslverify false
+
+# using https for git
+# git config --global url."https://github.com/".insteadOf git@github.com:
+# git config --global url."https://".insteadOf git://
+
+# using git for https
+# git config --global url."git@github.com:".insteadOf https://github.com/
+# git config --global url."git://".insteadOf https://
