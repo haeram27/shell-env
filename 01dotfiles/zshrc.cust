@@ -1,4 +1,14 @@
 #################################
+# zsh options
+#################################
+# use 'setopt' command without options to check currently enabled shell options
+# use 'unsetopt' command with options to disable given option
+
+# autopushd : use cd with directory stack so popd can be used to go back previous directory
+setopt autopushd
+
+
+#################################
 # CUSTOM CONFIGURATIONS
 #################################
 [[ -f ~/.alias.cust ]] && . ~/.alias.cust
@@ -97,4 +107,9 @@ fi
 # kubernetes
 #################################
 # kubectl autocompletion 
+# https://kubernetes.io/docs/reference/kubectl/cheatsheet/
 [[ $commands[kubectl] ]] && source <(kubectl completion zsh)
+
+# helm autocompletion 
+# https://helm.sh/docs/helm/helm_completion_zsh/
+[[ $commands[helm] ]] && source <(helm completion zsh)
