@@ -90,7 +90,7 @@ apt-get -y install terminator
 
 
 # synergy
-apt-get -y install synergy libcanberra-gtk-module sni-qt
+# apt-get -y install synergy libcanberra-gtk-module sni-qt
 
 
 # 7z
@@ -125,31 +125,31 @@ apt-get -y install gnome-tweak-tool
 apt-get -y install build-essential
 
 # cmake
-apt-get -y install cmake
+# apt-get -y install cmake
 
 # json command line processor
-apt-get -y jq
+apt-get -y install jq
 
 # ??
-apt-get -y install moreutils
+# apt-get -y install moreutils
 
 # libcurl
-apt-get -y install libcurl4-openssl-dev
+# apt-get -y install libcurl4-openssl-dev
 
 # libzip
-apt-get -y install libzip-dev
+# apt-get -y install libzip-dev
 
 # libuuid
-apt-get -y install uuid-dev
+# apt-get -y install uuid-dev
 
 # libacl
-apt-get -y install libacl1-dev
+# apt-get -y install libacl1-dev
 
 # cscope
-apt-get -y install cscope
+# apt-get -y install cscope
 
 # ctags
-apt-get -y install ctags
+# apt-get -y install ctags
 
 
 # python3
@@ -157,10 +157,10 @@ apt-get -y upgrade python3
 python3 --version
 
 
-# java8
+# java
 # add-apt-repository -y ppa:webupd8team/java
-apt-get -y install oracle-java8-installer
-java -version
+# apt-get -y install oracle-java8-installer
+# java -version
 
 
 # Notepadqq
@@ -177,19 +177,19 @@ apt-get -y install rabbitvcs-cli rabbitvcs-core rabbitvcs-gedit rabbitvcs-nautil
 
 # wireshark
 # add-apt-repository -y ppa:wireshark-dev/stable
-apt-get -y install wireshark
+# apt-get -y install wireshark
 
 
 # sqlite browser
 # add-apt-repository -y ppa:linuxgndu/sqlitebrowser
-apt-get -y install sqlitebrowser
+# apt-get -y install sqlitebrowser
 
 
 # kvm
 # This is only Lucid (10.04) or later, Command Should be updated after Cosmic (18.10) or later
-apt-get -y install qemu-kvm libvirt-bin ubuntu-vm-builder bridge-utils  virt-manager
-adduser $(id -un) kvm
-virsh list --all
+# apt-get -y install qemu-kvm libvirt-bin ubuntu-vm-builder bridge-utils  virt-manager
+# adduser $(id -un) kvm
+# virsh list --all
 
 
 ################################################### 
@@ -197,11 +197,11 @@ virsh list --all
 ###################################################
 
 # wallch - wallpaper changer
-apt-get -y install wallch
+# apt-get -y install wallch
 
 # shutter - screenshot tool  http://shutter-project.org/downloads/
 # add-apt-repository -y ppa:shutter/ppa
-apt-get -y install shutter
+# apt-get -y install shutter
 
 
 # mpv for SMPlayer

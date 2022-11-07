@@ -16,7 +16,6 @@ fi
 #    sed -i -s -r -e 's/archive.ubuntu.com/mirror.kakao.com/g' /etc/apt/sources.list
 #    sed -i -s -r -e 's/security.ubuntu.com/mirror.kakao.com/g' /etc/apt/sources.list
 #fi
-apt-get update; apt-get upgrade -y;
 
 
 logfile=setup_env_$(date '+%Y%m%d%k%M%S').log
