@@ -5,17 +5,16 @@
 # sudo NORUNSH=norun_envsetup_wsl_2004.sh ./_1_sudorun_inst.sh
 ##########
 
+if (( $EUID != 0 )); then
+    echo "This script must be run as root"
+    exit 3
+fi
+
 if [[ -z "$NORUNSH" ]];then
     echo 'please run with NORUNSH=norun_envsetup_XXX.sh'; exit -1;
 else
     echo 'NORUNSH = ' $NORUNSH
 fi
-
-#if ! grep -q kakao /etc/apt/sources.list; then
-#    cp /etc/apt/sources.list /etc/apt/sources.list.$(date '+%Y%m%d%k%M%S').bak
-#    sed -i -s -r -e 's/archive.ubuntu.com/mirror.kakao.com/g' /etc/apt/sources.list
-#    sed -i -s -r -e 's/security.ubuntu.com/mirror.kakao.com/g' /etc/apt/sources.list
-#fi
 
 
 logfile=setup_env_$(date '+%Y%m%d%k%M%S').log
