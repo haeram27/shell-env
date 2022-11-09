@@ -15,6 +15,20 @@
     use_system_font = False
 [layouts]
   [[default]]
+    [[[window0]]]
+      type = Window
+      parent = ""
+    [[[child1]]]
+      type = Terminal
+      parent = window0
+  [[1]]
+    [[[window0]]]
+      type = Window
+      parent = ""
+    [[[child1]]]
+      type = Terminal
+      parent = window0
+  [[4]]
     [[[child0]]]
       type = Window
       parent = ""
@@ -68,11 +82,4 @@
       order = 1
       profile = default
       uuid = 168c351b-2bcd-4325-a0f4-4e15217cc10a
-  [[1x1_default]]
-    [[[window0]]]
-      type = Window
-      parent = ""
-    [[[child1]]]
-      type = Terminal
-      parent = window0
 [plugins]
