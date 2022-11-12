@@ -19,8 +19,6 @@
 ## Check TBD to include
 ################################################### 
 
-# 우분투 클리너 저장소 ~ ppa:gerardpuig/ppa
-
 
 ################################################### 
 ## setup variable
@@ -70,10 +68,6 @@ apt-get -y install htop
 apt-get -y install net-tools
 
 
-# xclip
-apt-get -y install xclip
-
-
 # rename
 apt-get -y install rename
 
@@ -101,33 +95,10 @@ apt-get -y install exfat-fuse exfat-utils
 # build essential
 apt-get -y install g++ build-essential
 
-# cmake
-apt-get -y install cmake
 
 # json command line processor
-apt-get -y jq
+apt-get -y install jq
 
-# ??
-apt-get -y install moreutils
-
-# libcurl
-apt-get -y install libcurl4-openssl-dev
-
-# libzip
-apt-get -y install libzip-dev
-
-# libuuid
-apt-get -y install uuid-dev
-
-# libacl
-apt-get -y install libacl1-dev
-
-
-# cscope
-apt-get -y install cscope
-
-# ctags
-apt-get -y install ctags
 
 # python3
 apt-get -y upgrade python3
@@ -137,6 +108,10 @@ python3 --version
 # git/svn
 # add-apt-repository -y ppa:git-core/ppa
 apt-get -y install git-core git-svn
+
+
+# terminator
+apt-get -y install terminator
 
 
 ################################################### 
