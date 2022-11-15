@@ -136,13 +136,19 @@ alias dst='docker stats --no-stream'
 alias dsts='docker stats'
 alias dcreate='docker run -dit --name $1 -v $PWD:$PWD -w $PWD $2'
 alias dmake='docker exec -t $1 make -j16'
-
+dtags() {
+    listUri="https://registry.hub.docker.com/v2/repositories/library/$1/tags?page_size=1024"
+    result="$(curl --silent --get $listUri | jq -r '.results[].name' | sort)"
+    echo $result
+}
 
 #############################################
 # KUBECTL
 #############################################
 alias kk='kubectl'
-alias mk='minikube'
-alias mkk='minikube kubectl'
-alias ra='rancher'
-alias rak='rancher kubectl'
+alias ik='minikube'
+alias ikk='minikube kubectl'
+alias rk='rancher'
+alias rkk='rancher kubectl'
+
+
