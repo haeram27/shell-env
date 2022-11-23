@@ -124,6 +124,12 @@ alias virqdhcp='virsh -c qemu:///system net-dhcp-leases default'
 #alias g='git'
 
 
+#############################################
+# AWS
+#############################################
+alias awsg='aws --profile=god'
+
+
 ##############################################
 # DOCKER
 ##############################################
@@ -150,5 +156,11 @@ alias ik='minikube'
 alias ikk='minikube kubectl'
 alias rk='rancher'
 alias rkk='rancher kubectl'
+
+
+#############################################
+# HELM
+#############################################
+alias h='helm'
 
 
