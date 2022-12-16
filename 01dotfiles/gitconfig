@@ -39,6 +39,8 @@
 	psf = push -f
 	reb = rebase --autostash
 	rebi = rebase -i --autostash
+	res = restore
+	rst = reset
 [core]
 	editor = vim
 
