@@ -153,6 +153,7 @@ dtags() {
 #############################################
 alias kk='kubectl'
 alias ik='minikube'
+alias ikp='minikube -p'
 alias ikk='minikube kubectl'
 alias rk='rancher'
 alias rkk='rancher kubectl'
@@ -164,3 +165,9 @@ alias rkk='rancher kubectl'
 alias h='helm'
 
 
+#############################################
+# TRAVIS
+#############################################
+#function travis() {
+#        travis $@ --com
+#}
