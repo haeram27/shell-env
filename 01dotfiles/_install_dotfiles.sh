@@ -9,6 +9,7 @@ function install() {
     cp -fb ./bindkey.cust ~/.bindkey.cust
     cp -fb ./env.cust ~/.env.cust
     cp -fb ./gitconfig ~/.gitconfig
+    cp -fb ./tmux.conf ~/.tmux.conf
 
     echo >> ~/.bashrc
 	echo '[[ -f ~/.bashrc.cust ]] && . ~/.bashrc.cust' >> ~/.bashrc
