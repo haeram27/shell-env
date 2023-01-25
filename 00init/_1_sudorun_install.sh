@@ -2,7 +2,7 @@
 
 ##########
 # RUN THIS COMMAND EXAMPLE:
-# sudo NORUNSH=norun_envsetup_wsl_2004.sh ./_1_sudorun_inst.sh
+# sudo NORUNSH=norun_envsetup_wsl_2004.sh ./_1_sudorun_install.sh
 ##########
 
 if (( $EUID != 0 )); then

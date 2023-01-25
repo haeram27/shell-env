@@ -85,20 +85,12 @@ apt-get -y install curl
 apt-get -y install dos2unix
 
 
-# terminator
-apt-get -y install terminator
-
-
 # synergy
 # apt-get -y install synergy libcanberra-gtk-module sni-qt
 
 
 # 7z
 apt-get -y install p7zip-full
-
-
-# flashplugin
-# apt-get -y install flashplugin-installer
 
 
 # exfat support lib
@@ -114,7 +106,7 @@ apt-get -y install smbclient cifs-utils
 
 
 # gnome tweak tool
-apt-get -y install gnome-tweak-tool
+# apt-get -y install gnome-tweak-tool
 
 
 ################################################### 
@@ -163,11 +155,6 @@ python3 --version
 # java -version
 
 
-# Notepadqq
-# add-apt-repository -y ppa:notepadqq-team/notepadqq
-apt-get -y install notepadqq
-
-
 # git/svn
 # add-apt-repository -y ppa:git-core/ppa
 apt-get -y install git-core
@@ -192,6 +179,21 @@ apt-get -y install rabbitvcs-cli rabbitvcs-core rabbitvcs-gedit rabbitvcs-nautil
 # virsh list --all
 
 
+
+################################################### 
+## Install Desktop Apps
+###################################################
+
+# terminator
+apt-get -y install terminator
+
+
+# Notepadqq
+# add-apt-repository -y ppa:notepadqq-team/notepadqq
+apt-get -y install notepadqq
+
+
+
 ################################################### 
 ## Install Media Apps
 ###################################################
@@ -213,6 +215,9 @@ apt-get -y install rabbitvcs-cli rabbitvcs-core rabbitvcs-gedit rabbitvcs-nautil
 # add-apt-repository -y ppa:rvm/smplayer
 # apt-get -y install smplayer smtube smplayer-themes smplayer-skins
 
+
+# gimp
+# apt-get -y install gimp
 
 ##TBD
 #atom
