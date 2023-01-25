@@ -133,6 +133,7 @@ alias awsg='aws --profile=god'
 ##############################################
 # DOCKER
 ##############################################
+#alias docker='podman'
 alias d='docker'
 alias dps='docker ps -a --format "table {{.ID}}\t{{.Image}}\t{{.Command}}\t{{.RunningFor}}\t{{.Status}}\t{{.Names}}"'
 alias dpsa='docker ps -a'
