@@ -1,3 +1,6 @@
+[user]
+	name = haeram27
+	email = haeram27@gmail.com
 [diff]
 	tool = bc3
 [difftool "bc3"]
@@ -6,9 +9,6 @@
 	tool = bc3
 [mergetool "bc3"]
 	trustExitCode = true
-[user]
-	name = haeram27
-	email = haeram27@gmail.com
 [branch]
 	autosetuprebase = always
 [alias]
@@ -22,6 +22,7 @@
 	cma = commit --amend
 	cmm = commit -m
 	co = checkout
+	cp = cherry-pick
 	df = diff --color=always --word-diff=plain
 	dfh = diff HEAD --color=always --word-diff=plain
 	dt = difftool -y
@@ -44,13 +45,26 @@
 [core]
 	editor = vim
 
-# disable ssl verification: use only for git on windows
-# git config --global http.sslverify false
 
-# using https for git
+# using https instead ssh-git protocol
 # git config --global url."https://github.com/".insteadOf git@github.com:
 # git config --global url."https://".insteadOf git://
 
-# using git for https
+# using ssh-git instead https protocol
 # git config --global url."git@github.com:".insteadOf https://github.com/
 # git config --global url."git://".insteadOf https://
+
+# global proxy settings
+# socks5 proxy
+#[http]
+#	proxy = socks5h://localhost:1080
+# domain specific proxy settings
+#[http "http://my-remote-domain.com"]
+#	proxy = socks5h://localhost:1080
+
+# http proxy
+#[http]
+#	proxy = http://1.2.3.4:3128
+# domain specific proxy settings
+#[http "http://my-remote-domain.com"]
+#	proxy = http://1.2.3.4:3128
