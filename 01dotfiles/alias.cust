@@ -42,9 +42,9 @@ alias his='history'
 # LS
 ##############################################
 alias l='ls -l'
-alias la='ls -aF'
-alias ll='ls -ahlF'
-alias lz='ls -alZ'
+alias la='ls -AF'
+alias ll='ls -AhlF'
+alias lz='ls -AlZ'
 
 
 ##############################################
@@ -81,6 +81,13 @@ alias grepr='grep -inHIR $1 2>/dev/null'
 # $ sstrace <command> or <.sh file>
 # $ sstrace -p <pid>
 alias sstrace='strace -s 65535 -f -tt -o strace.$(date +%Y%m%d-%H%M%S).dump'
+
+
+##############################################
+# SYSTEMD
+##############################################
+alias jct='journalctl'
+alias sct='systemctl'
 
 
 ##############################################
