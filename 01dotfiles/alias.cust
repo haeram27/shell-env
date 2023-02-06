@@ -84,6 +84,21 @@ alias sstrace='strace -s 65535 -f -tt -o strace.$(date +%Y%m%d-%H%M%S).dump'
 
 
 ##############################################
+# WATCH SW
+##############################################
+# USAGE: 
+# $ watchsw <command> <interval#second>
+watchsw() {
+  if [[ -z $1 || -z $2 ]]; then echo 'wrong arguments...'; fi
+  while :; do $1; sleep $2; done;
+}
+
+watchswclr() {
+  if [[ -z $1 || -z $2 ]]; then echo 'wrong arguments...'; fi
+  while clear; do $1; sleep $2; done;
+}
+
+##############################################
 # SYSTEMD
 ##############################################
 alias jct='journalctl'
