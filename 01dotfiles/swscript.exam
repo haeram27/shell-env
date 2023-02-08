@@ -1,0 +1,77 @@
+#!/usr/bin/env bash 
+
+##############
+# VARS
+##############
+IMODE="imod.main"
+VMODE_TIMEUTC="no"
+
+
+
+##############
+# FUNCS
+##############
+
+# main
+function main() {
+    read -p "Do you want Hello World? Are you sure? (y/n) " -n 1;
+    echo ""
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        echo Hello World
+    else
+        echo $REPLY
+    fi
+}
+
+# gettime
+function gettime() {
+cat<<TITLE
+gettime()
+TITLE
+    ## override VMODE_TIMEUTC only in function
+    #local VMODE_TIMEUTC="yes"
+
+    if [[ "${VMODE_TIMEUTC}" == "yes" ]]; then
+        echo 'UTC::'
+        while :; do date -u --rfc-3339=ns; sleep 0.1; done;
+    else
+        echo 'LOCAL::'
+        while :; do date --rfc-3339=ns; sleep 0.1; done;
+    fi
+}
+
+
+# help
+function help() {
+cat <<HELP
+$(basename $0) Usage:
+           -h        help.
+           -t        time.
+           -u        verbose mode.
+HELP
+}
+
+
+
+##############
+# INIT
+##############
+while getopts "thu\?" opt
+do
+    case ${opt} in
+    h|\?) IMODE="imod.help" ;;
+    t) IMODE="imod.time" ;;
+    u) echo "turn on UTC mode"
+        VMODE_TIMEUTC="yes" ;;
+    esac
+done
+
+#echo "IMODE=${IMODE}"
+case $IMODE in
+    "imod.help") help ;;
+    "imod.main") main ;;
+    "imod.time") gettime ;;
+    *) exit 1 ;;
+esac
+
+exit 0
