@@ -13,7 +13,7 @@ VMODE_TIMEUTC="no"
 ##############
 
 # main
-function main() {
+func.main() {
     read -p "Do you want Hello World? Are you sure? (y/n) " -n 1;
     echo ""
     if [[ $REPLY =~ ^[Yy]$ ]]; then
@@ -24,7 +24,7 @@ function main() {
 }
 
 # gettime
-function gettime() {
+func.gettime() {
 cat<<TITLE
 gettime()
 TITLE
@@ -42,7 +42,7 @@ TITLE
 
 
 # help
-function help() {
+func.help() {
 cat <<HELP
 $(basename $0) Usage:
            -h        help.
@@ -68,9 +68,9 @@ done
 
 #echo "IMODE=${IMODE}"
 case $IMODE in
-    "imod.help") help ;;
-    "imod.main") main ;;
-    "imod.time") gettime ;;
+    "imod.help") func.help ;;
+    "imod.main") func.main ;;
+    "imod.time") func.gettime ;;
     *) exit 1 ;;
 esac
 
