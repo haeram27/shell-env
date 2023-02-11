@@ -7,6 +7,11 @@ IMODE="imod.main"
 VMODE_TIMEUTC="no"
 
 
+##############
+# VAR REFS
+##############
+# RAND_FILENAME=$(uuidgen | tr -d '-')$(date -u +%Y%m%d%H%M%S%N)
+
 
 ##############
 # FUNCS
@@ -23,6 +28,7 @@ func.main() {
     fi
 }
 
+
 # gettime
 func.gettime() {
 cat<<TITLE
@@ -38,6 +44,20 @@ TITLE
         echo 'LOCAL::'
         while :; do date --rfc-3339=ns; sleep 0.1; done;
     fi
+}
+
+
+func.rest.request() {
+  HTTP_URL='http://www.google.com'
+  REQ_TIMEOUT=2
+  RESP_FILE=\/tmp\$(uuidgen | tr -d '-')/$(date -u +%Y%m%d%H%M%S%N)
+  HTTP_CODE=$(curl -fksSL --connect-timeout ${REQ_TIMEOUT} -w "%{response_code}" -o ${RESP_FILE} ${HTTP_URL})
+  if [[ $? -eq 0 && "${HTTP_CODE}" == "200" ]]; then
+    ## todo something with ${RESP_FILE}
+    echo > /dev/null
+  fi
+
+  [[ -f ${RESP_FILE} ]] && (rm -f ${RESP_FILE} &>/dev/null)
 }
 
 
