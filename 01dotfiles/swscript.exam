@@ -8,9 +8,32 @@ VMODE_TIMEUTC="no"
 
 
 ##############
-# VAR REFS
+# VAR COMMON
 ##############
-# RAND_FILENAME=$(uuidgen | tr -d '-')$(date -u +%Y%m%d%H%M%S%N)
+# echo color message:: (recommended) support all type shell
+# echo ${TPTRED}----------------------------------
+# echo ${TPTRED}warning${TPTNORM}: something wrong
+# echo ${TPTRED}----------------------------------
+TPTNORM=$(tput sgr0)
+TPTDBLACK=$(tput setaf 0 && tput bold)
+TPTDRED=$(tput setaf 1 && tput bold)
+TPTDGREEN=$(tput setaf 2 && tput bold)
+TPTDYELLOW=$(tput setaf 3 && tput bold)
+TPTDBLUE=$(tput setaf 4 && tput bold)
+TPTDPURPLE=$(tput setaf 5 && tput bold)
+TPTDCYAN=$(tput setaf 6 && tput bold)
+TPTDWHITE=$(tput setaf 7 && tput bold)
+TPTBLACK=$(tput setaf 8 && tput bold)
+TPTRED=$(tput setaf 9 && tput bold)
+TPTGREEN=$(tput setaf 10 && tput bold)
+TPTYELLOW=$(tput setaf 11 && tput bold)
+TPTBLUE=$(tput setaf 12 && tput bold)
+TPTPURPLE=$(tput setaf 13 && tput bold)
+TPTCYAN=$(tput setaf 14 && tput bold)
+TPTWHITE=$(tput setaf 15 && tput bold)
+
+# make random string
+# RAND_STR=$(uuidgen | tr -d '-')$(date -u +%Y%m%d%H%M%S%N)
 
 
 ##############
@@ -22,7 +45,13 @@ func.main() {
     read -p "Do you want Hello World? Are you sure? (y/n) " -n 1;
     echo ""
     if [[ $REPLY =~ ^[Yy]$ ]]; then
-        echo Hello World
+        echo ${TPTRED}Hello World${TPTNORM}
+        echo ${TPTGREEN}Hello World${TPTNORM}
+        echo ${TPTYELLOW}Hello World${TPTNORM}
+        echo ${TPTBLUE}Hello World${TPTNORM}
+        echo ${TPTPURPLE}Hello World${TPTNORM}
+        echo ${TPTCYAN}Hello World${TPTNORM}
+        echo ${TPTWHITE}Hello World${TPTNORM}
     else
         echo $REPLY
     fi
@@ -31,9 +60,9 @@ func.main() {
 
 # gettime
 func.gettime() {
-cat<<TITLE
+cat<<-EOF
 gettime()
-TITLE
+EOF
     ## override VMODE_TIMEUTC only in function
     #local VMODE_TIMEUTC="yes"
 
@@ -48,16 +77,28 @@ TITLE
 
 
 func.rest.request() {
-  HTTP_URL='http://www.google.com'
-  REQ_TIMEOUT=2
-  RESP_FILE=\/tmp\$(uuidgen | tr -d '-')/$(date -u +%Y%m%d%H%M%S%N)
-  HTTP_CODE=$(curl -fksSL --connect-timeout ${REQ_TIMEOUT} -w "%{response_code}" -o ${RESP_FILE} ${HTTP_URL})
-  if [[ $? -eq 0 && "${HTTP_CODE}" == "200" ]]; then
-    ## todo something with ${RESP_FILE}
-    echo > /dev/null
-  fi
+    RESP_FILE=\/tmp\/$(uuidgen | tr -d '-')$(date -u +%Y%m%d%H%M%S%N)
+    REQ_TIMEOUT=2
+    if [[ -z $1 ]]; then
+        HTTP_URL='http://www.google.com'
+    else
+        HTTP_URL=$1
+    fi
+   
+    HTTP_CODE=$(curl -fksSL --connect-timeout ${REQ_TIMEOUT} -w "%{response_code}" -o ${RESP_FILE} ${HTTP_URL})
+    CURL_RET=$?
+    if [[ ${CURL_RET} -eq 0 ]]; then
+        if [[ "${HTTP_CODE}" == "200" ]]; then
+            ## do something with ${RESP_FILE}
+            echo ${RESP_FILE}; cat ${RESP_FILE};
+        else
+            echo ${TPTRED}warning${TPTNORM}: httpcode is ${TPTRED}${HTTP_CODE}${TPTNORM} >&2
+        fi
+    else
+        echo ${TPTRED}error${TPTNORM}: curl returns ${TPTRED}${CURL_RET}${TPTNORM} >&2
+    fi
 
-  [[ -f ${RESP_FILE} ]] && (rm -f ${RESP_FILE} &>/dev/null)
+    [[ -f ${RESP_FILE} ]] && (rm -f ${RESP_FILE} &>/dev/null)
 }
 
 
@@ -66,21 +107,22 @@ func.help() {
 cat <<HELP
 $(basename $0) Usage:
            -h        help.
+           -q        rest rquest.
            -t        time.
-           -u        verbose mode.
+           -u        set utc time when using with -t.
 HELP
 }
-
 
 
 ##############
 # INIT
 ##############
-while getopts "thu\?" opt
+while getopts "thuq\?" opt
 do
     case ${opt} in
     h|\?) IMODE="imod.help" ;;
     t) IMODE="imod.time" ;;
+    q) IMODE="imod.rest" ;;
     u) echo "turn on UTC mode"
         VMODE_TIMEUTC="yes" ;;
     esac
@@ -91,6 +133,7 @@ case $IMODE in
     "imod.help") func.help ;;
     "imod.main") func.main ;;
     "imod.time") func.gettime ;;
+    "imod.rest") func.rest.request;;
     *) exit 1 ;;
 esac
 
