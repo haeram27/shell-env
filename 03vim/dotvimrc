@@ -85,11 +85,14 @@ let g:airline_symbols.dirty='⚡'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Key Mapping :: BEGIN
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:mapleader = ","
+" Custom Shortcuts
+let mapleader = ","
+"let mapleader = " "
+map <leader>n :set number<cr>
+map <leader>nn :set nonumber<cr>
 
-" <F1> folding
-"map <F1> v]}zf
-map <F1> :tabnew<cr>
+
+" <F1> terminator help online key
 " <F2> change window
 map <F2> <C-w><C-w>
 " <F3> NERDTree
@@ -101,13 +104,12 @@ map <F4> :TagbarToggle<cr>
 map <F5> [i
 " <F6> gd  goto declaration
 map <F6> gd
-" <F7> pt pastetoggle
-set pt=<F7>
-" <F8> Dox
-map <F8> :Dox<cr>
-" bnext, bprev
-map <F11> :bp<cr>
-map <F12> :bn<cr>
+" <F7> previous buffer
+map <F7> :bp<cr>
+" <F8> next buffer
+map <F8> :bn<cr>
+" <F9> new tab
+map <F9> :tabnew<cr>
 " tabn
 map <S-Tab> gt<cr>
 
@@ -116,8 +118,23 @@ map <S-Tab> gt<cr>
 "vmap <C-x> "+c
 "vmap <C-v> c<ESC>"+p
 "imap <C-v> <C-r><C-o>+
+
+"insert tab
+inoremap <S-Tab> <C-V><Tab>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Key Mapping :: END
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" macro:: BEGIN
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let @e='0i# j0'
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" macro:: END
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
