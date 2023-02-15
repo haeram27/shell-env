@@ -82,26 +82,30 @@ alias grepr='grep -inHIR $1 2>/dev/null'
 # $ cat /var/log/syslog | hh
 
 function hh() {
-sed --unbuffered \
--e 's/\(exception\)/\o033[1;31m\1\o033[0;m/gi' \
--e 's/\(emerg\)/\o033[1;31m\1\o033[0;m/gi' \
--e 's/\(alert\)/\o033[1;31m\1\o033[0;m/gi' \
--e 's/\(critical\)/\o033[1;31m\1\o033[0;m/gi' \
--e 's/\(error\)/\o033[1;31m\1\o033[0;m/gi' \
--e 's/\(warning\)/\o033[1;33m\1\o033[0;m/gi' \
--e 's/\(notice\)/\o033[1;33m\1\o033[0;m/gi' \
--e 's/\(info\)/\o033[1;33m\1\o033[0;m/gi' \
--e 's/\(debug\)/\o033[1;33m\1\o033[0;m/gi' \
--e 's/\(success\)/\o033[1;32m\1\o033[0;m/gi' \
--e 's/\(fail\)/\o033[1;31m\1\o033[0;m/gi' \
--e 's/\(true\)/\o033[1;35m\1\o033[0;m/gi' \
--e 's/\(false\)/\o033[1;35m\1\o033[0;m/gi'
+sed -u \
+-e "s/\(exception\)/\o033[1;31m\1\o033[0;m/gi" \
+-e "s/\(emerg\)/\o033[1;31m\1\o033[0;m/gi" \
+-e "s/\(alert\)/\o033[1;31m\1\o033[0;m/gi" \
+-e "s/\(critical\)/\o033[1;31m\1\o033[0;m/gi" \
+-e "s/\(error\)/\o033[1;31m\1\o033[0;m/gi" \
+-e "s/\(warning\)/\o033[1;33m\1\o033[0;m/gi" \
+-e "s/\(notice\)/\o033[1;33m\1\o033[0;m/gi" \
+-e "s/\(info\)/\o033[1;33m\1\o033[0;m/gi" \
+-e "s/\(debug\)/\o033[1;33m\1\o033[0;m/gi" \
+-e "s/\(success\)/\o033[1;32m\1\o033[0;m/gi" \
+-e "s/\(fail\)/\o033[1;31m\1\o033[0;m/gi" \
+-e "s/\(true\)/\o033[1;46m\1\o033[0;m/gi" \
+-e "s/\(false\)/\o033[1;46m\1\o033[0;m/gi" \
+-e "s/\(start\)/\o033[1;46m\1\o033[0;m/gi" \
+-e "s/\(stop\)/\o033[1;46m\1\o033[0;m/gi" \
+-e "s/\(enable\)/\o033[1;46m\1\o033[0;m/gi" \
+-e "s/\(disable\)/\o033[1;46m\1\o033[0;m/gi" 
 }
 
 # USAGE:
 # $ cat myfile | hhh make
 function hhh() {
-sed --unbuffered \
+sed -u \
 -e "s/\($1\)/\o033[1;31m\1\o033[0;m/gi" 
 }
 
