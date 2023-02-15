@@ -84,6 +84,12 @@ alias sstrace='strace -s 65535 -f -tt -o strace.$(date +%Y%m%d-%H%M%S).dump'
 
 
 ##############################################
+# CURL
+##############################################
+alias curld='curl -fksvL -o /dev/null --connect-timeout 2 -w "%{response_code}"'
+
+
+##############################################
 # WATCH SW
 ##############################################
 # USAGE: 
