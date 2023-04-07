@@ -1,0 +1,21 @@
+#################################
+# CUSTOM CONFIGURATIONS
+#################################
+[[ -f ~/.alias.cust ]] && . ~/.alias.cust
+#[[ -f ~/.bindkey.cust ]] && . ~/.bindkey.cust
+[[ -f ~/.env.cust ]] && . ~/.env.cust
+
+[[ -f /usr/share/autojump/autojump.bash ]] && . /usr/share/autojump/autojump.bash
+
+
+#################################
+# PROMPT STYLE
+#################################
+
+# Shell prompt format and color (http://bashrcgenerator.com)
+parse_git_branch() {
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+PS1="\[\033[32;1m\]\u:\[\033[33;1m\]\w\[\033[m\]\$(parse_git_branch) $ "
+
+

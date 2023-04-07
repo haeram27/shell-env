@@ -1,0 +1,211 @@
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Vim Vundle for Plugin :: BEGIN
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+set nocompatible              " be iMproved, required, only for vim not vi
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" >>>> BEGIN of Example >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+" The following are examples of different formats supported.
+" plugin on GitHub repo
+" Plugin 'tpope/vim-fugitive'
+
+" plugin from http://vim-scripts.org/vim/scripts.html
+" Plugin 'L9'
+
+" Git plugin not hosted on GitHub
+" Plugin 'git://git.wincent.com/command-t.git'
+
+" git repos on your local machine (i.e. when working on your own plugin)
+" Plugin 'file:///home/gmarik/path/to/plugin'
+
+" The sparkup vim script is in a subdirectory of this repo called vim.
+" Pass the path to set the runtimepath properly.
+" Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+
+" Install L9 and avoid a Naming conflict if you've already installed a
+" different version somewhere else.
+" Plugin 'ascenator/L9', {'name': 'newL9'}
+" <<<< END of Example <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+" Keep Plugin commands between vundle#begin/end.
+" >>>> BEGIN of User Plugin >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+" Ariline - Advanced PowerLine for vim
+" https://github.com/vim-airline/vim-airline
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+" <<<< END of User Plugin <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+"  before run this 
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" To install plugins from command use following command
+" $ vim +PluginInstall +qall
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+
+
+" >>>> BEGIN of Configs for Plugin >>>>>>>>>>>>>>>>>>>>>>>>
+" Airline - Advanced PowerLine
+let g:airline_theme='powerlineish'
+" Enable solarized theme only when vim's color theme is solarized
+"let g:airline_theme='solarized'
+"let g:airline_solarized_bg='dark'
+
+let g:airline#extensions#tabline#enabled = 1
+" formatter should be one of default/jsformatter/unique_tail/unique_tail_improved
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+
+" fonts for powerline in airline
+let g:airline_powerline_fonts = 1
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+
+" unicode symbols
+let g:airline_left_sep = '»'
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '«'
+let g:airline_right_sep = '◀'
+let g:airline_symbols.linenr = '␊'
+let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = '∥'
+let g:airline_symbols.whitespace = 'Ξ'
+
+" airline symbols
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ''
+
+" <<<< END of Configs for Plugin <<<<<<<<<<<<<<<<<<<<<<<<<<
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Vim Vundle for Plugin :: END
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Vim Color Theme :: Solarized :: BEGIN
+" https://github.com/altercation/vim-colors-solarized
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"syntax enable
+
+"if has('gui_running')
+"    set background=light
+"else
+"    set background=dark
+"endif
+
+"colorscheme solarized
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Vim Color Theme :: Solarized :: END
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Key Mapping :: BEGIN
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" <F1> 폴딩
+"map <F1> v]}zf
+map <F1> :tabnew<cr>
+" <F2> 창이동
+map <F2> <C-w><C-w>
+" <F3> NERDTree
+map <F3> :NERDTreeToggle<cr>
+" <F4> Tlist
+"map <F4> :Tlist<cr>
+map <F4> :TagbarToggle<cr>
+" <F5> [i 정의 내용 보여주기
+map <F5> [i
+" <F6> gd 변수 선언으로 이동
+map <F6> gd
+" <F7> shell
+map <F7> :VimShell<cr>
+" <F8> Dox
+map <F8> :Dox<cr>
+" bnext, bprev
+map <F11> :bp<cr>
+map <F12> :bn<cr>
+" tabn
+map <S-Tab> gt<cr>
+" bnext
+map <S-F1> :bnext<cr>
+
+" Copy&Paste Ctrl+c Ctrl+x Ctrl+v
+vmap <C-c> "+yi
+vmap <C-x> "+c
+vmap <C-v> c<ESC>"+p
+imap <C-v> <C-r><C-o>+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Key Mapping :: END
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Vim Options :: BEGIN
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+syntax on "  구문강조 사용
+colorscheme jellybeans  "  vi 색상 테마 설정
+
+set autoindent       " 자동 들여쓰기
+set cindent          " C 프로그래밍용 자동 들여쓰기
+set smartindent      " 스마트한 들여쓰기
+"set wrap            " wrap은 default on임
+set nowrapscan       " 검색할 때 문서의 끝에서 처음으로 안돌아감
+set nobackup         " 백업 파일을 안만듬
+set noswapfile
+"set visualbell      " 키를 잘못눌렀을 때 화면 프레시
+set ruler            " 화면 우측 하단에 현재 커서의 위치(줄,칸) 표시
+set shiftwidth=4     " 자동 들여쓰기 4칸
+set number           " 행번호 표시, set nu 도 가능
+set fencs=ucs-bom,utf-8,euc-kr.latin1 " 한글 파일은 euc-kr로, 유니코드는 유니코드로
+set fileencoding=utf-8 " 파일저장인코딩
+set tenc=utf-8       " 터미널 인코딩
+"set expandtab       " 탭대신 스페이스
+set hlsearch         " 검색어 강조, set hls 도 가능
+set ignorecase       " 검색시 대소문자 무시, set ic 도 가능
+set tabstop=4        " 탭을 4칸으로
+set lbr
+set incsearch        " 키워드 입력시 점진적 검색
+set cursorline       " 편집 위치에 커서 라인 설정
+set laststatus=2     " 상태바 표시를 항상한다
+filetype indent on   " 파일 종류에 따른 구문강조
+set background=dark  " 하이라이팅 lihgt / dark
+set backspace=eol,start,indent "  줄의 끝, 시작, 들여쓰기에서 백스페이스시 이전줄로
+set history=1000     " vi 편집기록 기억갯수 .viminfo에 기록
+highlight Comment term=bold cterm=bold ctermfg=4 " 코멘트 하이라이트
+set mouse=a          " vim에서 마우스 사용
+set t_Co=256         " 색 조정
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Vim Options :: END
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
