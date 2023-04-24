@@ -14,9 +14,6 @@ function install() {
     echo >> ~/.bashrc
     echo '[[ -f ~/.bashrc.cust ]] && . ~/.bashrc.cust' >> ~/.bashrc
     
-    echo >> ~/.zshrc
-    echo '[[ -f ~/.zshrc.cust ]] && . ~/.zshrc.cust' >> ~/.zshrc
-    
     tar xvfz ./dotzsh.tgz
     mkdir ~/.zsh; mv ./dotzsh/* ~/.zsh/
     rm -rf ./dotzsh
