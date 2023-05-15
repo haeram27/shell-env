@@ -6,7 +6,7 @@
 
 # autopushd : use cd with directory stack so popd can be used to go back previous directory
 setopt autopushd
-
+setopt shwordsplit
 
 #################################
 # CUSTOM CONFIGURATIONS
