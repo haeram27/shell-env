@@ -6,6 +6,11 @@
 IMODE="imod.main"
 VMODE_TIMEUTC="no"
 
+SCRIPT_DIR="$(dirname "$0")"
+# SCRIPT_DIR="${0%/*}"
+SCRIPT_FILE="$(basename "$(test -L "$0" && readlink "$0" || echo "$0")")"
+# SCRIPT_FILE="${0##*/}"
+LOG_FILE="./${SCRIPT_FILE}.log"
 
 ##############
 # VAR COMMON
@@ -39,6 +44,23 @@ TPTWHITE=$(tput setaf 15 && tput bold)
 ##############
 # FUNCS
 ##############
+# logs
+# syntax) echo_log "my messages"
+echo_log()
+{
+  echo -e "$(date --rfc-3339=ns) $1" | tee -a ${LOG_FILE}
+}
+
+echo_success()
+{
+  echo_log "${TPTGREEN}[SUCCESS]${TPTNORM} $1"
+}
+
+echo_failed()
+{
+  echo_log "${TPTRED}[FAILED]${TPTNORM} $1"
+}
+
 
 # main
 func.main() {
