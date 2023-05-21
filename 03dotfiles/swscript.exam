@@ -6,11 +6,10 @@
 IMODE="imod.main"
 VMODE_TIMEUTC="no"
 
-SCRIPT_DIR="$(dirname "$0")"
-# SCRIPT_DIR="${0%/*}"
-SCRIPT_FILE="$(basename "$(test -L "$0" && readlink "$0" || echo "$0")")"
-# SCRIPT_FILE="${0##*/}"
+SCRIPT_DIR="$(dirname "$0")"    # "${0%/*}"
+SCRIPT_FILE="$(basename "$(test -L "$0" && readlink "$0" || echo "$0")")"    # "${0##*/}"
 LOG_FILE="./${SCRIPT_FILE}.log"
+
 
 ##############
 # VAR COMMON
@@ -39,6 +38,8 @@ TPTWHITE=$(tput setaf 15 && tput bold)
 
 # make random string
 # RAND_STR=$(uuidgen | tr -d '-')$(date -u +%Y%m%d%H%M%S%N)
+
+NCORES=$(cat /proc/cpuinfo | grep cores | wc -l)
 
 
 ##############
@@ -82,9 +83,8 @@ func.main() {
 
 # gettime
 func.gettime() {
-cat<<-EOF
-gettime()
-EOF
+    echo_log ${FUNCNAME} $@
+
     ## override VMODE_TIMEUTC only in function
     #local VMODE_TIMEUTC="yes"
 
@@ -99,6 +99,8 @@ EOF
 
 
 func.rest.request() {
+    echo_log ${FUNCNAME} $@
+
     RESP_FILE=\/tmp\/$(uuidgen | tr -d '-')$(date -u +%Y%m%d%H%M%S%N)
     REQ_TIMEOUT=2
     if [[ -z $1 ]]; then
@@ -126,6 +128,8 @@ func.rest.request() {
 
 # help
 func.help() {
+    echo_log ${FUNCNAME} $@
+
 cat <<HELP
 $(basename $0) Usage:
            -h        help.
