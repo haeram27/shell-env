@@ -67,11 +67,11 @@ function findl() {
 ##############################################
 # grepp: grep for pipe
 # USAGE: $ ll | grepp ".alias_cust"
-alias grepp='grep -inH $1 $2 2>/dev/null'
+alias grepp='grep -in $1 $2 2>/dev/null'
 
 # grepr: grep for recursive searching
 # USAGE: $ grepr "alias grepr" .
-alias grepr='grep -inHIR $1 2>/dev/null'
+alias grepr='grep -RinI $1 2>/dev/null'
 
 
 ##############################################
