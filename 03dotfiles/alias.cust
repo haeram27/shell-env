@@ -23,13 +23,17 @@ alias suvi='sudo vi'
 # sudosu
 alias susu='sudo su'
 
+# remove first line of stdin or file
+alias rmtitle='tail -n +2 '
+
+# add logfile
+alias tlog='tee -a "log-$$-$(date +%s%N)"'
+
 # change default terminal
 alias chterm='sudo update-alternatives --config x-terminal-emulator'
 
 # build(make) and grep  errors
 alias mage='make -j12 2>&1 | greps error'
-
-alias tlog='tee "log$(date +%s%N)$$"'
 
 
 ##############################################
