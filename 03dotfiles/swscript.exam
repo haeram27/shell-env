@@ -63,72 +63,17 @@ echo_failed()
 }
 
 
-# main
-func.main() {
-    read -p "Do you want Hello World? Are you sure? (y/n) " -n 1;
-    echo ""
-    if [[ $REPLY =~ ^[Yy]$ ]]; then
-        echo ${TPTRED}Hello World${TPTNORM}
-        echo ${TPTGREEN}Hello World${TPTNORM}
-        echo ${TPTYELLOW}Hello World${TPTNORM}
-        echo ${TPTBLUE}Hello World${TPTNORM}
-        echo ${TPTPURPLE}Hello World${TPTNORM}
-        echo ${TPTCYAN}Hello World${TPTNORM}
-        echo ${TPTWHITE}Hello World${TPTNORM}
-    else
-        echo $REPLY
-    fi
-}
-
-
-# gettime
-func.gettime() {
-    echo_log ${FUNCNAME} $@
-
-    ## override VMODE_TIMEUTC only in function
-    #local VMODE_TIMEUTC="yes"
-
-    if [[ "${VMODE_TIMEUTC}" == "yes" ]]; then
-        echo 'UTC::'
-        while :; do date -u --rfc-3339=ns; sleep 0.1; done;
-    else
-        echo 'LOCAL::'
-        while :; do date --rfc-3339=ns; sleep 0.1; done;
-    fi
-}
-
-
-func.rest.request() {
-    echo_log ${FUNCNAME} $@
-
-    RESP_FILE=\/tmp\/$(uuidgen | tr -d '-')$(date -u +%Y%m%d%H%M%S%N)
-    REQ_TIMEOUT=2
-    if [[ -z $1 ]]; then
-        HTTP_URL='http://www.google.com'
-    else
-        HTTP_URL=$1
-    fi
-   
-    HTTP_CODE=$(curl -fksSL --connect-timeout ${REQ_TIMEOUT} -w "%{response_code}" -o ${RESP_FILE} ${HTTP_URL})
-    CURL_RET=$?
-    if [[ ${CURL_RET} -eq 0 ]]; then
-        if [[ "${HTTP_CODE}" == "200" ]]; then
-            ## do something with ${RESP_FILE}
-            echo ${RESP_FILE}; cat ${RESP_FILE};
-        else
-            echo ${TPTRED}warning${TPTNORM}: httpcode is ${TPTRED}${HTTP_CODE}${TPTNORM} >&2
-        fi
-    else
-        echo ${TPTRED}error${TPTNORM}: curl returns ${TPTRED}${CURL_RET}${TPTNORM} >&2
-    fi
-
-    [[ -f ${RESP_FILE} ]] && (rm -f ${RESP_FILE} &>/dev/null)
+check_root_euid() {
+  if [[ ${EUID} -ne 0 ]]; then
+    echo_log "Please run this script as root"
+    exit 1
+  fi
 }
 
 
 # help
-func.help() {
-    echo_log ${FUNCNAME} $@
+help() {
+  echo_log ${FUNCNAME} $@
 
 cat <<HELP
 $(basename $0) Usage:
@@ -140,27 +85,116 @@ HELP
 }
 
 
+# main
+main() {
+  echo_log ${FUNCNAME} $@
+
+  read -p "Do you want Hello World? Are you sure? (y/n) " -n 1;
+  echo ""
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    echo ${TPTRED}Hello World${TPTNORM}
+    echo ${TPTGREEN}Hello World${TPTNORM}
+    echo ${TPTYELLOW}Hello World${TPTNORM}
+    echo ${TPTBLUE}Hello World${TPTNORM}
+    echo ${TPTPURPLE}Hello World${TPTNORM}
+    echo ${TPTCYAN}Hello World${TPTNORM}
+    echo ${TPTWHITE}Hello World${TPTNORM}
+  else
+    echo $REPLY
+  fi
+}
+
+
+# gettime
+gettime() {
+  echo_log ${FUNCNAME} $@
+
+  ## override VMODE_TIMEUTC only in ion
+  #local VMODE_TIMEUTC="yes"
+  if [[ "${VMODE_TIMEUTC}" == "yes" ]]; then
+    echo 'UTC::'
+    while :; do date -u --rfc-3339=ns; sleep 0.1; done;
+  else
+    echo 'LOCAL::'
+    while :; do date --rfc-3339=ns; sleep 0.1; done;
+  fi
+}
+
+
+rest_request() {
+  echo_log ${FUNCNAME} $@
+
+  RESP_FILE=\/tmp\/$(uuidgen | tr -d '-')$(date -u +%Y%m%d%H%M%S%N)
+  REQ_TIMEOUT=2
+  if [[ -z $1 ]]; then
+    HTTP_URL='http://www.google.com'
+  else
+    HTTP_URL=$1
+  fi
+   
+  HTTP_CODE=$(curl -fksSL --connect-timeout ${REQ_TIMEOUT} -w "%{response_code}" -o ${RESP_FILE} ${HTTP_URL})
+  CURL_RET=$?
+  if [[ ${CURL_RET} -eq 0 ]]; then
+    if [[ "${HTTP_CODE}" == "200" ]]; then
+      ## do something with ${RESP_FILE}
+      echo ${RESP_FILE}; cat ${RESP_FILE};
+    else
+      echo ${TPTRED}warning${TPTNORM}: httpcode is ${TPTRED}${HTTP_CODE}${TPTNORM} >&2
+    fi
+  else
+    echo ${TPTRED}error${TPTNORM}: curl returns ${TPTRED}${CURL_RET}${TPTNORM} >&2
+  fi
+
+  [[ -f ${RESP_FILE} ]] && (rm -f ${RESP_FILE} &>/dev/null)
+}
+
+
+while_retry() {
+  echo_log "[start] ${FUNCNAME} $@"
+
+  local retry_count=0
+  local max_retry=10
+
+  while :; do
+    if [[ ${retry_count} -gt ${max_retry} ]]; then
+      echo_log "max retries exceeded."
+      return
+    fi
+
+    false # do something
+    if [[ $? -eq 0 ]]; then
+      echo_success ${FUNCNAME}
+      return
+    fi
+
+    echo_log "[${retry_count}] keep doing something..."
+    retry_count=$((retry_count+1))
+    sleep 1
+  done
+}
+
+
 ##############
 # INIT
 ##############
 while getopts "thuq\?" opt
 do
-    case ${opt} in
-    h|\?) IMODE="imod.help" ;;
-    t) IMODE="imod.time" ;;
-    q) IMODE="imod.rest" ;;
-    u) echo "turn on UTC mode"
-        VMODE_TIMEUTC="yes" ;;
-    esac
+  case ${opt} in
+  h|\?) IMODE="imod.help" ;;
+  t) IMODE="imod.time" ;;
+  q) IMODE="imod.rest" ;;
+  u) echo "turn on UTC mode"
+      VMODE_TIMEUTC="yes" ;;
+  esac
 done
 
 #echo "IMODE=${IMODE}"
 case $IMODE in
-    "imod.help") func.help ;;
-    "imod.main") func.main ;;
-    "imod.time") func.gettime ;;
-    "imod.rest") func.rest.request;;
-    *) exit 1 ;;
+  "imod.help") help ;;
+  "imod.main") main ;;
+  "imod.time") gettime ;;
+  "imod.rest") rest_request;;
+  *) exit 1 ;;
 esac
 
 exit 0
