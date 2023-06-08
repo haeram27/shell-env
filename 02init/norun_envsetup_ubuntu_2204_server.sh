@@ -19,6 +19,8 @@
 ## Check TBD to include
 ################################################### 
 
+# 우분투 클리너 저장소 ~ ppa:gerardpuig/ppa
+
 
 ################################################### 
 ## setup variable
@@ -26,7 +28,6 @@
 #myid=$(whoami)  ## this print 'root'
 #myid=$(logname)  ## this print ?
 myid=$(id -un)
-
 
 
 ################################################### 
@@ -68,8 +69,12 @@ apt-get -y install htop
 apt-get -y install net-tools
 
 
+# xclip
+apt-get -y install xclip
+
+
 # rename
-apt-get -y install rename
+apt-get -y isntall rename
 
 
 # curl
@@ -80,6 +85,10 @@ apt-get -y install curl
 apt-get -y install dos2unix
 
 
+# synergy
+# apt-get -y install synergy libcanberra-gtk-module sni-qt
+
+
 # 7z
 apt-get -y install p7zip-full
 
@@ -88,16 +97,51 @@ apt-get -y install p7zip-full
 apt-get -y install exfat-fuse exfat-utils
 
 
+# samba server
+apt-get -y install samba
+
+
+# samba client
+apt-get -y install smbclient cifs-utils
+
+
+# gnome tweak tool
+# apt-get -y install gnome-tweak-tool
+
+
 ################################################### 
 ## Install Dev Toos
 ################################################### 
 
 # build essential
-apt-get -y install g++ build-essential
+apt-get -y install build-essential
 
+# cmake
+# apt-get -y install cmake
 
 # json command line processor
 apt-get -y install jq
+
+# ??
+# apt-get -y install moreutils
+
+# libcurl
+# apt-get -y install libcurl4-openssl-dev
+
+# libzip
+# apt-get -y install libzip-dev
+
+# libuuid
+# apt-get -y install uuid-dev
+
+# libacl
+# apt-get -y install libacl1-dev
+
+# cscope
+# apt-get -y install cscope
+
+# ctags
+# apt-get -y install ctags
 
 
 # python3
@@ -105,18 +149,36 @@ apt-get -y upgrade python3
 python3 --version
 
 
+# java
+# add-apt-repository -y ppa:webupd8team/java
+# apt-get -y install oracle-java8-installer
+# java -version
+
+
 # git/svn
 # add-apt-repository -y ppa:git-core/ppa
-apt-get -y install git-core git-svn
+apt-get -y install git-core
+apt-get -y install git-svn
+apt-get -y install rabbitvcs-cli rabbitvcs-core rabbitvcs-gedit rabbitvcs-nautilus
 
 
-# terminator
-apt-get -y install terminator
+# sqlite browser
+# add-apt-repository -y ppa:linuxgndu/sqlitebrowser
+# apt-get -y install sqlitebrowser
+
+
+# kvm
+# This is only Lucid (10.04) or later, Command Should be updated after Cosmic (18.10) or later
+# apt-get -y install qemu-kvm libvirt-bin ubuntu-vm-builder bridge-utils  virt-manager
+# adduser $(id -un) kvm
+# virsh list --all
+
 
 
 ################################################### 
 ## remove unused depencies
 ###################################################
+
 apt-get autoremove
 
 
@@ -127,8 +189,4 @@ apt-get autoremove
 # make large size of inotify of filesystem :: for Android studio file search
 cp /etc/sysctl.d/99-sysctl.conf  /etc/sysctl.d/99-sysctl.conf.bak
 sh -c 'printf "fs.inotify.max_user_watches = 524288\n" > /etc/sysctl.d/99-sysctl.conf'
-
-
-
-
 
