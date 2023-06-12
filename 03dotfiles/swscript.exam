@@ -6,14 +6,13 @@
 IMODE="imod.main"
 VMODE_TIMEUTC="no"
 
-SCRIPT_DIR="$(dirname "$0")"    # "${0%/*}"
-SCRIPT_FILE="$(basename "$(test -L "$0" && readlink "$0" || echo "$0")")"    # "${0##*/}"
-LOG_FILE="./${SCRIPT_FILE}.log"
-
 
 ##############
 # VAR COMMON
 ##############
+SCRIPT_DIR=$(readlink -f $(dirname $0))    # "${0%/*}"
+SCRIPT_FILE=$(basename $(test -L $0 && readlink $0 || echo $0))    # "${0##*/}"
+
 # echo color message:: (recommended) support all type shell
 # echo ${TPTRED}----------------------------------
 # echo ${TPTRED}warning${TPTNORM}: something wrong
@@ -43,10 +42,12 @@ NCORES=$(cat /proc/cpuinfo | grep cores | wc -l)
 
 
 ##############
-# FUNCS
+# LOGS
 ##############
-# logs
 # syntax) echo_log "my messages"
+#LOG_FILE="./${SCRIPT_FILE}.log"
+LOG_FILE=/dev/null
+
 echo_log()
 {
   echo -e "$(date --rfc-3339=ns) $1" | tee -a ${LOG_FILE}
@@ -63,6 +64,7 @@ echo_failed()
 }
 
 
+# root checking
 check_root_euid() {
   if [[ ${EUID} -ne 0 ]]; then
     echo_log "Please run this script as root"
