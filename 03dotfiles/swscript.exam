@@ -67,10 +67,21 @@ echo_failed()
 # root checking
 check_root_euid() {
   if [[ ${EUID} -ne 0 ]]; then
-    echo_log "Please run this script as root"
+    echo_failed "${FUNCNAME}: Please run this script as root"
     exit 1
   fi
 }
+
+
+check_variable_test() {
+  if [[ -v TEST_VAR && -n ${TEST_VAR} ]]; then
+    return
+  else
+    TEST_VAR=1234
+    echo_log "TEST_VAR is set as \"${TEST_VAR}\" automatically."
+  fi
+}
+
 
 
 # help
