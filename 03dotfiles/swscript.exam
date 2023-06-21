@@ -63,6 +63,12 @@ echo_failed()
   echo_log "${TPTRED}[FAILED]${TPTNORM} $1"
 }
 
+echo_fatal()
+{
+  echo_log "${TPTRED}[FATAL]${TPTNORM} $1"
+  exit 1
+}
+
 
 # root checking
 check_root_euid() {
