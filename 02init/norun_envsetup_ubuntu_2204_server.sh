@@ -69,10 +69,6 @@ apt-get -y install htop
 apt-get -y install net-tools
 
 
-# xclip
-apt-get -y install xclip
-
-
 # rename
 apt-get -y isntall rename
 
