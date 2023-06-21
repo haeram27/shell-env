@@ -231,9 +231,9 @@ apt-get -y install notepadqq
 
 # howdy - face recognition authentication for linux
 # github.com/boltgolt/howdy
-sudo add-apt-repository ppa:bolt/howdy
-sudo apt update
-sudo apt install howdy
+# sudo add-apt-repository ppa:bolt/howdy
+# sudo apt update
+# sudo apt install howdy
 
 
 
