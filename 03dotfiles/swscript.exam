@@ -44,10 +44,13 @@ NCORES=$(cat /proc/cpuinfo | grep cores | wc -l)
 ##############
 # LOGS
 ##############
-# syntax) echo_log "my messages"
-#LOG_FILE="./${SCRIPT_FILE}.log"
-LOG_FILE=/dev/null
+if [[ !(-v LOG_FILE && -n ${LOG_FILE}) ]]; then
+  #LOG_FILE="./${SCRIPT_FILE}.log"
+  LOG_FILE=/dev/null
+fi
 
+# syntax) echo_log "my messages"
+# syntax) var=$(echo; ls /); echo_log "$var"
 echo_log()
 {
   echo -e "$(date --rfc-3339=ns) $1" | tee -a ${LOG_FILE}
@@ -80,9 +83,7 @@ check_root_euid() {
 
 
 check_variable_test() {
-  if [[ -v TEST_VAR && -n ${TEST_VAR} ]]; then
-    return
-  else
+  if [[ !(-v TEST_VAR && -n ${TEST_VAR}) ]]; then
     TEST_VAR=1234
     echo_log "TEST_VAR is set as \"${TEST_VAR}\" automatically."
   fi
@@ -196,6 +197,8 @@ while_retry() {
 ##############
 # INIT
 ##############
+# IMODE(instruction) option is to seclect start function 
+# VMODE(variable) option is to set flag variable of this script
 while getopts "thuq\?" opt
 do
   case ${opt} in
