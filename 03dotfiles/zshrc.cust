@@ -102,6 +102,13 @@ if [[ ! -f ~/.p10k.zsh ]]; then
     prompt='%{%f%b%k%}$(sw_build_prompt)'
 fi
 
+#################################
+# POWERLEVEL10K
+#################################
+if [[ -f ~/.p10k.zsh ]]; then
+    # POWERLEVEL9K_DISABLE_GITSTATUS=true
+fi
+
 
 #################################
 # kubernetes
