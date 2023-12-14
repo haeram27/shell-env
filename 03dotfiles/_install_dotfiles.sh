@@ -19,8 +19,7 @@ function install() {
     rm -rf ./dotzsh
 
     # gitstatus dir is required by p10k
-    tar xvfz ./gitstatus.tgz
-    mkdir ~/.cache; mv ./gitstatus ~/.cache/; rm -rf ./gitstatus >/dev/null
+    mkdir -p ~/.cache/gitstatus; tar xvf ./gitstatusd-1.5.4-linux-x86_64.tar.gz -C ~/.cache/gitstatus >/dev/null
 
     chmod 644 ~/.[^.]*.cust ~/.gitconfig ~/.p10k.zsh ~/.zshrc
     chmod 700 ~/.zsh
