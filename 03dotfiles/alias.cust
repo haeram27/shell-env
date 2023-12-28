@@ -128,6 +128,7 @@ alias sstrace='strace -s 65535 -f -tt -o strace.$(date +%Y%m%d-%H%M%S).dump'
 # CURL
 ##############################################
 alias curld='curl -fksvL -o /dev/null --connect-timeout 2 -w "%{response_code}"'
+alias curlp='curl -fksSL --connect-timeout 2 -x socks5://localhost:$1 $2'
 
 
 ##############################################
@@ -209,8 +210,8 @@ alias dps='docker ps -a --format "table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Com
 alias dpsa='docker ps -a'
 alias dpsc='docker ps -a --no-trunc --format "table {{.Names}}\t{{.Status}}\t{{.Command}}"'
 alias dpsi='docker ps -a --format "table {{.ID}}\t{{.Names}}\t{{.Image}}"'
-alias dpsn='docker ps -a --no-trunc --format "table {{.Names}}\t{{.Status}}\t{{.Command}}"'
 alias dpsp='docker ps -a --format "table {{.ID}}\t{{.Image}}\t{{.Ports}}"'
+alias dpsx='docker ps -a --format "table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Image}}\t{{.Command}}" --filter "status=exited"'
 alias dst='docker stats --no-stream'
 alias dsts='docker stats'
 alias drma='docker ps -a --format "{{.ID}}"|xargs -rxi docker rm {}'
