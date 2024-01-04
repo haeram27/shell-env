@@ -92,7 +92,7 @@ sed -u \
 -e "s/\(alert\)/\o033[1;31m\1\o033[0;m/gi" \
 -e "s/\(critical\)/\o033[1;31m\1\o033[0;m/gi" \
 -e "s/\(error\)/\o033[1;31m\1\o033[0;m/gi" \
--e "s/\(warning\)/\o033[1;33m\1\o033[0;m/gi" \
+-e "s/\(warn.*\)/\o033[1;33m\1\o033[0;m/gi" \
 -e "s/\(notice\)/\o033[1;33m\1\o033[0;m/gi" \
 -e "s/\(info\)/\o033[1;33m\1\o033[0;m/gi" \
 -e "s/\(debug\)/\o033[1;33m\1\o033[0;m/gi" \
