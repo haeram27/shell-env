@@ -38,6 +38,13 @@ TPTWHITE=$(tput setaf 15 && tput bold)
 # make random string
 # RAND_STR=$(uuidgen | tr -d '-')$(date -u +%Y%m%d%H%M%S%N)
 
+# ramdom string using urandom (len:32  maxlen: infinity)
+# RAND_STR=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
+
+# ramdom number using urandom (len:32  maxlen: infinity)
+# RAND_NUM=$(cat /dev/urandom | tr -dc '0-9' | fold -w 32 | head -n 1)
+
+
 NCORES=$(cat /proc/cpuinfo | grep cores | wc -l)
 
 
@@ -78,10 +85,10 @@ check_root_euid() {
   fi
 }
 
-
-check_variable_test() {
+# short:: VAR=${VAR:-default}
+check_var_unset_or_null_default() {
   if [[ !(-v TEST_VAR && -n ${TEST_VAR}) ]]; then
-    TEST_VAR=1234
+    TEST_VAR=default
     echo_log "TEST_VAR is set as \"${TEST_VAR}\" automatically."
   fi
 }
