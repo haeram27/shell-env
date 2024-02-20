@@ -44,10 +44,7 @@ NCORES=$(cat /proc/cpuinfo | grep cores | wc -l)
 ##############
 # LOGS
 ##############
-if [[ !(-v LOG_FILE && -n ${LOG_FILE}) ]]; then
-  #LOG_FILE="./${SCRIPT_FILE}.log"
-  LOG_FILE=/dev/null
-fi
+LOG_FILE=${LOG_FILE:-/dev/null}
 
 # syntax) echo_log "my messages"
 # syntax) var=$(echo; ls /); echo_log "$var"
@@ -169,27 +166,30 @@ rest_request() {
 }
 
 
-while_retry() {
-  echo_log "[start] ${FUNCNAME} $@"
-
-  local retry_count=0
-  local max_retry=10
+retry_cmd() {
+  local retry_count=1
+  local max_retry=${1:-10}
+  local sleep_interval=${2:-1}
+  local funct=${3:-false}
 
   while :; do
     if [[ ${retry_count} -gt ${max_retry} ]]; then
+      ## TODO: finally failed
       echo_log "max retries exceeded."
-      return
+      return 1
     fi
 
-    false # do something
+    $(${funct})
     if [[ $? -eq 0 ]]; then
+      ## TODO: success
       echo_success ${FUNCNAME}
       return
     fi
 
-    echo_log "[${retry_count}] keep doing something..."
-    retry_count=$((retry_count+1))
-    sleep 1
+    ## TODO: failed nth try
+    echo "[${retry_count}] ${funct} result is failed"
+    ((retry_count++))
+    sleep ${sleep_interval}
   done
 }
 
