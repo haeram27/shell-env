@@ -39,7 +39,7 @@ TPTWHITE=$(tput setaf 15 && tput bold)
 # RAND_STR=$(uuidgen | tr -d '-')$(date -u +%Y%m%d%H%M%S%N)
 
 # ramdom string using urandom (len:32  maxlen: infinity)
-# RAND_STR=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
+# RAND_STR=$(cat /dev/urandom | tr -dc '[:alnum:]' | fold -w 32 | head -n 1)
 
 # ramdom number using urandom (len:32  maxlen: infinity)
 # RAND_NUM=$(cat /dev/urandom | tr -dc '0-9' | fold -w 32 | head -n 1)
