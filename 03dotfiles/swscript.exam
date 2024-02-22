@@ -3,7 +3,7 @@
 ##############
 # VARS
 ##############
-IMODE="imod.main"
+IMODE="imod.test"
 VMODE_TIMEUTC="no"
 
 
@@ -85,6 +85,7 @@ check_root_euid() {
   fi
 }
 
+
 # short:: VAR=${VAR:-default}
 check_var_unset_or_null_default() {
   if [[ !(-v TEST_VAR && -n ${TEST_VAR}) ]]; then
@@ -94,8 +95,6 @@ check_var_unset_or_null_default() {
 }
 
 
-
-# help
 help() {
   echo_log ${FUNCNAME} $@
 
@@ -109,27 +108,6 @@ HELP
 }
 
 
-# main
-main() {
-  echo_log ${FUNCNAME} $@
-
-  read -p "Do you want Hello World? Are you sure? (y/n) " -n 1;
-  echo ""
-  if [[ $REPLY =~ ^[Yy]$ ]]; then
-    echo ${TPTRED}Hello World${TPTNORM}
-    echo ${TPTGREEN}Hello World${TPTNORM}
-    echo ${TPTYELLOW}Hello World${TPTNORM}
-    echo ${TPTBLUE}Hello World${TPTNORM}
-    echo ${TPTPURPLE}Hello World${TPTNORM}
-    echo ${TPTCYAN}Hello World${TPTNORM}
-    echo ${TPTWHITE}Hello World${TPTNORM}
-  else
-    echo $REPLY
-  fi
-}
-
-
-# gettime
 gettime() {
   echo_log ${FUNCNAME} $@
 
@@ -201,29 +179,62 @@ retry_cmd() {
 }
 
 
-##############
-# INIT
-##############
-# IMODE(instruction) option is to seclect start function 
-# VMODE(variable) option is to set flag variable of this script
-while getopts "thuq\?" opt
-do
-  case ${opt} in
-  h|\?) IMODE="imod.help" ;;
-  t) IMODE="imod.time" ;;
-  q) IMODE="imod.rest" ;;
-  u) echo "turn on UTC mode"
-      VMODE_TIMEUTC="yes" ;;
-  esac
-done
+tests() {
+  echo_log ${FUNCNAME} $@
 
-#echo "IMODE=${IMODE}"
-case $IMODE in
-  "imod.help") help ;;
-  "imod.main") main ;;
-  "imod.time") gettime ;;
-  "imod.rest") rest_request;;
-  *) exit 1 ;;
-esac
+  read -p "Do you want print Hello World? Are you sure? (y/n) " -n 1;
+  echo ""
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    echo ${TPTRED}Hello World${TPTNORM}
+    echo ${TPTGREEN}Hello World${TPTNORM}
+    echo ${TPTYELLOW}Hello World${TPTNORM}
+    echo ${TPTBLUE}Hello World${TPTNORM}
+    echo ${TPTPURPLE}Hello World${TPTNORM}
+    echo ${TPTCYAN}Hello World${TPTNORM}
+    echo ${TPTWHITE}Hello World${TPTNORM}
+  else
+    echo $REPLY
+  fi
+}
+
+
+_is_sourced() {
+  # https://unix.stackexchange.com/a/215279
+  [ "${#FUNCNAME[@]}" -ge 2 ] \
+    && [ "${FUNCNAME[0]}" = '_is_sourced' ] \
+    && [ "${FUNCNAME[1]}" = 'source' ] && echo sourced
+}
+
+_main() {
+   ##############
+   # INIT
+   ##############
+   # IMODE(instruction) option is to seclect start function 
+   # VMODE(variable) option is to set flag variable of this script
+   while getopts "thuq\?" opt
+   do
+     case ${opt} in
+     h|\?) IMODE="imod.help" ;;
+     t) IMODE="imod.time" ;;
+     q) IMODE="imod.rest" ;;
+     u) echo "turn on UTC mode"
+         VMODE_TIMEUTC="yes" ;;
+     esac
+   done
+   
+   #echo "IMODE=${IMODE}"
+   case $IMODE in
+     "imod.help") help ;;
+     "imod.test") tests ;;
+     "imod.time") gettime ;;
+     "imod.rest") rest_request;;
+     *) exit 1 ;;
+   esac
+}
+
+if ! _is_sourced; then
+  # pass positional param from $1 to $N
+  _main "$@"
+fi
 
 exit 0
