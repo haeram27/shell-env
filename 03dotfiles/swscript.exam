@@ -95,6 +95,17 @@ check_var_unset_or_null_default() {
 }
 
 
+print_args() {
+  local idx=1
+  local i
+  for i do
+    echo "arg[$idx] = $i"
+    ((idx++))
+  done
+}
+
+
+
 help() {
   echo_log ${FUNCNAME} $@
 
@@ -206,6 +217,8 @@ _is_sourced() {
 }
 
 _main() {
+
+
    ##############
    # INIT
    ##############
@@ -233,6 +246,9 @@ _main() {
 }
 
 if ! _is_sourced; then
+  # print args 
+  print_args "$@"
+
   # pass positional param from $1 to $N
   _main "$@"
 fi
