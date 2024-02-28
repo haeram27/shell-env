@@ -94,6 +94,10 @@ check_var_unset_or_null_default() {
   fi
 }
 
+check_command_exit_code() {
+  #[[ $(<command> &>/dev/null; echo $?) -eq 0 ]]
+  [[ $(true &>/dev/null; echo $?) -eq 0 ]] && echo success || echo false
+}
 
 print_args() {
   local idx=1
@@ -107,7 +111,7 @@ print_args() {
 
 
 help() {
-  echo_log ${FUNCNAME} $@
+  echo_log ${FUNCNAME} "$@"
 
 cat <<HELP
 $(basename $0) Usage:
@@ -120,7 +124,7 @@ HELP
 
 
 gettime() {
-  echo_log ${FUNCNAME} $@
+  echo_log ${FUNCNAME} "$@"
 
   ## override VMODE_TIMEUTC only in ion
   #local VMODE_TIMEUTC="yes"
@@ -135,7 +139,7 @@ gettime() {
 
 
 rest_request() {
-  echo_log ${FUNCNAME} $@
+  echo_log ${FUNCNAME} "$@"
 
   RESP_FILE=\/tmp\/$(uuidgen | tr -d '-')$(date -u +%Y%m%d%H%M%S%N)
   REQ_TIMEOUT=2
@@ -191,7 +195,7 @@ retry_cmd() {
 
 
 tests() {
-  echo_log ${FUNCNAME} $@
+  echo_log ${FUNCNAME} "$@"
 
   read -p "Do you want print Hello World? Are you sure? (y/n) " -n 1;
   echo ""
