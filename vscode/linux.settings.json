@@ -11,13 +11,13 @@
     "debug.console.fontSize": 12,
     "diffEditor.ignoreTrimWhitespace": false,
     "editor.codeActionsOnSave": {
-        "source.organizeImports": false
+        "source.organizeImports": "never"
     },
     "editor.fontFamily": "'D2Coding'",
     "editor.fontSize": 12,
     "editor.mouseWheelZoom": true,
     "editor.renderControlCharacters": true,
-    "editor.renderWhitespace": "all",
+    "editor.renderWhitespace": "none",
     "editor.rulers": [
         120,
     ],
@@ -47,7 +47,7 @@
     "workbench.editor.enablePreviewFromQuickOpen": false,
     "workbench.iconTheme": "vscode-icons",
     "workbench.panel.defaultLocation": "right",
-    "workbench.colorTheme": "Default Dark+",
+    "workbench.colorTheme": "Default Dark Modern",
     "workbench.colorCustomizations": {
         "editorRuler.foreground": "#ff4081",
     },
@@ -60,11 +60,14 @@
     "C_Cpp.default.cppStandard": "c++17",
     "C_Cpp.default.intelliSenseMode": "linux-gcc-x64",
     "C_Cpp.errorSquiggles": "Enabled",
+
     "[java]": {
         "editor.insertSpaces": true,
         "editor.detectIndentation": false
     },
+    "java.saveActions.organizeImports": true,
     "java.format.settings.profile": "GoogleStyle",
+    // https://github.com/google/styleguide/blob/8487c083e1faecb1259be8a8873618cfdb69d33d/eclipse-java-google-style.xml
     "java.format.settings.url": "~/devwsl/src/git/shell-env/vscode/style-guide/eclipse-java-google-style.xml",
     "java.format.comments.enabled": false,
     "java.compile.nullAnalysis.mode": "automatic",
@@ -72,19 +75,21 @@
     "java.configuration.runtimes": [
         {
             "name": "JavaSE-17",
-            "path": "/opt/jdk/jdk-17.0.2",
+            "path": "/opt/java/jdk-17.0.2",
             "default": true
         },
         {
             "name": "JavaSE-20",
-            "path": "/opt/jdk/jdk-20.0.1"
+            "path": "/opt/java/jdk-21.0.1"
         }
     ],
+
     // MANDATORY) javahome path for "language-server(language-support for java by redhat)" extension
-    "java.jdt.ls.java.home": "/opt/jdk/jdk-17.0.2",
+    "java.jdt.ls.java.home": "/opt/java/jdk-17.0.2",
     "java.project.referencedLibraries": [
         "lib/**/*.jar"
     ],
+
     // :: MAVEN
     // MANDATORY) maven settings file - IMPORTANT: maven refer setting.xml file to find not-default repository urls
     "java.configuration.maven.userSettings": "${HOME}/.m2/settings.xml",
@@ -94,15 +99,18 @@
     "maven.terminal.customEnv": [
         {
             "environmentVariable": "JAVA_HOME",
-            "value": "/opt/jdk/jdk-17.0.2"
+            "value": "/opt/java/jdk-17.0.2"
         }
     ],
+
     // :: GRADLE
-    "java.import.gradle.home": "/opt/gradle/gradle-8.6",
+    "java.import.gradle.home":"/opt/gradle/gradle-8.6",
     "java.import.gradle.wrapper.enabled": false,
     "gradle.debug": true,
     "gradle.javaDebug.cleanOutput": true,
     "gradle.allowParallelRun": true,
+
     // :: LANGUAGE SERVER 4 JAVA (REDHAT)
     "redhat.telemetry.enabled": false
 }
+
