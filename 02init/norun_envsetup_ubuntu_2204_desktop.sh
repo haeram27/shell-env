@@ -97,6 +97,10 @@ apt-get -y install p7zip-full
 apt-get -y install exfat-fuse exfat-utils
 
 
+# ssh server
+apt-get -y install openssh-server
+
+
 # samba server
 apt-get -y install samba
 
