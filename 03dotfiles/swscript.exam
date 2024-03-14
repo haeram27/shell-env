@@ -95,8 +95,13 @@ check_var_unset_or_null_default() {
 }
 
 check_command_exit_code() {
-  #[[ $(<command> &>/dev/null; echo $?) -eq 0 ]]
-  [[ $(true &>/dev/null; echo $?) -eq 0 ]] && echo success || echo false
+#1 &&, || check current $? 
+  true && echo success || echo failed 
+#2 check $? with test expression [[ ]]
+  true
+  [[ $? -eq 0 ]] && echo success || echo failed 
+#3 combine #2 as one line
+  [[ $(true &>/dev/null; echo $?) -eq 0 ]] && echo success || echo failed
 }
 
 print_args() {
