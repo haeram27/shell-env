@@ -2,18 +2,13 @@
 
 if [[ "$EUID" -ne 0 ]]; then
     echo 'error: please run as root'
-    echo 'ex) sudo go-install-ubuntu.sh 1.20.2'
+    echo "ex) sudo ./$0"
     exit 1
 fi
 
-if [[ -z $1 ]]; then
-    echo 'error: PREFERED_VER is required. Please input version as 1st argument'
-    echo 'ex) sudo go-install-ubuntu.sh 1.20.2'
-    exit 1
-fi
-
-PREFERED_VER=$1
-ARCHIVE_NAME=go${PREFERED_VER}.linux-amd64.tar.gz
+## PREFERED_VER ex) go1.22.1
+PREFERED_VER=${PREFERED_VER:-$(curl -fSsL 'https://go.dev/VERSION?m=text'|sed '1q')}
+ARCHIVE_NAME=${PREFERED_VER}.linux-amd64.tar.gz
 
 ## ==== install go
 curl -LOk https://go.dev/dl/${ARCHIVE_NAME}

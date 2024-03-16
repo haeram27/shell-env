@@ -2,7 +2,7 @@
 
 if [[ "$EUID" -ne 0 ]]; then
     echo 'error: please run as root'
-    echo 'ex) sudo docker-install-ubuntu.sh ${USER}'
+    echo "ex) sudo ./$0"' ${USER}'
     exit 1
 fi
 
