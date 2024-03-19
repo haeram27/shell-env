@@ -115,8 +115,13 @@ fi
 #################################
 # kubectl autocompletion 
 # https://kubernetes.io/docs/reference/kubectl/cheatsheet/
-[[ $commands[kubectl] ]] && source <(kubectl completion zsh)
+if type kubectl &>/dev/null; then
+    source <(kubectl completion zsh)
+fi
+
 
 # helm autocompletion 
 # https://helm.sh/docs/helm/helm_completion_zsh/
-[[ $commands[helm] ]] && source <(helm completion zsh)
+if type helm &>/dev/null; then
+    source <(helm completion zsh)
+fi
