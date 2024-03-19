@@ -1,11 +1,5 @@
 #!/usr/bin/env bash
 
-if [[ "$EUID" -ne 0 ]]; then
-    echo "error: please run as root"
-    echo "ex) sudo $0"
-    exit 1
-fi
-
 sudo rm -f /etc/apt/trusted.gpg.d/kubernetes-apt-keyring.gpg
 sudo rm -f /etc/apt/sources.list.d/kubernetes.list
 sudo apt-get update
