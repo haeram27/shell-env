@@ -117,6 +117,7 @@ fi
 # https://kubernetes.io/docs/reference/kubectl/cheatsheet/
 if type kubectl &>/dev/null; then
     source <(kubectl completion zsh)
+    export kdo='--dry-run=client -o yaml'
 fi
 
 
