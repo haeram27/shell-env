@@ -1,13 +1,11 @@
 #!/usr/bin/env bash
-if [[ "$EUID" -ne 0 ]]; then
-    echo 'error: please run as root'
-    echo 'ex) sudo docker-install-ubuntu.sh ${USER}'
-    exit 1
-fi
+
+CONTAINERD_VERSION=${CONTAINERD_VERSION:-$(curl -Ls "https://github.com/containerd/containerd/releases/latest" 2>&1 | grep -Po '(?<=''<title\>Release containerd '').+?(?='' · containerd/containerd · GitHub</title>'')')}
+
 
 # containerd binary file
-wget https://github.com/containerd/containerd/releases/download/v1.6.2/containerd-1.6.2-linux-amd64.tar.gz
-sudo tar Czxvf /usr/local containerd-1.6.2-linux-amd64.tar.gz
+wget https://github.com/containerd/containerd/releases/download/v${CONTAINERD_VERSION}/containerd-${CONTAINERD_VERSION}-linux-amd64.tar.gz
+sudo tar Czxvf /usr/local containerd-${CONTAINERD_VERSION}-linux-amd64.tar.gz
 
 # containerd system service file
 wget https://raw.githubusercontent.com/containerd/containerd/main/containerd.service
@@ -17,3 +15,4 @@ sudo mv containerd.service /usr/lib/systemd/system
 sudo systemctl daemon-reload
 sudo systemctl enable --now containerd
 sudo systemctl is-active containerd
+[[ $? -eq 0 ]] && rm -f ./containerd-${CONTAINERD_VERSION}-linux-amd64.tar.gz

@@ -1,11 +1,4 @@
 #!/usr/bin/env bash
-
-if [[ "$EUID" -ne 0 ]]; then
-    echo 'error: please run as root'
-    echo "ex) sudo ./$0"' ${USER}'
-    exit 1
-fi
-
 if [[ -z $1 ]]; then
     echo 'error: please input docker user name to add docker group as 1st argument.'
     echo 'ex) sudo docker-install-ubuntu.sh ${USER}'
