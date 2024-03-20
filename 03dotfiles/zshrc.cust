@@ -113,6 +113,11 @@ fi
 #################################
 # kubernetes
 #################################
+# minikube autocompletion
+if type minikube &>/dev/null; then
+    source <(minikube completion zsh)
+fi
+
 # kubectl autocompletion 
 # https://kubernetes.io/docs/reference/kubectl/cheatsheet/
 if type kubectl &>/dev/null; then
