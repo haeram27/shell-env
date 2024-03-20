@@ -85,6 +85,10 @@ apt-get -y install curl
 apt-get -y install dos2unix
 
 
+# batcat
+apt-get -y install batcat
+
+
 # synergy
 # apt-get -y install synergy libcanberra-gtk-module sni-qt
 
