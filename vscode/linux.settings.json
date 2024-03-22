@@ -91,10 +91,6 @@
             "name": "JavaSE-17",
             "path": "/opt/jdk/jdk-17.0.2",
             "default": true
-        },
-        {
-            "name": "JavaSE-20",
-            "path": "/opt/jdk/jdk-21.0.1"
         }
     ],
 
@@ -119,6 +115,7 @@
 
     // :: GRADLE
     "java.import.gradle.home":"/opt/gradle/gradle-8.6",
+
     "java.import.gradle.wrapper.enabled": false,
     "gradle.debug": true,
     "gradle.javaDebug.cleanOutput": true,
