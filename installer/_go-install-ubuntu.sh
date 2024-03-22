@@ -6,6 +6,11 @@ if [[ "$EUID" -ne 0 ]]; then
     exit 1
 fi
 
+if [[ $(ss -tlnp | grep -Po 9913 | wc -l) -ge 1 ]]; then
+  export http_proxy=${http_proxy:-"localhost:9913"}
+  export https_proxy=${https_proxy:-"localhost:9913"}
+fi
+
 ## PREFERED_VER ex) go1.22.1
 PREFERED_VER=${PREFERED_VER:-$(curl -fSsL 'https://go.dev/VERSION?m=text'|sed '1q')}
 ARCHIVE_NAME=${PREFERED_VER}.linux-amd64.tar.gz

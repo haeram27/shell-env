@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+
+if [[ $(ss -tlnp | grep -Po 9913 | wc -l) -ge 1 ]]; then
+  export http_proxy=${http_proxy:-"localhost:9913"}
+  export https_proxy=${https_proxy:-"localhost:9913"}
+fi
+
 # ==== install web downloads tools
 # https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
 sudo apt-get update

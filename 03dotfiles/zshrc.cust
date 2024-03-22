@@ -108,26 +108,3 @@ fi
 if [[ -f ~/.p10k.zsh ]]; then
     # POWERLEVEL9K_DISABLE_GITSTATUS=true
 fi
-
-
-#################################
-# kubernetes
-#################################
-# minikube autocompletion
-if type minikube &>/dev/null; then
-    source <(minikube completion zsh)
-fi
-
-# kubectl autocompletion 
-# https://kubernetes.io/docs/reference/kubectl/cheatsheet/
-if type kubectl &>/dev/null; then
-    source <(kubectl completion zsh)
-    export kdo='--dry-run=client -o yaml'
-fi
-
-
-# helm autocompletion 
-# https://helm.sh/docs/helm/helm_completion_zsh/
-if type helm &>/dev/null; then
-    source <(helm completion zsh)
-fi

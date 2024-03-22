@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
-if [[ -z $1 ]]; then
-    echo 'error: please input docker user name to add docker group as 1st argument.'
-    echo 'ex) sudo docker-install-ubuntu.sh ${USER}'
-    exit 1
+
+if [[ $(ss -tlnp | grep -Po 9913 | wc -l) -ge 1 ]]; then
+  export http_proxy=${http_proxy:-"localhost:9913"}
+  export https_proxy=${https_proxy:-"localhost:9913"}
 fi
-DOCKER_USER=$1
+
+DOCKER_USER=${USER}
 
 sudo apt-get remove docker docker-engine docker.io containerd runc
 sudo apt-get update

@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+if [[ $(ss -tlnp | grep -Po 9913 | wc -l) -ge 1 ]]; then
+  export http_proxy=${http_proxy:-"localhost:9913"}
+  export https_proxy=${https_proxy:-"localhost:9913"}
+fi
+
 sudo rm -f /etc/apt/trusted.gpg.d/kubernetes-apt-keyring.gpg
 sudo rm -f /etc/apt/sources.list.d/kubernetes.list
 sudo apt-get update

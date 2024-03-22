@@ -19,12 +19,19 @@ if ! grep -q kakao /etc/apt/sources.list; then
     sed -isre 's/\/security.ubuntu.com/\/mirror.kakao.com/g' /etc/apt/sources.list
 fi
 
+if [[ $(ss -tlnp | grep -Po 9913 | wc -l) -ge 1 ]]; then
+cat <<- EOF > /etc/apt/apt.conf.d/proxy.conf 
+Acquire::http::Proxy "http://localhost:9913";
+Acquire::https::Proxy "http://localhost:9913";
+EOF
+fi
 
 
 ###################
 # sudoers
 ###################
 if [[ ! -f /etc/sudoers.d/90-additional-users ]]; then
-    cp ./90-additional-users /etc/sudoers.d/
+    echo ${USER}' ALL=(ALL) NOPASSWD:ALL' | sudo tee /etc
+/sudoers.d/90-additional-users
     chmod 440 /etc/sudoers.d/90-additional-users
 fi

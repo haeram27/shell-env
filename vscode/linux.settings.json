@@ -82,7 +82,7 @@
     },
     "java.saveActions.organizeImports": true,
     "java.format.settings.profile": "GoogleStyle",
-    "java.format.settings.url": "/home/haeram27/devwsl/src/git/shell-env/vscode/style-guide/eclipse-java-google-style.xml",
+    "java.format.settings.url": "${userHome}/.vscode-server/style-guide/eclipse-java-google-style.xml",
     "java.format.comments.enabled": false,
     "java.compile.nullAnalysis.mode": "automatic",
     // set JRE for run java in this project - path SHOULD be EXIST, if not remove item in this list

@@ -19,6 +19,11 @@
 # The install script is based off of the MIT-licensed script from glide,
 # the package manager for Go: https://github.com/Masterminds/glide.sh/blob/master/get
 
+if [[ $(ss -tlnp | grep -Po 9913 | wc -l) -ge 1 ]]; then
+  export http_proxy=${http_proxy:-"localhost:9913"}
+  export https_proxy=${https_proxy:-"localhost:9913"}
+fi
+
 : ${BINARY_NAME:="helm"}
 : ${USE_SUDO:="true"}
 : ${DEBUG:="false"}

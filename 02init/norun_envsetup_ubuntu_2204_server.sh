@@ -93,6 +93,10 @@ apt-get -y install batcat
 apt-get -y install p7zip-full
 
 
+# zip
+apt-get -y install unzip
+
+
 # exfat support lib
 apt-get -y install exfat-fuse exfat-utils
 

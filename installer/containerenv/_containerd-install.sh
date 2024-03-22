@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+if [[ $(ss -tlnp | grep -Po 9913 | wc -l) -ge 1 ]]; then
+  export http_proxy=${http_proxy:-"localhost:9913"}
+  export https_proxy=${https_proxy:-"localhost:9913"}
+fi
+
 CONTAINERD_VERSION=${CONTAINERD_VERSION:-$(curl -Ls "https://github.com/containerd/containerd/releases/latest" 2>&1 | grep -Po '(?<=''<title\>Release containerd '').+?(?='' · containerd/containerd · GitHub</title>'')')}
 
 

@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+if [[ $(ss -tlnp | grep -Po 9913 | wc -l) -ge 1 ]]; then
+  export http_proxy=${http_proxy:-"localhost:9913"}
+  export https_proxy=${https_proxy:-"localhost:9913"}
+fi
+
 ETCD_VER=v3.4.26
 
 # choose either URL
