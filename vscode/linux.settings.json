@@ -89,17 +89,17 @@
     "java.configuration.runtimes": [
         {
             "name": "JavaSE-17",
-            "path": "/opt/java/jdk-17.0.2",
+            "path": "/opt/jdk/jdk-17.0.2",
             "default": true
         },
         {
             "name": "JavaSE-20",
-            "path": "/opt/java/jdk-21.0.1"
+            "path": "/opt/jdk/jdk-21.0.1"
         }
     ],
 
     // MANDATORY) javahome path for "language-server(language-support for java by redhat)" extension
-    "java.jdt.ls.java.home": "/opt/java/jdk-17.0.2",
+    "java.jdt.ls.java.home": "/opt/jdk/jdk-17.0.2",
     "java.project.referencedLibraries": [
         "lib/**/*.jar"
     ],
@@ -113,7 +113,7 @@
     "maven.terminal.customEnv": [
         {
             "environmentVariable": "JAVA_HOME",
-            "value": "/opt/java/jdk-17.0.2"
+            "value": "/opt/jdk/jdk-17.0.2"
         }
     ],
 
