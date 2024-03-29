@@ -82,7 +82,7 @@
     },
     "java.saveActions.organizeImports": true,
     "java.format.settings.profile": "GoogleStyle",
-    "java.format.settings.url": "${userHome}/.vscode-server/style-guide/eclipse-java-google-style.xml",
+    "java.format.settings.url": "~/.vscode-server/style-guide/eclipse-java-google-style.xml",
     "java.format.comments.enabled": false,
     "java.compile.nullAnalysis.mode": "automatic",
     // set JRE for run java in this project - path SHOULD be EXIST, if not remove item in this list
@@ -102,7 +102,7 @@
 
     // :: MAVEN
     // MANDATORY) maven settings file - IMPORTANT: maven refer setting.xml file to find not-default repository urls
-    "java.configuration.maven.userSettings": "${HOME}/.m2/settings.xml",
+    "java.configuration.maven.userSettings": "~/.m2/settings.xml",
     "java.configuration.maven.globalSettings": "/opt/maven/apache-maven-3.5.0/conf/settings.xml",
     // OPTIONAL) "maven.executable.options": "-Dcheckstyle.skip -Dpmd.skip=true -Dcpd.skip=true -Dmaven.test.skip=true",
     // MANDATORY) javahome path for "maven for java" extension - maven use this jdk for build java projects
