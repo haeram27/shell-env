@@ -53,6 +53,7 @@ alias l='ls -l'
 alias la='ls -AF'
 alias ll='ls -AhlF'
 alias lz='ls -AlZ'
+alias lss='du -hd2 | sort -hr'
 
 
 ##############################################
