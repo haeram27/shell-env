@@ -92,7 +92,6 @@ alias grepr='grep -RinI $1 2>/dev/null'
 
 function hh() {
 sed -u \
--e "s/\([{}()\[\]]\)/\o033[1;93m\1\o033[0;m/gi" \
 -e "s/\(\b[0-9]\+\b\)/\o033[1;92m\1\o033[0;m/gi" \
 -e "s/\(\bexception\w*\b\)/\o033[1;31m\1\o033[0;m/gi" \
 -e "s/\(\bemerg\w*\b\)/\o033[1;31m\1\o033[0;m/gi" \
