@@ -104,20 +104,16 @@
     ],
     "profiles": 
     {
-        "list": 
-        [
-            {
-                "antialiasingMode": "cleartype",
-                "colorScheme": "80s Retrowave",
-                "experimental.retroTerminalEffect": true,
-                "opacity": 80,
-                "useAcrylic": true,
-				"font": 
-                {
-                    "face": "D2Coding"
-                }
+        "defaults": {
+            "antialiasingMode": "cleartype",
+            "colorScheme": "80s Retrowave",
+            "experimental.retroTerminalEffect": false,
+            "opacity": 80,
+            "useAcrylic": true,
+            "font": {
+                "face": "D2Coding"
             }
-        ]
+        }
     },
     "schemes": 
     [
