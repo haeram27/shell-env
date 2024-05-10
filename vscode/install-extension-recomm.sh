@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 
-if [[ -d /home/${USER}/.vscode/extensions ]]; then
-  cp ./extensions.recommed.linux.json  /home/${USER}/.vscode/extensions/extensions.json
+TARGET="/home/${USER}/.vscode/extensions"
+if [[ -d $TARGET ]]; then
+  cp $TARGET/extensions.json $TARGET/extensions.json.bak
+  cp ./extensions.recommed.linux.json $TARGET/extensions.json
 fi
 
-if [[ -d /home/${USER}/.vscode-server/extensions ]]; then
-  cp ./extensions.recommed.linux.json  /home/${USER}/.vscode-server/extensions/extensions.json
-fi
 
