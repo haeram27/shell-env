@@ -217,6 +217,30 @@ alias virqdhcp='virsh -c qemu:///system net-dhcp-leases default'
 
 
 #############################################
+# SVN
+#############################################
+svn-reset() {
+    ls .svn >/dev/null 2>&1
+    if [ $? -eq 0 ]; then
+        echo "### status before reset ----------------------------------------"
+        svn st
+        svn revert -R .
+        svn st | grep '^?' | awk '{print $2}' | xargs rm -rf
+        svn up
+        echo "### status after reset ----------------------------------------"
+        svn st
+    else
+        echo "warning: '$(pwd)' is not a working copy"
+
+    fi
+}
+
+svn-log-user() {
+    svn log -l 1000 --search $1
+}
+
+
+#############################################
 # AWS
 #############################################
 alias awsg='aws --profile=god'
