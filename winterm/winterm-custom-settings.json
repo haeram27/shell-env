@@ -1,40 +1,51 @@
 {
-    "actions": 
-    [
+    "$help": "https://aka.ms/terminal-documentation",
+    "$schema": "https://aka.ms/terminal-profiles-schema",
+    "actions": [
         {
-            "command": 
-            {
+            "command": {
                 "action": "copy",
                 "singleLine": false
             }
         },
         {
-            "command": 
-            {
-                "action": "splitPane",
-                "split": "right"
-            },
-            "keys": "ctrl+shift+e"
+            "command": "find",
+            "keys": "ctrl+shift+f"
         },
         {
-            "command": 
-            {
+            "command": "togglePaneZoom",
+            "keys": "ctrl+shift+z"
+        },
+        {
+            "command": {
                 "action": "resizePane",
                 "direction": "up"
             },
             "keys": "ctrl+shift+up"
         },
         {
-            "command": 
-            {
+            "command": {
                 "action": "resizePane",
                 "direction": "down"
             },
             "keys": "ctrl+shift+down"
         },
         {
-            "command": 
-            {
+            "command": {
+                "action": "resizePane",
+                "direction": "left"
+            },
+            "keys": "ctrl+shift+left"
+        },
+        {
+            "command": {
+                "action": "resizePane",
+                "direction": "right"
+            },
+            "keys": "ctrl+shift+right"
+        },
+        {
+            "command": {
                 "action": "splitPane",
                 "split": "auto",
                 "splitMode": "duplicate"
@@ -42,16 +53,18 @@
             "keys": "alt+shift+d"
         },
         {
-            "command": "find",
-            "keys": "ctrl+shift+f"
+            "command": {
+                "action": "splitPane",
+                "split": "right"
+            },
+            "keys": "ctrl+shift+e"
         },
         {
-            "command": 
-            {
-                "action": "resizePane",
-                "direction": "left"
+            "command": {
+                "action": "splitPane",
+                "split": "down"
             },
-            "keys": "ctrl+shift+left"
+            "keys": "ctrl+shift+o"
         },
         {
             "command": "unbound",
@@ -84,26 +97,16 @@
         {
             "command": "unbound",
             "keys": "ctrl+v"
-        },
-        {
-            "command": 
-            {
-                "action": "splitPane",
-                "split": "down"
-            },
-            "keys": "ctrl+shift+o"
-        },
-        {
-            "command": 
-            {
-                "action": "resizePane",
-                "direction": "right"
-            },
-            "keys": "ctrl+shift+right"
         }
     ],
-    "profiles": 
-    {
+    "copyFormatting": "none",
+    "copyOnSelect": false,
+    "newTabMenu": [
+        {
+            "type": "remainingProfiles"
+        }
+    ],
+    "profiles": {
         "defaults": {
             "antialiasingMode": "cleartype",
             "colorScheme": "80s Retrowave",
@@ -115,8 +118,7 @@
             }
         }
     },
-    "schemes": 
-    [
+    "schemes": [
         {
             "background": "#220036",
             "black": "#580051",
