@@ -80,6 +80,7 @@
         "editor.insertSpaces": true,
         "editor.detectIndentation": false
     },
+    "java.configuration.updateBuildConfiguration": "automatic",
     "java.saveActions.organizeImports": true,
     "java.format.settings.profile": "GoogleStyle",
     "java.format.settings.url": "~/.vscode-server/style-guide/eclipse-java-google-style.xml",
