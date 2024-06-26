@@ -267,6 +267,24 @@ function dtags() {
     result="$(curl --silent --get $listUri | jq -r '.results[].name' | sort)"
     echo $result
 }
+function dpull() {
+    local image
+    local tag
+
+    if [[ -z $1 ]]; then
+        echo 'error: no given image name'
+        return -1
+    else
+        image=$1
+    fi
+
+    if [[ -n $2 ]]; then
+        tag=':'$2
+    fi
+
+    docker pull $image$tag
+}
+
 
 ##############################################
 # DOCKER COMPOSE
