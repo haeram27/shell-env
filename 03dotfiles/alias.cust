@@ -239,6 +239,11 @@ svn-log-user() {
     svn log -l 1000 --search $1
 }
 
+svncl() {
+    svn st | cut -c 9- > /tmp/svncl
+    vi /tmp/svncl
+}
+
 
 #############################################
 # AWS

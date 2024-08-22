@@ -25,6 +25,7 @@
 	cp = cherry-pick
 	df = diff --color=always --word-diff=plain
 	dfh = diff HEAD --color=always --word-diff=plain
+	dfs = diff --staged --color=always --word-diff=plain
 	dt = difftool -y
 	lo = log -50 --graph --pretty=format:'%C(auto)%h%d (%ar : %an) %s'
 	lon = log --name-only
