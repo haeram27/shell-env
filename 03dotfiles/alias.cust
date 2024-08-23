@@ -82,10 +82,8 @@ alias grepp='grep -in $1 $2 2>/dev/null'
 # USAGE: $ grepr "alias grepr" .
 alias grepr='grep -RinI $1 2>/dev/null'
 
-# grepr: grep for recursive java files
-# USAGE: $ grepj SEARCH_WORD
-alias grepj='grep -rnI --include=\*.java --include=\*.sql'
-
+# grep in src dir
+alias grepsrc='grep -rnI --exclude-dir={\*.git,\*.svn}'
 
 ##############################################
 # HIGHLIGHT LINE
