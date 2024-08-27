@@ -82,8 +82,10 @@ alias grepp='grep -in $1 $2 2>/dev/null'
 # USAGE: $ grepr "alias grepr" .
 alias grepr='grep -RinI $1 2>/dev/null'
 
-# grep in src dir
-alias grepsrc='grep -rnI --exclude-dir={\*.git,\*.svn}'
+# search in src directory
+alias grepsrc='grep -rnI --exclude-dir={.git,.svn,target}'
+alias grepsrcjbe='grep -rnI --exclude-dir={.git,.svn,target} --include={\*.properties,\*.yaml,\*.yml,\*.java,\*.xml,\*.sql}'
+
 
 ##############################################
 # HIGHLIGHT LINE
