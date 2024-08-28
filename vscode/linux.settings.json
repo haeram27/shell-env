@@ -73,20 +73,20 @@
     "C_Cpp.default.compilerPath": "/usr/bin/gcc",
     "C_Cpp.default.cppStandard": "c++17",
     "C_Cpp.default.intelliSenseMode": "linux-gcc-x64",
-    "C_Cpp.errorSquiggles": "Enabled",
+    "C_Cpp.errorSquiggles": "enabled",
 
     "[java]": {
-        "editor.formatOnSave": true,
+        "editor.formatOnSave": false,
         "editor.insertSpaces": true,
         "editor.detectIndentation": false
     },
-    "java.configuration.updateBuildConfiguration": "automatic",
-    "java.saveActions.organizeImports": true,
+    "java.saveActions.organizeImports": false,
     "java.format.settings.profile": "GoogleStyle",
     "java.format.settings.url": "~/.vscode-server/style-guide/eclipse-java-google-style.xml",
     "java.format.comments.enabled": false,
     "java.compile.nullAnalysis.mode": "automatic",
     // set JRE for run java in this project - path SHOULD be EXIST, if not remove item in this list
+    "java.configuration.updateBuildConfiguration": "automatic",
     "java.configuration.runtimes": [
         {
             "name": "JavaSE-17",
