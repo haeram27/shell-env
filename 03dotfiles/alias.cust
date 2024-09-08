@@ -125,14 +125,20 @@ sed -u \
 }
 
 # USAGE:
-# $ tailfhl myfile
-function tailfhl() {
+# $ tailf myfile
+function tailf() {
 tail -f $1 | hh
 }
 
 # USAGE:
-# $ cathl myfile
-function cathl() {
+# $ tailF myfile
+function tailF() {
+tail -F $1 | hh
+}
+
+# USAGE:
+# $ cats myfile
+function cats() {
 cat $1 | hh
 }
 
