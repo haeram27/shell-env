@@ -39,10 +39,15 @@
 	pl = pull --recurse-submodules=yes --rebase=true --autostash
 	ps = push
 	psf = push -f
-	reb = rebase --autostash
-	rebi = rebase -i --autostash
+	reb = rebase
+	reba = rebase --autostash
+	rebc = rebase --continue
+	rebi = rebase -i
+	rebia = rebase -i --autostash
 	res = restore
 	rst = reset
+	rsts = reset --soft
+	rsth = reset --hard
 [core]
 	editor = vim
 
