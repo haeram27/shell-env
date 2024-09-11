@@ -246,9 +246,11 @@ svn-log-user() {
 }
 
 svncl() {
-    svn st | cut -c 9- > /tmp/svncl
+    svn st | grep '^A\|^D\|^M\|^R' | cut -c 9- > /tmp/svncl
     vi /tmp/svncl
 }
+
+alias svnci='svn ci --target /tmp/svncl'
 
 
 #############################################
