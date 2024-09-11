@@ -17,6 +17,9 @@ fi
 ##############################################
 # ETC
 ##############################################
+# vim
+alias vi='vim'
+
 # sudovi
 alias suvi='sudo vi'
 
@@ -130,10 +133,18 @@ function tailf() {
 tail -f $1 | hh
 }
 
+function tailfgrep() {
+tail -f $1 | hh | grep $2
+}
+
 # USAGE:
 # $ tailF myfile
 function tailF() {
 tail -F $1 | hh
+}
+
+function tailFgrep() {
+tail -F $1 | hh | grep $2
 }
 
 # USAGE:
@@ -141,6 +152,12 @@ tail -F $1 | hh
 function cats() {
 cat $1 | hh
 }
+
+##############################################
+# ps
+##############################################
+alias psgrep='ps -ef | grep'
+
 
 ##############################################
 # STRACE
@@ -245,12 +262,17 @@ svn-log-user() {
     svn log -l 1000 --search $1
 }
 
+# create changelist only using changed targets
 svncl() {
     svn st | grep '^A\|^D\|^M\|^R' | cut -c 9- > /tmp/svncl
     vi /tmp/svncl
 }
 
-alias svnci='svn ci --target /tmp/svncl'
+# svn commit using changelist
+alias svnci='svn ci --targets /tmp/svncl'
+
+# create rollback commit, $1 SHOULD be revision to be HEAD after merge
+alias svnrollbackmerge="svn merge -r HEAD:$1 ."
 
 
 #############################################
