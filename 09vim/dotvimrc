@@ -179,7 +179,7 @@ set number                      " Show line numbers
 set ruler
 "set list
 
-set autoindent                  " Enabile Autoindent
+set autoindent                  " Enable Autoindent
 set smartindent
 "set cindent
 "set copyindent
@@ -217,7 +217,7 @@ set history=500
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " check available colorscheme 
 " 1) :color[scheme] <Ctrl-D>
-" 2) /usr/share/vim/vim81/colors/
+" 2) /usr/share/vim/vim8x/colors/
 " 3) ~/.vim/color
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "syntax on          "set syntax as vim default over user settings
@@ -236,7 +236,7 @@ let g:rehash256 = 1
 let g:molokai_original = 1
 
 "color default
-colorscheme molokai
+color molokai
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " colorscheme :: END
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
