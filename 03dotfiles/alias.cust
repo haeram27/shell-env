@@ -299,6 +299,7 @@ alias drihost='docker run -it --rm --network=host'
 alias drma='docker ps -a --format "{{.ID}}"|xargs -rxi docker rm {}'
 alias dcreate='docker run -dit --name $1 -v $PWD:$PWD -w $PWD $2'
 alias dmake='docker exec -t $1 make -j16'
+alias wdps='watch -n1 docker ps -a --format \"table {{.ID}}\\t{{.Names}}\\t{{.Status}}\\t{{.Command}}\"'
 function dtags() {
     listUri="https://registry.hub.docker.com/v2/repositories/library/$1/tags?page_size=1024"
     result="$(curl --silent --get $listUri | jq -r '.results[].name' | sort)"
