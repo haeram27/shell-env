@@ -16,8 +16,8 @@
 	cf = config
 	cfl = config -l
 	cl = clone --recurse-submodules
-	cln = clean -dfxn
-	clnx = clean -dfx
+	cln = clean -ffdxn
+	clnx = clean -ffdx
 	cm = commit
 	cma = commit --amend
 	cmm = commit -m
