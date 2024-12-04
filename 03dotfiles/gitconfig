@@ -16,7 +16,7 @@
 	cf = config
 	cfl = config -l
 	cl = clone --recurse-submodules
-	cln = clean -ffdxn
+        cln = clean -ffdxn
 	clnx = clean -ffdx
 	cm = commit
 	cma = commit --amend
@@ -37,6 +37,7 @@
 	subu = submodule update -f
 	subui = submodule update -f --init --recursive
 	pl = pull --recurse-submodules=yes --rebase=true --autostash
+        purge=!git reset --hard && git clnx
 	ps = push
 	psf = push -f
 	reb = rebase
