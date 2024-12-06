@@ -9,15 +9,13 @@
 	tool = bc3
 [mergetool "bc3"]
 	trustExitCode = true
-[branch]
-	autosetuprebase = always
-[alias]
-	br = branch
+[branch] autosetuprebase = always [alias] br = branch
 	cf = config
 	cfl = config -l
 	cl = clone --recurse-submodules
-        cln = clean -ffdxn
+ 	cln = clean -ffdxn
 	clnx = clean -ffdx
+        clear = !git reset --hard && git clnx
 	cm = commit
 	cma = commit --amend
 	cmm = commit -m
