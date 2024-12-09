@@ -9,7 +9,10 @@
 	tool = bc3
 [mergetool "bc3"]
 	trustExitCode = true
-[branch] autosetuprebase = always [alias] br = branch
+[branch] 
+        autosetuprebase = always
+[alias] 
+        br = branch
 	cf = config
 	cfl = config -l
 	cl = clone --recurse-submodules
