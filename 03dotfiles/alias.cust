@@ -330,7 +330,7 @@ function dpull() {
 ##############################################
 # DOCKER COMPOSE
 ##############################################
-alias dc='docker-compose'
+alias dc='docker compose'
 
 #############################################
 # KUBECTL
