@@ -1,0 +1,110 @@
+#################################
+# zsh options
+#################################
+# use 'setopt' command without options to check currently enabled shell options
+# use 'unsetopt' command with options to disable given option
+
+# autopushd : use cd with directory stack so popd can be used to go back previous directory
+setopt autopushd
+setopt shwordsplit
+
+#################################
+# CUSTOM CONFIGURATIONS
+#################################
+[[ -f ~/.alias.cust ]] && . ~/.alias.cust
+[[ -f ~/.bindkey.cust ]] && . ~/.bindkey.cust
+[[ -f ~/.env.cust ]] && . ~/.env.cust
+
+[[ -f /usr/share/autojump/autojump.zsh ]] && . /usr/share/autojump/autojump.zsh
+[[ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]] && . ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+[[ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && . ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+
+#################################
+# HISTORY
+#################################
+# history file for zsh
+export HISTFILE=~/.zsh_history
+# history size in cache
+export HISTSIZE=2000
+# history size in file
+export SAVEHIST=2000
+
+
+#################################
+# PROMPT STYLE
+#################################
+# Find and set branch name var if in git repository.
+sw_prompt_shell_type()
+{
+    echo -n "%{%b%F{cyan}%}Z:%{%b%f%}"
+}
+
+sw_prompt_uid()
+{
+    echo -n "%{%b%F{green}%}%n@%M:%{%b%f%}"
+}
+
+sw_prompt_pwd()
+{
+    echo -n "%{%F{blue}%}%~ %{%f%}"
+}
+
+sw_prompt_git_branchA()
+{
+  branch=$(git symbolic-ref HEAD 2> /dev/null | awk 'BEGIN{FS="/"} {print $NF}')
+  if [[ $branch == "" ]];
+  then
+    :
+  else
+    echo -n "%{%F{red}%}($branch)%{%f%}"
+  fi
+}
+
+sw_prompt_git_branchB() {
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+
+# Status:
+# - was there an error
+# - am I root
+# - are there background jobs?
+sw_prompt_status() {
+  local -a symbols
+
+  [[ $RETVAL -ne 0 ]] && symbols+="%{%F{red}%}✘"
+  [[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}⚡"
+  [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}⚙"
+
+  echo -n "${symbols}%{%f%} %{%F{red}%}%% %{%f%}"
+}
+
+sw_prompt_newline() {
+    echo -n "
+"
+}
+
+sw_build_prompt() {
+    RETVAL=$?
+    sw_prompt_shell_type
+    sw_prompt_uid
+    sw_prompt_pwd
+    sw_prompt_git_branchA
+    sw_prompt_newline
+    sw_prompt_status
+}
+
+if [[ ! -f ~/.p10k.zsh ]]; then
+    # Enable substitution in the prompt.
+    setopt prompt_subst
+
+    # Config for prompt. PS1 synonym.
+    prompt='%{%f%b%k%}$(sw_build_prompt)'
+fi
+
+#################################
+# POWERLEVEL10K
+#################################
+if [[ -f ~/.p10k.zsh ]]; then
+    # POWERLEVEL9K_DISABLE_GITSTATUS=true
+fi

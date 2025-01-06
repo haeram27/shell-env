@@ -1,0 +1,286 @@
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim-plug :: BEGIN
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+call plug#begin('~/.vim/plugged')
+
+" Ctrlp
+Plug 'ctrlpvim/ctrlp.vim'
+
+" Fugitive.vim
+Plug 'tpope/vim-fugitive'
+
+" NERD tree
+Plug 'scrooloose/nerdtree'
+
+" Surround.vim
+Plug 'tpope/vim-surround'
+
+" Tagbar
+Plug 'majutsushi/tagbar'
+
+" Vim-airline
+Plug 'vim-airline/vim-airline'
+
+" Youcompleteme
+" Plug 'valloric/youcompleteme'
+
+" vim-go
+Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries'}
+
+call plug#end()
+
+
+" >>>> Configs for Plugin >>>>>>>>>>>>>>>>>>>>>>>>
+" >>>>>>>> Ctrlp Configs >>>>>>>>
+let g:ctrlp_show_hidden = 1
+" <<<<<<<< Ctrlp Configs <<<<<<<<
+
+" >>>>>>>> vim-airline Configs >>>>>>>>
+let g:airline_powerline_fonts = 1
+
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+
+" unicode symbols
+let g:airline_left_sep = '»'
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '«'
+let g:airline_right_sep = '◀'
+let g:airline_symbols.crypt = '🔒'
+let g:airline_symbols.linenr = '☰'
+let g:airline_symbols.linenr = '␊'
+let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.maxlinenr = ''
+let g:airline_symbols.maxlinenr = '㏑'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = '∥'
+let g:airline_symbols.spell = 'Ꞩ'
+let g:airline_symbols.notexists = 'Ɇ'
+let g:airline_symbols.whitespace = 'Ξ'
+
+" powerline symbols
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = '☰'
+let g:airline_symbols.maxlinenr = ''
+let g:airline_symbols.dirty='⚡'
+" <<<<<<<< vim-airline Configs <<<<<<<<
+" <<<< Configs for Plugin <<<<<<<<<<<<<<<<<<<<<<<<<<
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim-plug :: END
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Key Mapping :: BEGIN
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Custom Shortcuts
+let mapleader = ","
+"let mapleader = " "
+map <leader>n :set number<cr>
+map <leader>nn :set nonumber<cr>
+
+
+" <F1> terminator help online key
+" <F2> change window
+map <F2> <C-w><C-w>
+" <F3> NERDTree
+map <F3> :NERDTreeToggle<cr>
+" <F4> Tlist
+"map <F4> :Tlist<cr>
+map <F4> :TagbarToggle<cr>
+" <F5> [i  show definition
+map <F5> [i
+" <F6> gd  goto declaration
+map <F6> gd
+" <F7> previous buffer
+map <F7> :bp<cr>
+" <F8> next buffer
+map <F8> :bn<cr>
+" <F9> new tab
+map <F9> :tabnew<cr>
+" tabn
+map <S-Tab> gt<cr>
+
+" Copy&Paste Ctrl+c Ctrl+x Ctrl+v
+"vmap <C-c> "+yi
+"vmap <C-x> "+c
+"vmap <C-v> c<ESC>"+p
+"imap <C-v> <C-r><C-o>+
+
+"insert tab
+inoremap <S-Tab> <C-V><Tab>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Key Mapping :: END
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" macro:: BEGIN
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let @e='0i# j0'
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" macro:: END
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim options :: BEGIN
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+filetype off                    " Reset filetype detection first ...
+filetype plugin indent on       " ... and enable filetype detection
+
+set nocompatible                " Enables us Vim specific features
+
+"set visualbell
+set noerrorbells                " No beeps
+
+set encoding=utf-8              " Set default encoding to UTF-8
+set fileencodings=utf-8,cp949,default,latin1
+set termencoding=utf-8
+
+set ttyfast                     " Indicate fast terminal conn for faster redraw
+set ttymouse=xterm2             " Indicate terminal type for mouse codes
+set ttyscroll=3                 " Speedup scrolling
+set laststatus=2                " Show status line always
+set splitright                  " Vertical windows should be split to right
+set splitbelow                  " Horizontal windows should split to bottom
+set autowrite                   " Automatically save before :next, :make etc.
+set hidden                      " Buffer should still exist if window is closed
+set fileformats=unix,dos,mac    " Prefer Unix over Windows over OS 9 formats
+set completeopt=menu,menuone    " Show popup menu, even if there is one entry
+set pumheight=10                " Completion window max size
+set nocursorcolumn              " Do not highlight column (speeds up highlighting)
+set nocursorline                " Do not highlight cursor (speeds up highlighting)
+set lazyredraw                  " Wait to redraw
+
+set autoread                    " Automatically read changed files
+set noswapfile                  " Don't use swapfile
+set nobackup                    " Don't create annoying backup files
+
+set showcmd                     " Show me what I'm typing
+set number                      " Show line numbers
+set ruler
+"set list
+
+set autoindent                  " Enable Autoindent
+set smartindent
+"set cindent
+"set copyindent
+"set preserveindent
+
+set expandtab
+set nosmarttab
+
+"set tabstop=4
+set softtabstop=-1
+set shiftwidth=4
+
+set backspace=indent,eol,start  " Makes backspace key more powerful.
+
+set noshowmode                  " We show the mode with airline or lightline
+"set showmatch
+"set noshowmatch                 " Do not show matching brackets by flickering
+
+set hlsearch                    " Highlight found searches
+set wrapscan
+set incsearch                   " Shows the match while typing
+set ignorecase                  " Search case insensitive...
+set smartcase                   " ... but not it begins with upper case
+
+set history=500
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim options :: END
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" colorscheme :: START
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" check available colorscheme 
+" 1) :color[scheme] <Ctrl-D>
+" 2) /usr/share/vim/vim8x/colors/
+" 3) ~/.vim/color
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"syntax on          "set syntax as vim default over user settings
+syntax enable       "keep user's current color settings. :help syntax
+
+" Terminal options
+if &term =~ '256color'
+  " disable Background Color Erase (BCE) so that color schemes
+  " render properly when inside 256-color tmux and GNU screen.
+  " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
+  set t_ut=        " clearing uses the current background color
+endif
+set t_Co=256       " termcap-colors
+
+let g:rehash256 = 1
+let g:molokai_original = 1
+
+"color default
+color molokai
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" colorscheme :: END
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" dev:: BEGIN
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" >>>>>>>> ctags Configs >>>>>>>>
+set tags=./tags,../tags,../../tags,../../../tags,../../../../tags
+" <<<<<<<< ctags Configs <<<<<<<<
+
+" >>>>>>>> cscope Configs >>>>>>>>
+set csprg=/usr/bin/cscope
+set csto=0
+set cst
+set nocsverb
+
+if filereadable("./cscope.out")
+cs add cscope.out
+else
+cs add /usr/src/linux/cscope.out
+endif
+set csverb
+" <<<<<<<< cscope Configs <<<<<<<<
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" dev:: END
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" custom vimrc:: BEGIN
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"let $VIM = '@@HOME@@/.vim'
+"let $CUST = $VIM.'/custom.vimrc'
+let $VIMRC4VIMGO = '@@HOME@@/.vimrc.vimgo.cust'
+
+if filereadable($VIMRC4VIMGO)
+  source $VIMRC4VIMGO
+endif
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" dev:: END
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

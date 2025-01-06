@@ -1,0 +1,2 @@
+# http.fwd.proxy
+[[ -z $(ss -tulnp | fgrep :9912) ]] && ssh -fCN -L 9912:192.168.10.1:34253 testpub.nat.proxy -o ServerAliveCountMax=10 -o ServerAliveInterval=60 -o ExitOnForwardFailure=yes -o TCPKeepAlive=no

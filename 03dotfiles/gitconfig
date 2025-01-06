@@ -1,0 +1,78 @@
+[user]
+	name = haeram27
+	email = haeram27@gmail.com
+[diff]
+	tool = bc3
+[difftool "bc3"]
+	trustExitCode = true
+[merge]
+	tool = bc3
+[mergetool "bc3"]
+	trustExitCode = true
+[branch] 
+        autosetuprebase = always
+[alias] 
+        br = branch
+	cf = config
+	cfl = config -l
+	cl = clone --recurse-submodules
+ 	cln = clean -ffdxn
+	clnx = clean -ffdx
+        clear = !git restore :/ && git clean -ffdx
+	cm = commit
+	cma = commit --amend
+	cmm = commit -m
+	co = checkout
+	cp = cherry-pick
+	df = diff --color=always --word-diff=plain
+	dfh = diff HEAD --color=always --word-diff=plain
+	dfs = diff --staged --color=always --word-diff=plain
+	dt = difftool -y
+	lo = log -50 --graph --pretty=format:'%C(auto)%h%d (%ar : %an) %s'
+	lon = log --name-only
+	mt = mergetool -y
+	sh = stash
+	shl = stash list
+	st = status
+	subi = submodule init
+	subu = submodule update -f
+	subui = submodule update -f --init --recursive
+	pl = pull --recurse-submodules=yes --rebase=true --autostash
+        purge=!git reset --hard && git clnx
+	ps = push
+	psf = push -f
+	reb = rebase
+	reba = rebase --autostash
+	rebc = rebase --continue
+	rebi = rebase -i
+	rebia = rebase -i --autostash
+	res = restore
+	rst = reset
+	rsts = reset --soft
+	rsth = reset --hard
+[core]
+	editor = vim
+
+
+# using https instead ssh-git protocol
+# git config --global url."https://github.com/".insteadOf git@github.com:
+# git config --global url."https://".insteadOf git://
+
+# using ssh-git instead https protocol
+# git config --global url."git@github.com:".insteadOf https://github.com/
+# git config --global url."git://".insteadOf https://
+
+# global proxy settings
+# socks5 proxy
+#[http]
+#	proxy = socks5h://localhost:1080
+# domain specific proxy settings
+#[http "http://my-remote-domain.com"]
+#	proxy = socks5h://localhost:1080
+
+# http proxy
+#[http]
+#	proxy = http://1.2.3.4:3128
+# domain specific proxy settings
+#[http "http://my-remote-domain.com"]
+#	proxy = http://1.2.3.4:3128

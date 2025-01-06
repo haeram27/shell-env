@@ -1,0 +1,130 @@
+{
+    "[json]": {
+        "editor.formatOnSave": true
+    },
+    "[html]": {
+        "editor.formatOnSave": true
+    },
+    "[yaml]": {
+        "editor.formatOnSave": true
+    },
+    "debug.console.collapseIdenticalLines": false,
+    "debug.console.fontSize": 12,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": "never"
+    },
+    "editor.fontFamily": "'D2Coding'",
+    "editor.fontSize": 12,
+    "editor.mouseWheelZoom": true,
+    "editor.renderControlCharacters": true,
+    "editor.renderWhitespace": "none",
+    "editor.rulers": [
+        120,
+    ],
+    "editor.suggestSelection": "first",
+    "extensions.autoUpdate": false,
+    "files.eol": "\n",
+    "files.exclude": {
+        "**/epprestclient": true,
+        "**/*.d": true,
+        "**/*.o": true,
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true,
+    },
+    // OPTIONAL) "http.proxy":"http://user:pass@proxy.com:8080",
+    "http.proxyStrictSSL": false,
+    "telemetry.enableCrashReporter": false,
+    "telemetry.enableTelemetry": false,
+    "terminal.external.windowsExec": "C:\\WINDOWS\\System32\\wsl.exe",
+    "terminal.integrated.profiles.windows": {
+        "Ubuntu-22.04 (WSL)": {
+            "path": "C:\\WINDOWS\\System32\\wsl.exe",
+            "args": ["-d", "Ubuntu-22.04"]
+        }
+    },
+    "terminal.integrated.profiles.linux": {
+        "zsh (login)": {
+            "path": "zsh",
+            "args": ["-l"]
+        }
+    },
+    "terminal.integrated.fontSize": 12,
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "window.title": "${dirty}${rootName}${separator}${activeFolderMedium}${separator}${activeEditorShort}",
+    "window.zoomLevel": 0,
+    "workbench.editor.enablePreviewFromQuickOpen": false,
+    "workbench.iconTheme": "vscode-icons",
+    "workbench.panel.defaultLocation": "right",
+    "workbench.colorTheme": "Default Dark+",
+    "workbench.colorCustomizations": {
+        "editorRuler.foreground": "#ff4081",
+    },
+    "[cpp]": {
+        "editor.defaultFormatter": "ms-vscode.cpptools",
+        "editor.formatOnSave": true,
+        "editor.insertSpaces": true,
+        "editor.detectIndentation": false
+    },
+    "C_Cpp.clang_format_style": "{ BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 0}",
+    "C_Cpp.clang_format_fallbackStyle": "Google",
+    "C_Cpp.default.compilerPath": "/usr/bin/gcc",
+    "C_Cpp.default.cppStandard": "c++17",
+    "C_Cpp.default.intelliSenseMode": "linux-gcc-x64",
+    "C_Cpp.errorSquiggles": "enabled",
+
+    "[java]": {
+        "editor.defaultFormatter": "redhat.java",
+        "editor.formatOnSave": false,
+        "editor.insertSpaces": true,
+        "editor.detectIndentation": false
+    },
+    "java.saveActions.organizeImports": false,
+    "java.format.enabled": true,
+    "java.format.comments.enabled": false,
+    "java.format.settings.profile": "GoogleStyle",
+    "java.format.settings.url": "~/.vscode-server/style-guide/eclipse-java-google-style.xml",
+    "java.compile.nullAnalysis.mode": "automatic",
+    // set JRE for run java in this project - path SHOULD be EXIST, if not remove item in this list
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.configuration.runtimes": [
+        {
+            "name": "JavaSE-17",
+            "path": "/opt/jdk/jdk-17.0.2",
+            "default": true
+        }
+    ],
+
+    // MANDATORY) javahome path for "language-server(language-support for java by redhat)" extension
+    "java.jdt.ls.java.home": "/opt/jdk/jdk-17.0.2",
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar"
+    ],
+
+    // :: MAVEN
+    // MANDATORY) maven settings file - IMPORTANT: maven refer setting.xml file to find not-default repository urls
+    "java.configuration.maven.userSettings": "~/.m2/settings.xml",
+    "java.configuration.maven.globalSettings": "/opt/maven/apache-maven-3.5.0/conf/settings.xml",
+    // OPTIONAL) "maven.executable.options": "-Dcheckstyle.skip -Dpmd.skip=true -Dcpd.skip=true -Dmaven.test.skip=true",
+    // MANDATORY) javahome path for "maven for java" extension - maven use this jdk for build java projects
+    "maven.terminal.customEnv": [
+        {
+            "environmentVariable": "JAVA_HOME",
+            "value": "/opt/jdk/jdk-17.0.2"
+        }
+    ],
+
+    // :: GRADLE
+    "java.import.gradle.home":"/opt/gradle/gradle-8.6",
+
+    "java.import.gradle.wrapper.enabled": false,
+    "gradle.debug": true,
+    "gradle.javaDebug.cleanOutput": true,
+    "gradle.allowParallelRun": true,
+
+    // :: LANGUAGE SERVER 4 JAVA (REDHAT)
+    "redhat.telemetry.enabled": false
+}
+

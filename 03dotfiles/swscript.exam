@@ -1,0 +1,265 @@
+#!/usr/bin/env bash 
+
+##############
+# VARS
+##############
+IMODE="imod.test"
+VMODE_TIMEUTC="no"
+
+
+##############
+# VAR COMMON
+##############
+SCRIPT_DIR=$(dirname $(readlink -e "$0"))    # $(cd $(dirname "$0") && pwd -P)
+SCRIPT_FILE=$(basename $(test -L $0 && readlink $0 || echo $0))    # "${0##*/}"
+
+# echo color message:: (recommended) support all type shell
+# echo ${TPTRED}----------------------------------
+# echo ${TPTRED}warning${TPTNORM}: something wrong
+# echo ${TPTRED}----------------------------------
+TPTNORM=$(tput sgr0)
+TPTDBLACK=$(tput setaf 0 && tput bold)
+TPTDRED=$(tput setaf 1 && tput bold)
+TPTDGREEN=$(tput setaf 2 && tput bold)
+TPTDYELLOW=$(tput setaf 3 && tput bold)
+TPTDBLUE=$(tput setaf 4 && tput bold)
+TPTDPURPLE=$(tput setaf 5 && tput bold)
+TPTDCYAN=$(tput setaf 6 && tput bold)
+TPTDWHITE=$(tput setaf 7 && tput bold)
+TPTBLACK=$(tput setaf 8 && tput bold)
+TPTRED=$(tput setaf 9 && tput bold)
+TPTGREEN=$(tput setaf 10 && tput bold)
+TPTYELLOW=$(tput setaf 11 && tput bold)
+TPTBLUE=$(tput setaf 12 && tput bold)
+TPTPURPLE=$(tput setaf 13 && tput bold)
+TPTCYAN=$(tput setaf 14 && tput bold)
+TPTWHITE=$(tput setaf 15 && tput bold)
+
+# make random string
+# RAND_STR=$(uuidgen | tr -d '-')$(date -u +%Y%m%d%H%M%S%N)
+
+# ramdom string using urandom (len:32  maxlen: infinity)
+# RAND_STR=$(cat /dev/urandom | tr -dc '[:alnum:]' | fold -w 32 | head -n 1)
+
+# ramdom number using urandom (len:32  maxlen: infinity)
+# RAND_NUM=$(cat /dev/urandom | tr -dc '0-9' | fold -w 32 | head -n 1)
+
+
+NCORES=$(cat /proc/cpuinfo | grep cores | wc -l)
+
+
+##############
+# LOGS
+##############
+LOG_FILE=${LOG_FILE:-/dev/null}
+
+# syntax) echo_log "my messages"
+# syntax) var=$(echo; ls /); echo_log "$var"
+echo_log()
+{
+  echo -e "$(date --rfc-3339=ns) $1" | tee -a ${LOG_FILE}
+}
+
+echo_success()
+{
+  echo_log "${TPTGREEN}[SUCCESS]${TPTNORM} $1"
+}
+
+echo_failed()
+{
+  echo_log "${TPTRED}[FAILED]${TPTNORM} $1"
+}
+
+echo_fatal()
+{
+  echo_log "${TPTRED}[FATAL]${TPTNORM} $1"
+  exit 1
+}
+
+
+# root checking
+check_root_euid() {
+  if [[ ${EUID} -ne 0 ]]; then
+    echo_failed "${FUNCNAME}: Please run this script as root"
+    exit 1
+  fi
+}
+
+
+# short:: VAR=${VAR:-default}
+check_var_unset_or_null_default() {
+  if [[ !(-v TEST_VAR && -n ${TEST_VAR}) ]]; then
+    TEST_VAR=default
+    echo_log "TEST_VAR is set as \"${TEST_VAR}\" automatically."
+  fi
+}
+
+check_command_exit_code() {
+#1 &&, || check current $? 
+  true && echo success || echo failed 
+#2 check $? with test expression [[ ]]
+  true
+  [[ $? -eq 0 ]] && echo success || echo failed 
+#3 combine #2 as one line
+  [[ $(true &>/dev/null; echo $?) -eq 0 ]] && echo success || echo failed
+}
+
+print_args() {
+  local idx=1
+  local i
+  for i do
+    echo "arg[$idx] = $i"
+    ((idx++))
+  done
+}
+
+
+
+help() {
+  echo_log ${FUNCNAME} "$@"
+
+cat <<HELP
+$(basename $0) Usage:
+           -h        help.
+           -q        rest rquest.
+           -t        time.
+           -u        set utc time when using with -t.
+HELP
+}
+
+
+gettime() {
+  echo_log ${FUNCNAME} "$@"
+
+  ## override VMODE_TIMEUTC only in ion
+  #local VMODE_TIMEUTC="yes"
+  if [[ "${VMODE_TIMEUTC}" == "yes" ]]; then
+    echo 'UTC::'
+    while :; do date -u --rfc-3339=ns; sleep 0.1; done;
+  else
+    echo 'LOCAL::'
+    while :; do date --rfc-3339=ns; sleep 0.1; done;
+  fi
+}
+
+
+rest_request() {
+  echo_log ${FUNCNAME} "$@"
+
+  RESP_FILE=\/tmp\/$(uuidgen | tr -d '-')$(date -u +%Y%m%d%H%M%S%N)
+  REQ_TIMEOUT=2
+  if [[ -z $1 ]]; then
+    HTTP_URL='http://www.google.com'
+  else
+    HTTP_URL=$1
+  fi
+   
+  HTTP_CODE=$(curl -fksSL --connect-timeout ${REQ_TIMEOUT} -w "%{response_code}" -o ${RESP_FILE} ${HTTP_URL})
+  CURL_RET=$?
+  if [[ ${CURL_RET} -eq 0 ]]; then
+    if [[ "${HTTP_CODE}" == "200" ]]; then
+      ## do something with ${RESP_FILE}
+      echo ${RESP_FILE}; cat ${RESP_FILE};
+    else
+      echo ${TPTRED}warning${TPTNORM}: httpcode is ${TPTRED}${HTTP_CODE}${TPTNORM} >&2
+    fi
+  else
+    echo ${TPTRED}error${TPTNORM}: curl returns ${TPTRED}${CURL_RET}${TPTNORM} >&2
+  fi
+
+  [[ -f ${RESP_FILE} ]] && (rm -f ${RESP_FILE} &>/dev/null)
+}
+
+
+retry_cmd() {
+  local retry_count=1
+  local max_retry=${1:-10}
+  local sleep_interval=${2:-1}
+  local funct=${3:-false}
+
+  while :; do
+    if [[ ${retry_count} -gt ${max_retry} ]]; then
+      ## TODO: finally failed
+      echo_log "max retries exceeded."
+      return 1
+    fi
+
+    $(${funct})
+    if [[ $? -eq 0 ]]; then
+      ## TODO: success
+      echo_success ${FUNCNAME}
+      return
+    fi
+
+    ## TODO: failed nth try
+    echo "[${retry_count}] ${funct} result is failed"
+    ((retry_count++))
+    sleep ${sleep_interval}
+  done
+}
+
+
+tests() {
+  echo_log ${FUNCNAME} "$@"
+
+  read -p "Do you want print Hello World? Are you sure? (y/n) " -n 1;
+  echo ""
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    echo ${TPTRED}Hello World${TPTNORM}
+    echo ${TPTGREEN}Hello World${TPTNORM}
+    echo ${TPTYELLOW}Hello World${TPTNORM}
+    echo ${TPTBLUE}Hello World${TPTNORM}
+    echo ${TPTPURPLE}Hello World${TPTNORM}
+    echo ${TPTCYAN}Hello World${TPTNORM}
+    echo ${TPTWHITE}Hello World${TPTNORM}
+  else
+    echo $REPLY
+  fi
+}
+
+
+_is_sourced() {
+  # https://unix.stackexchange.com/a/215279
+  [ "${#FUNCNAME[@]}" -ge 2 ] \
+    && [ "${FUNCNAME[0]}" = '_is_sourced' ] \
+    && [ "${FUNCNAME[1]}" = 'source' ] && echo sourced
+}
+
+_main() {
+
+
+   ##############
+   # INIT
+   ##############
+   # IMODE(instruction) option is to seclect start function 
+   # VMODE(variable) option is to set flag variable of this script
+   while getopts "thuq\?" opt
+   do
+     case ${opt} in
+     h|\?) IMODE="imod.help" ;;
+     t) IMODE="imod.time" ;;
+     q) IMODE="imod.rest" ;;
+     u) echo "turn on UTC mode"
+         VMODE_TIMEUTC="yes" ;;
+     esac
+   done
+   
+   #echo "IMODE=${IMODE}"
+   case $IMODE in
+     "imod.help") help ;;
+     "imod.test") tests ;;
+     "imod.time") gettime ;;
+     "imod.rest") rest_request;;
+     *) exit 1 ;;
+   esac
+}
+
+if ! _is_sourced; then
+  # print args 
+  print_args "$@"
+
+  # pass positional param from $1 to $N
+  _main "$@"
+fi
+
+exit 0
