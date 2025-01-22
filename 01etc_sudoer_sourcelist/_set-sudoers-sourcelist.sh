@@ -31,7 +31,6 @@ fi
 # sudoers
 ###################
 if [[ ! -f /etc/sudoers.d/90-additional-users ]]; then
-    echo ${USER}' ALL=(ALL) NOPASSWD:ALL' | sudo tee /etc
-/sudoers.d/90-additional-users
+    echo $(logname)' ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/90-additional-users
     chmod 440 /etc/sudoers.d/90-additional-users
 fi
