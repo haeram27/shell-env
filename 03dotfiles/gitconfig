@@ -18,7 +18,7 @@
 	cl = clone --recurse-submodules
  	cln = clean -ffdxn
 	clnx = clean -ffdx
-        clear = !git restore :/ && git clean -ffdx
+        clear = !git restore :/ && git clnx && git submodule update
 	cm = commit
 	cma = commit --amend
 	cmm = commit -m
