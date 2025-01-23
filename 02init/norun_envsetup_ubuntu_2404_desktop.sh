@@ -25,8 +25,7 @@
 ################################################### 
 ## setup variable
 ################################################### 
-#myid=$(whoami)  ## this print 'root'
-#myid=$(logname)  ## this print ?
+#logname
 myid=$(id -un)
 
 
@@ -61,12 +60,20 @@ apt-get -y install zsh
 apt-get -y install autojump
 
 
+# tree
+apt-get -y install tree
+
+
 # htop
 apt-get -y install htop
 
 
 # net-tools (ifconfig)
 apt-get -y install net-tools
+
+
+# xclip
+apt-get -y install xclip
 
 
 # rename
@@ -128,7 +135,7 @@ apt-get -y install build-essential
 # apt-get -y install cmake
 
 # json command line processor
-apt-get -y install jq
+apt-get -y install jq yq
 
 # ??
 # apt-get -y install moreutils
@@ -170,6 +177,11 @@ apt-get -y install git-svn
 apt-get -y install rabbitvcs-cli rabbitvcs-core rabbitvcs-gedit rabbitvcs-nautilus
 
 
+# wireshark
+# add-apt-repository -y ppa:wireshark-dev/stable
+# apt-get -y install wireshark
+
+
 # sqlite browser
 # add-apt-repository -y ppa:linuxgndu/sqlitebrowser
 # apt-get -y install sqlitebrowser
@@ -180,6 +192,59 @@ apt-get -y install rabbitvcs-cli rabbitvcs-core rabbitvcs-gedit rabbitvcs-nautil
 # apt-get -y install qemu-kvm libvirt-bin ubuntu-vm-builder bridge-utils  virt-manager
 # adduser $(id -un) kvm
 # virsh list --all
+
+
+
+################################################### 
+## Install Desktop Apps
+###################################################
+
+# terminator
+apt-get -y install terminator
+
+
+
+################################################### 
+## Install Media Apps
+###################################################
+
+# wallch - wallpaper changer
+# apt-get -y install wallch
+
+# shutter - screenshot tool  http://shutter-project.org/downloads/
+# add-apt-repository -y ppa:shutter/ppa
+# apt-get -y install shutter
+
+
+# mpv for SMPlayer
+# add-apt-repository -y ppa:mc3man/mpv-tests
+# apt-get -y install mpv
+
+
+# SMPlayer
+# add-apt-repository -y ppa:rvm/smplayer
+# apt-get -y install smplayer smtube smplayer-themes smplayer-skins
+
+
+# gimp
+# apt-get -y install gimp
+
+##TBD
+#atom
+#Android Studio
+
+
+
+################################################### 
+## Install Auth App
+###################################################
+
+# howdy - face recognition authentication for linux
+# github.com/boltgolt/howdy
+# sudo add-apt-repository ppa:bolt/howdy
+# sudo apt update
+# sudo apt install howdy
+
 
 
 
@@ -197,4 +262,5 @@ apt-get autoremove
 # make large size of inotify of filesystem :: for Android studio file search
 cp /etc/sysctl.d/99-sysctl.conf  /etc/sysctl.d/99-sysctl.conf.bak
 sh -c 'printf "fs.inotify.max_user_watches = 524288\n" > /etc/sysctl.d/99-sysctl.conf'
+
 
