@@ -200,11 +200,6 @@ apt-get -y install rabbitvcs-cli rabbitvcs-core rabbitvcs-gedit rabbitvcs-nautil
 apt-get -y install terminator
 
 
-# Notepadqq
-# add-apt-repository -y ppa:notepadqq-team/notepadqq
-apt-get -y install notepadqq
-
-
 
 ################################################### 
 ## Install Media Apps
