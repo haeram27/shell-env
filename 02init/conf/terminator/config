@@ -1,6 +1,8 @@
 [global_config]
   suppress_multiple_term_dialog = True
   putty_paste_style = True
+  putty_paste_style_source_clipboard = True
+  clear_select_on_copy = True
 [keybindings]
 [profiles]
   [[default]]
@@ -12,6 +14,7 @@
     show_titlebar = False
     scrollback_lines = 5000
     use_system_font = False
+    copy_on_selection = True
 [layouts]
   [[default]]
     [[[window0]]]
