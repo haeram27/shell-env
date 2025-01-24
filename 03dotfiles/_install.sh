@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
  install() {
+    sudo apt-get install -y zsh
+
     cp -fb ./bashrc.cust ~/.bashrc.cust
     cp -fb ./p10k.zsh ~/.p10k.zsh
     cp -fb ./zshrc ~/.zshrc

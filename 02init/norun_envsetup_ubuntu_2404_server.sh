@@ -190,7 +190,7 @@ apt-get -y install rabbitvcs-cli rabbitvcs-core rabbitvcs-gedit rabbitvcs-nautil
 ## remove unused depencies
 ###################################################
 
-apt-get autoremove
+apt-get -y autoremove
 
 
 ################################################### 

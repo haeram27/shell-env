@@ -198,6 +198,9 @@ apt-get -y install rabbitvcs-cli rabbitvcs-core rabbitvcs-gedit rabbitvcs-nautil
 ################################################### 
 ## Install Desktop Apps
 ###################################################
+#
+apt-get -y install ubuntu-restricted-extras
+
 # wev: wayland event viewer
 apt-get -y install wev
 
@@ -211,8 +214,6 @@ apt-get -y install input-remapper
 systemctl stop ibus-daemon
 systemctl disable ibus-daemon
 systemctl mask ibus-daemon
-apt purge ibus
-mv /usr/bin/ibus-daemon /usr/bin/ibus-daemon.bak
 ## install nimf
 wget -qO- https://pkg.hamonikr.org/add-hamonikr.apt | sudo -E bash -
 apt-get install -y nimf nimf-libhangul
@@ -274,7 +275,7 @@ apt-get -y install lutris
 ## remove unused depencies
 ###################################################
 
-apt-get autoremove
+apt-get -y autoremove
 
 
 ################################################### 
