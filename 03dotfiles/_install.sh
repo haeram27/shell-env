@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-function install() {
+ install() {
     cp -fb ./bashrc.cust ~/.bashrc.cust
     cp -fb ./p10k.zsh ~/.p10k.zsh
     cp -fb ./zshrc ~/.zshrc
@@ -10,12 +10,13 @@ function install() {
     cp -fb ./env.cust ~/.env.cust
     cp -fb ./gitconfig ~/.gitconfig
     cp -fb ./tmux.conf ~/.tmux.conf
-    cp -fr ./config ~/.config
+    [[ ! -d ~/.config ]] && mkdir ~/.config
+    cp -fr ./config/* ~/.config
     
     echo >> ~/.bashrc
     echo '[[ -f ~/.bashrc.cust ]] && . ~/.bashrc.cust' >> ~/.bashrc
     
-    tar xvfz ./dotzsh.tgz
+    tar xfz ./dotzsh.tgz
     mkdir ~/.zsh; mv ./dotzsh/* ~/.zsh/
     rm -rf ./dotzsh
 
@@ -23,9 +24,10 @@ function install() {
     mkdir -p ~/.cache/gitstatus; tar xvf ./gitstatusd-1.5.4-linux-x86_64.tar.gz -C ~/.cache/gitstatus >/dev/null
 
     # file mode
-    chown -R $(logname): ~/.[^.]*.cust ~/.gitconfig ~/.p10k.zsh ~/.zshrc ~/.config
-    chmod -R 644 ~/.[^.]*.cust ~/.gitconfig ~/.p10k.zsh ~/.zshrc ~/.config 
-    chmod 700 ~/.zsh
+    chown -R $(id -un): ~/.*.cust ~/.*.conf ~/.gitconfig ~/.p10k.zsh ~/.zshrc ~/.config
+    chmod -R 644 ~/.*.cust ~/.gitconfig ~/.p10k.zsh ~/.zshrc
+    chmod 700 ~/.zsh ~/.config
+    rm -f ~/.*~
 
     chsh -s $(which zsh)
 }

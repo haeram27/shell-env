@@ -21,9 +21,9 @@ if [[ $(lsb_release -i -s) = "Ubuntu" ]]; then
 
     if [[ $(ss -tlnp | grep -Po 9913 | wc -l) -ge 1 ]]; then
     cat <<- EOF > /etc/apt/apt.conf.d/proxy.conf 
-    Acquire::http::Proxy "http://localhost:9913";
-    Acquire::https::Proxy "http://localhost:9913";
-    EOF
+Acquire::http::Proxy "http://localhost:9913";
+Acquire::https::Proxy "http://localhost:9913";
+EOF
     fi
 fi
 
@@ -32,7 +32,7 @@ fi
 # sudoers
 ###################
 if [[ ! -f /etc/sudoers.d/90-additional-users ]]; then
-    echo $(logname)' ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/90-additional-users
+    echo $(id -un)' ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/90-additional-users
     chmod 440 /etc/sudoers.d/90-additional-users
     cat /etc/sudoers.d/90-additional-users
 fi
