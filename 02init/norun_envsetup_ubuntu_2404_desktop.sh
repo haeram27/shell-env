@@ -198,9 +198,31 @@ apt-get -y install rabbitvcs-cli rabbitvcs-core rabbitvcs-gedit rabbitvcs-nautil
 ################################################### 
 ## Install Desktop Apps
 ###################################################
+# wev: wayland event viewer
+apt-get -y install wev
+
+
+# input-remapper: keyboard key mapping between value and symbol(D to key
+apt-get -y install input-remapper
+
+
+# nimf IME(input method engine) for hangul : require reboot and $ im-confg -n nimf
+## disable ibus-daemon
+systemctl stop ibus-daemon
+systemctl disable ibus-daemon
+systemctl mask ibus-daemon
+apt purge ibus
+mv /usr/bin/ibus-daemon /usr/bin/ibus-daemon.bak
+## install nimf
+wget -qO- https://pkg.hamonikr.org/add-hamonikr.apt | sudo -E bash -
+apt-get install -y nimf nimf-libhangul
+
 
 # terminator
 apt-get -y install terminator
+
+# lutris: wine
+apt-get -y install lutris
 
 
 

@@ -9,22 +9,22 @@ fi
 ###################
 # source list
 ###################
-if cat /etc/os-release | grep 'NAME="Ubuntu"'; then
-	[[ ! -f /etc/apt/sources.list.origin ]] && cp /etc/apt/sources.list /etc/apt/sources.list.origin
+if [[ $(lsb_release -i -s) = "Ubuntu" ]]; then
+    [[ ! -f /etc/apt/sources.list.origin ]] && cp /etc/apt/sources.list /etc/apt/sources.list.origin
 
-	if ! grep -q kakao /etc/apt/sources.list; then
-	cp /etc/apt/sources.list /etc/apt/sources.list.$(date '+%Y%m%d%k%M%S').bak
-	sed -i -s -r -e 's/\/kr.archive.ubuntu.com/\/mirror.kakao.com/g' /etc/apt/sources.list
-	sed -i -s -r -e 's/\/archive.ubuntu.com/\/mirror.kakao.com/g' /etc/apt/sources.list
-	sed -i -s -r -e 's/\/security.ubuntu.com/\/mirror.kakao.com/g' /etc/apt/sources.list
-	fi
+    if ! grep -q kakao /etc/apt/sources.list; then
+    cp /etc/apt/sources.list /etc/apt/sources.list.$(date '+%Y%m%d%k%M%S').bak
+    sed -i -s -r -e 's/\/kr.archive.ubuntu.com/\/mirror.kakao.com/g' /etc/apt/sources.list
+    sed -i -s -r -e 's/\/archive.ubuntu.com/\/mirror.kakao.com/g' /etc/apt/sources.list
+    sed -i -s -r -e 's/\/security.ubuntu.com/\/mirror.kakao.com/g' /etc/apt/sources.list
+    fi
 
-	if [[ $(ss -tlnp | grep -Po 9913 | wc -l) -ge 1 ]]; then
-	cat <<- EOF > /etc/apt/apt.conf.d/proxy.conf 
-	Acquire::http::Proxy "http://localhost:9913";
-	Acquire::https::Proxy "http://localhost:9913";
-	EOF
-	fi
+    if [[ $(ss -tlnp | grep -Po 9913 | wc -l) -ge 1 ]]; then
+    cat <<- EOF > /etc/apt/apt.conf.d/proxy.conf 
+    Acquire::http::Proxy "http://localhost:9913";
+    Acquire::https::Proxy "http://localhost:9913";
+    EOF
+    fi
 fi
 
 
