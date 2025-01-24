@@ -26,9 +26,8 @@
     mkdir -p ~/.cache/gitstatus; tar xvf ./gitstatusd-1.5.4-linux-x86_64.tar.gz -C ~/.cache/gitstatus >/dev/null
 
     # file mode
-    chown -R $(id -un): ~/.*.cust ~/.*.conf ~/.gitconfig ~/.p10k.zsh ~/.zshrc ~/.config
+    chown -R $(id -un): ~/.*.cust ~/.*.conf ~/.gitconfig ~/.p10k.zsh ~/.zshrc
     chmod -R 644 ~/.*.cust ~/.gitconfig ~/.p10k.zsh ~/.zshrc
-    chmod 700 ~/.zsh ~/.config
     rm -f ~/.*~
 
     chsh -s $(which zsh)

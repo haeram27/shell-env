@@ -198,8 +198,6 @@ apt-get -y install rabbitvcs-cli rabbitvcs-core rabbitvcs-gedit rabbitvcs-nautil
 ################################################### 
 ## Install Desktop Apps
 ###################################################
-#
-apt-get -y install ubuntu-restricted-extras
 
 # wev: wayland event viewer
 apt-get -y install wev
@@ -209,21 +207,22 @@ apt-get -y install wev
 apt-get -y install input-remapper
 
 
-# nimf IME(input method engine) for hangul : require reboot and $ im-confg -n nimf
-## disable ibus-daemon
-systemctl stop ibus-daemon
-systemctl disable ibus-daemon
-systemctl mask ibus-daemon
-## install nimf
-wget -qO- https://pkg.hamonikr.org/add-hamonikr.apt | sudo -E bash -
-apt-get install -y nimf nimf-libhangul
-
-
 # terminator
 apt-get -y install terminator
 
+
 # lutris: wine
 apt-get -y install lutris
+
+
+# bcompare
+wget https://www.scootersoftware.com/files/bcompare-5.0.5.30614_amd64.deb
+apt update
+apt install ./bcompare-5.0.5.30614_amd64.deb
+rm -f ./bcompare-5.0.5.30614_amd64.deb
+
+# additional extra contents(codecs, fonts, etc)
+apt-get -y install ubuntu-restricted-extras
 
 
 

@@ -10,21 +10,22 @@ fi
 # source list
 ###################
 if [[ $(lsb_release -i -s) = "Ubuntu" ]]; then
-    [[ ! -f /etc/apt/sources.list.bak ]] && cp /etc/apt/sources.list /etc/apt/sources.list.bak
-
-    if ! grep -q kakao /etc/apt/sources.list; then
-    [[ -f /etc/apt/sources.list.d/ubuntu.sources.origin ]] || cp /etc/apt/sources.list.d/ubuntu.sources /etc/apt/sources.list.d/ubuntu.sources.origin
-    sed -i -s -r -e 's/\/kr.archive.ubuntu.com/\/mirror.kakao.com/g' /etc/apt/sources.list.d/ubuntu.sources
-    sed -i -s -r -e 's/\/archive.ubuntu.com/\/mirror.kakao.com/g' /etc/apt/sources.list.d/ubuntu.sources
-    sed -i -s -r -e 's/\/security.ubuntu.com/\/mirror.kakao.com/g' /etc/apt/sources.list.d/ubuntu.sources
-    fi
-
     if [[ $(ss -tlnp | grep -Po 9913 | wc -l) -ge 1 ]]; then
     cat <<- EOF > /etc/apt/apt.conf.d/proxy.conf 
 Acquire::http::Proxy "http://localhost:9913";
 Acquire::https::Proxy "http://localhost:9913";
 EOF
     fi
+
+    [[ ! -f /etc/apt/sources.list.bak ]] && cp /etc/apt/sources.list /etc/apt/sources.list.bak
+
+    if ! grep -q kakao /etc/apt/sources.list; then
+        [[ -f /etc/apt/sources.list.d/ubuntu.sources.bak ]] || cp /etc/apt/sources.list.d/ubuntu.sources /etc/apt/sources.list.d/ubuntu.sources.bak
+        sed -i -s -r -e 's/\/kr.archive.ubuntu.com/\/mirror.kakao.com/g' /etc/apt/sources.list.d/ubuntu.sources
+        sed -i -s -r -e 's/\/archive.ubuntu.com/\/mirror.kakao.com/g' /etc/apt/sources.list.d/ubuntu.sources
+        sed -i -s -r -e 's/\/security.ubuntu.com/\/mirror.kakao.com/g' /etc/apt/sources.list.d/ubuntu.sources
+    fi
+    apt-get install git input-remapper wev tree
 fi
 
 

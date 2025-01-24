@@ -52,11 +52,16 @@ alias his='history'
 ##############################################
 # LS
 ##############################################
-alias l='ls -l'
-alias la='ls -AF'
-alias ll='ls -AhlF'
+alias l='ls -lZ'
+alias la='ls -AFZ'
+alias ll='ls -AhlFZ'
 alias lz='ls -AlZ'
 alias lss='du -hd2 | sort -hr'
+
+abspath() {
+    # $1 : relative filenam
+    echo "$(cd "$(dirname "$1")" && pwd)/$(basename "$1")"
+}
 
 
 ##############################################
