@@ -36,8 +36,7 @@
     },
     // OPTIONAL) "http.proxy":"http://user:pass@proxy.com:8080",
     "http.proxyStrictSSL": false,
-    "telemetry.enableCrashReporter": false,
-    "telemetry.enableTelemetry": false,
+    "telemetry.telemetryLevel": "off",
     "terminal.external.windowsExec": "C:\\WINDOWS\\System32\\wsl.exe",
     "terminal.integrated.profiles.windows": {
         "Ubuntu-22.04 (WSL)": {
@@ -85,7 +84,7 @@
     "java.format.enabled": true,
     "java.format.comments.enabled": false,
     "java.format.settings.profile": "GoogleStyle",
-    "java.format.settings.url": "~/.vscode-server/style-guide/eclipse-java-google-style.xml",
+    "java.format.settings.url": "~/.config/Code/User/style-guide/eclipse-java-google-style.xml",
     "java.compile.nullAnalysis.mode": "automatic",
     // set JRE for run java in this project - path SHOULD be EXIST, if not remove item in this list
     "java.configuration.updateBuildConfiguration": "automatic",
