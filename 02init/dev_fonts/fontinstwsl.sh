@@ -1,7 +1,7 @@
 #!/bin/bash
 
 tar xvf acinema.txz
-tar xvf d2coding.txz
+tar xvf d2coding132.txz
 tar xvf meslo.txz
 tar xvf windows.txz
 

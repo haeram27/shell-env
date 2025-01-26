@@ -98,6 +98,24 @@ alias grepsrcjbe='grep -rnI --exclude-dir={.git,.svn,target} --include={\*.prope
 ##############################################
 # HIGHLIGHT LINE
 ##############################################
+chmodall() {
+    find . -type f \( -name "*.txt" -o -name "*.tgz" -o -name "*.tar.gz" -o -name "*.txz" \) -exec chmod 644 {} \;
+    find . -type f -name "*.sh" -exec chmod 755 {} \;
+    find . -type d -exec chmod 775 {} \;
+}
+
+chmodsh() {
+    find . -type f -name "*.sh" -exec chmod 755 {} \;
+}
+
+chmoddir() {
+    find . -type d -exec chmod 775 {} \;
+}
+
+
+##############################################
+# HIGHLIGHT LINE
+##############################################
 # USAGE:
 # $ tail -F /var/log/syslog | hh
 # $ cat /var/log/syslog | hh
