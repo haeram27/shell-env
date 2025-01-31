@@ -43,6 +43,27 @@ if ! type bat &>/dev/null; then
     alias bat='batcat'
 fi
 
+
+#obsidian
+# export OBSIDIAN_VAULT_PATH="/path/to/obsidian/vault/git/local/repo"
+obsidian-endofday() {
+    if [ -n "${OBSIDIAN_VAULT_PATH}" ]; then
+        echo "OBSIDIAN_VALUT_PATH=${OBSIDIAN_VAULT_PATH}"
+        pushd ${OBSIDIAN_VAULT_PATH} &>/dev/null
+        if git st &>/dev/null ; then
+            git add .
+            git cmm "$(date -u --rfc-3339=ns)"
+            git ps
+        else
+            echo "OBSIDIAN_VALUT_PATH is NOT git repository"
+        fi
+        popd &>/dev/null
+    else
+        echo "OBSIDIAN_VALUT_PATH is empty"
+    fi
+}
+
+
 ##############################################
 # HISTORY
 ##############################################
