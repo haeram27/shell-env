@@ -21,8 +21,7 @@
         clear = !git restore :/ && git clnx && git submodule update
 	cm = commit
 	cma = commit --amend
-	cmm = commit -m
-	cmmnow = !git commit -m "$(date -u --rfc-3339=ns)"
+	cmm = commit --allow-empty-message -m
 	co = checkout
 	cp = cherry-pick
 	df = diff --color=always --word-diff=plain
