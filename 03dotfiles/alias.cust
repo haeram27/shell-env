@@ -46,7 +46,7 @@ fi
 
 #obsidian
 # export OBSIDIAN_VAULT_PATH="/path/to/obsidian/vault/git/local/repo"
-obsidian-endofday() {
+obsidian-push() {
     if [ -n "${OBSIDIAN_VAULT_PATH}" ]; then
         echo "OBSIDIAN_VALUT_PATH=${OBSIDIAN_VAULT_PATH}"
         pushd ${OBSIDIAN_VAULT_PATH} &>/dev/null
