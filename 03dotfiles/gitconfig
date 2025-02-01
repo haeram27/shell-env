@@ -22,6 +22,7 @@
 	cm = commit
 	cma = commit --amend
 	cmm = commit -m
+	cmmnow = !git commit -m "$(date -u --rfc-3339=ns)"
 	co = checkout
 	cp = cherry-pick
 	df = diff --color=always --word-diff=plain
