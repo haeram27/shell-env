@@ -20,19 +20,36 @@
     "editor.renderControlCharacters": true,
     "editor.renderWhitespace": "none",
     "editor.rulers": [
-        120,
+        120
     ],
     "editor.suggestSelection": "first",
     "extensions.autoUpdate": false,
     "files.eol": "\n",
     "files.exclude": {
-        "**/epprestclient": true,
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "**/.classpath": true,
+        "**/.factorypath": true,
+        "**/.project": true,
+        "**/.obsidian": true,
+        "**/.settings": true,
+        "**/target": true,
         "**/*.d": true,
         "**/*.o": true,
-        "**/.classpath": true,
-        "**/.project": true,
-        "**/.settings": true,
-        "**/.factorypath": true,
+        "**/*.tar": true,
+        "**/*.tgz": true,
+        "**/*.png": true,
+        "**/*.jpeg": true
+    },
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/bower_components": true,
+        "**/*.code-search": true,
+        "**/*.lst": true
     },
     // OPTIONAL) "http.proxy":"http://user:pass@proxy.com:8080",
     "http.proxyStrictSSL": false,
@@ -41,13 +58,18 @@
     "terminal.integrated.profiles.windows": {
         "Ubuntu-22.04 (WSL)": {
             "path": "C:\\WINDOWS\\System32\\wsl.exe",
-            "args": ["-d", "Ubuntu-22.04"]
+            "args": [
+                "-d",
+                "Ubuntu-22.04"
+            ]
         }
     },
     "terminal.integrated.profiles.linux": {
         "zsh (login)": {
             "path": "zsh",
-            "args": ["-l"]
+            "args": [
+                "-l"
+            ]
         }
     },
     "terminal.integrated.fontSize": 12,
@@ -73,7 +95,6 @@
     "C_Cpp.default.cppStandard": "c++17",
     "C_Cpp.default.intelliSenseMode": "linux-gcc-x64",
     "C_Cpp.errorSquiggles": "enabled",
-
     "[java]": {
         "editor.defaultFormatter": "redhat.java",
         "editor.formatOnSave": false,
@@ -95,13 +116,11 @@
             "default": true
         }
     ],
-
     // MANDATORY) javahome path for "language-server(language-support for java by redhat)" extension
     "java.jdt.ls.java.home": "/opt/jdk/jdk-17.0.2",
     "java.project.referencedLibraries": [
         "lib/**/*.jar"
     ],
-
     // :: MAVEN
     // MANDATORY) maven settings file - IMPORTANT: maven refer setting.xml file to find not-default repository urls
     "java.configuration.maven.userSettings": "~/.m2/settings.xml",
@@ -114,16 +133,12 @@
             "value": "/opt/jdk/jdk-17.0.2"
         }
     ],
-
     // :: GRADLE
-    "java.import.gradle.home":"/opt/gradle/gradle-8.6",
-
+    "java.import.gradle.home": "/opt/gradle/gradle-8.6",
     "java.import.gradle.wrapper.enabled": false,
     "gradle.debug": true,
     "gradle.javaDebug.cleanOutput": true,
     "gradle.allowParallelRun": true,
-
     // :: LANGUAGE SERVER 4 JAVA (REDHAT)
     "redhat.telemetry.enabled": false
 }
-
