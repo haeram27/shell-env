@@ -45,7 +45,22 @@ fi
 
 
 #obsidian
-# export OBSIDIAN_VAULT_PATH="/path/to/obsidian/vault/git/local/repo"
+# env.cust:: export OBSIDIAN_VAULT_PATH="/path/to/obsidian/vault/git/local/repo"
+obsidian-pull() {
+    if [ -n "${OBSIDIAN_VAULT_PATH}" ]; then
+        echo "OBSIDIAN_VALUT_PATH=${OBSIDIAN_VAULT_PATH}"
+        pushd ${OBSIDIAN_VAULT_PATH} &>/dev/null
+        if git st &>/dev/null ; then
+            git pull
+        else
+            echo "OBSIDIAN_VALUT_PATH is NOT git repository"
+        fi
+        popd &>/dev/null
+    else
+        echo "OBSIDIAN_VALUT_PATH is empty"
+    fi
+}
+
 obsidian-push() {
     if [ -n "${OBSIDIAN_VAULT_PATH}" ]; then
         echo "OBSIDIAN_VALUT_PATH=${OBSIDIAN_VAULT_PATH}"
@@ -62,7 +77,6 @@ obsidian-push() {
         echo "OBSIDIAN_VALUT_PATH is empty"
     fi
 }
-
 
 ##############################################
 # HISTORY
