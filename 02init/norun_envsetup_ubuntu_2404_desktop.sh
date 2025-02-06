@@ -88,8 +88,12 @@ apt-get -y install curl
 apt-get -y install dos2unix
 
 
-# batcat
-apt-get -y install batcat
+# batcat - improved cat
+apt-get -y install bat
+
+
+# ripgrep - improved grep
+apt-get -y ripgrep
 
 
 # synergy
