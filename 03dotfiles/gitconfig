@@ -22,6 +22,7 @@
 	cm = commit
 	cma = commit --amend
 	cmm = commit --allow-empty-message -m
+	cmmd = !git commit -m \"$(date --rfc-3339=seconds)\"
 	co = checkout
 	cp = cherry-pick
 	df = diff --color=always --word-diff=plain
