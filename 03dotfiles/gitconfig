@@ -35,9 +35,9 @@
 	sh = stash
 	shl = stash list
 	st = status
-	subi = submodule init
-	subu = submodule update -f
-	subui = submodule update -f --init --recursive
+	sub = submodule
+	subu = !git submodule sync && git submodule update --remote --recursive
+	subui = git submodule update --init --remote --recursive
 	pl = pull --recurse-submodules=yes --rebase=true --autostash
         purge=!git reset --hard && git clnx
 	ps = push
