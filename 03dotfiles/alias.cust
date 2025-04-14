@@ -388,7 +388,10 @@ function dpull() {
 ##############################################
 # DOCKER COMPOSE
 ##############################################
-alias dc='docker-compose'
+alias dc='docker compose'
+alias wdcps='watch -n1 docker compose ps -a --format \"table {{.ID}}\\t{{.Names}}\\t{{.Status}}\\t{{.Command}}\"'
+alias wdcpsp='watch -n1 docker compose ps -a --format \"table {{.ID}}\\t{{.Image}}\\t{{.Status}}\\t{{.Ports}}\"'
+
 
 #############################################
 # KUBECTL
