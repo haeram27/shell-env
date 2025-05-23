@@ -182,7 +182,7 @@ sed -u \
 # $ cat myfile | hhh make
 function hhh() {
 sed -u \
--e "s/\($1\)/\o033[1;31m\1\o033[0;m/gi" 
+-e "s/\($1\)/\o033[1;6;30;103m\1\o033[0;m/gi"
 }
 
 # USAGE:
