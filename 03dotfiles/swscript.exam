@@ -1,6 +1,26 @@
 #!/usr/bin/env bash 
 
 ##############
+# DEBUGGING
+##############
+# set shell debugging options
+# set -euvxo pipefail
+
+# store last executed command
+prev_cmd="none"
+current_cmd="none"
+trap 'prev_cmd=$current_cmd; current_cmd=$BASH_COMMAND' DEBUG
+
+# print last executed command just before terminating script
+destructor() {
+    echo "### Print last executed commands"
+    echo "prev_cmd: ${prev_cmd}"
+    echo "current_cmd: ${current_cmd}"
+}
+trap destructor EXIT
+
+
+##############
 # VARS
 ##############
 IMODE="imod.test"
