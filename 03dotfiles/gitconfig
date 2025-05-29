@@ -29,7 +29,7 @@
 	dfh = diff HEAD --color=always --word-diff=plain
 	dfs = diff --staged --color=always --word-diff=plain
 	dt = difftool -y
-	lo = log -50 --graph --pretty=format:'%C(auto)%h%d (%ar : %an) %s'
+	lo = "!sh -c 'clear; git log -20 --graph --pretty=format:\" %C(auto)%h%d (%ar : %an) %s\"'"
 	lon = log --name-only
 	mt = mergetool -y
 	sh = stash
