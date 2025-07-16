@@ -232,6 +232,10 @@ alias sstrace='strace -s 65535 -f -tt -o strace.$(date +%Y%m%d-%H%M%S).dump'
 alias curld='curl -fksvL -o /dev/null --connect-timeout 2 -w "%{response_code}"'
 alias curlp='curl -fksSL --connect-timeout 2 -x socks5://localhost:$1 $2'
 
+curlstats() {
+    curl -fksSL -o /dev/null --connect-timeout 2 -w "%{json}" $@ | jq .
+}
+
 
 ##############################################
 # WATCH SW
