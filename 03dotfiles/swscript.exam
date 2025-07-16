@@ -1,4 +1,4 @@
-#!/usr/bin/env bash 
+#!/usr/bin/env bash
 
 ##############
 # DEBUGGING
@@ -19,41 +19,17 @@ destructor() {
 }
 trap destructor EXIT
 
-
 ##############
 # VARS
 ##############
 IMODE="imod.test"
 VMODE_TIMEUTC="no"
 
-
 ##############
 # VAR COMMON
 ##############
-SCRIPT_DIR=$(dirname $(readlink -e "$0"))    # $(cd $(dirname "$0") && pwd -P)
-SCRIPT_FILE=$(basename $(test -L $0 && readlink $0 || echo $0))    # "${0##*/}"
-
-# echo color message:: (recommended) support all type shell
-# echo ${TPTRED}----------------------------------
-# echo ${TPTRED}warning${TPTNORM}: something wrong
-# echo ${TPTRED}----------------------------------
-TPTNORM=$(tput sgr0)
-TPTDBLACK=$(tput setaf 0 && tput bold)
-TPTDRED=$(tput setaf 1 && tput bold)
-TPTDGREEN=$(tput setaf 2 && tput bold)
-TPTDYELLOW=$(tput setaf 3 && tput bold)
-TPTDBLUE=$(tput setaf 4 && tput bold)
-TPTDPURPLE=$(tput setaf 5 && tput bold)
-TPTDCYAN=$(tput setaf 6 && tput bold)
-TPTDWHITE=$(tput setaf 7 && tput bold)
-TPTBLACK=$(tput setaf 8 && tput bold)
-TPTRED=$(tput setaf 9 && tput bold)
-TPTGREEN=$(tput setaf 10 && tput bold)
-TPTYELLOW=$(tput setaf 11 && tput bold)
-TPTBLUE=$(tput setaf 12 && tput bold)
-TPTPURPLE=$(tput setaf 13 && tput bold)
-TPTCYAN=$(tput setaf 14 && tput bold)
-TPTWHITE=$(tput setaf 15 && tput bold)
+SCRIPT_DIR=$(dirname $(readlink -e "$0"))                       # $(cd $(dirname "$0") && pwd -P)
+SCRIPT_FILE=$(basename $(test -L $0 && readlink $0 || echo $0)) # "${0##*/}"
 
 # make random string
 # RAND_STR=$(uuidgen | tr -d '-')$(date -u +%Y%m%d%H%M%S%N)
@@ -64,222 +40,380 @@ TPTWHITE=$(tput setaf 15 && tput bold)
 # ramdom number using urandom (len:32  maxlen: infinity)
 # RAND_NUM=$(cat /dev/urandom | tr -dc '0-9' | fold -w 32 | head -n 1)
 
-
 NCORES=$(cat /proc/cpuinfo | grep cores | wc -l)
-
 
 ##############
 # LOGS
 ##############
-LOG_FILE=${LOG_FILE:-/dev/null}
+# syntax) echo_log "my messages"
+: ${LOG_FILE:=/dev/null}
+R='\033[0;31m' # RED
+G='\033[0;32m' # GREEN
+B='\033[0;34m'
+N='\033[0m' # NORMAL (NO COLOR)
+
+# if stdout is tty or pseudo-tty then return 0 (true)
+isatty() {
+    if [[ -t 1 ]]; then
+        return 0 # true
+    else
+        return 1 # false
+    fi
+}
 
 # syntax) echo_log "my messages"
 # syntax) var=$(echo; ls /); echo_log "$var"
-echo_log()
-{
-  echo -e "$(date --rfc-3339=ns) $1" | tee -a ${LOG_FILE}
+echo_log() {
+    echo -e "$(date --rfc-3339=seconds) $1" | tee -a ${LOG_FILE}
 }
 
-echo_success()
-{
-  echo_log "${TPTGREEN}[SUCCESS]${TPTNORM} $1"
+echo_success() {
+    if is_tty; then
+        echo_log "${G}[SUCCESS]${N} $1"
+    else
+        echo_log "[SUCCESS] $1"
+    fi
 }
 
-echo_failed()
-{
-  echo_log "${TPTRED}[FAILED]${TPTNORM} $1"
+echo_failed() {
+    if is_tty; then
+        echo_log "${R}[FAILED]${N} $1"
+    else
+        echo_log "[FAILED] $1"
+    fi
 }
 
-echo_fatal()
-{
-  echo_log "${TPTRED}[FATAL]${TPTNORM} $1"
-  exit 1
+echo_error() {
+    if is_tty; then
+        echo_log "${R}[ERROR]${N} $1"
+    else
+        echo_log "[ERROR] $1"
+    fi
 }
 
+echo_fatal() {
+    if is_tty; then
+        echo_log "${R}[FATAL]${N} $1"
+    else
+        echo_log "[FATAL] $1"
+    fi
+    exit 255
+}
 
+##############
+# COMMON
+##############
 # root checking
 check_root_euid() {
-  if [[ ${EUID} -ne 0 ]]; then
-    echo_failed "${FUNCNAME}: Please run this script as root"
-    exit 1
-  fi
+    if [[ ${EUID} -ne 0 ]]; then
+        echo_failed "${FUNCNAME}: Please run this script as root"
+        exit 1
+    fi
 }
 
+# make space size 1 and leave printable character
+sanitize_space() {
+    echo "$1" |
+        tr -d '\r\n' |
+        tr -cd '[:print:]' |
+        xargs
+}
 
 # short:: VAR=${VAR:-default}
 check_var_unset_or_null_default() {
-  if [[ !(-v TEST_VAR && -n ${TEST_VAR}) ]]; then
-    TEST_VAR=default
-    echo_log "TEST_VAR is set as \"${TEST_VAR}\" automatically."
-  fi
+    if [[ !(-v TEST_VAR && -n ${TEST_VAR}) ]]; then
+        TEST_VAR=default
+        echo_log "TEST_VAR is set as \"${TEST_VAR}\" automatically."
+    fi
 }
 
 check_command_exit_code() {
-#1 &&, || check current $? 
-  true && echo success || echo failed 
-#2 check $? with test expression [[ ]]
-  true
-  [[ $? -eq 0 ]] && echo success || echo failed 
-#3 combine #2 as one line
-  [[ $(true &>/dev/null; echo $?) -eq 0 ]] && echo success || echo failed
+    #1 &&, || check current $?
+    true && echo success || echo failed
+    #2 check $? with test expression [[ ]]
+    :
+    [[ $? -eq 0 ]] && echo success || echo failed
+    #3 combine #2 as one line
+    [[ $(
+        ls &>/dev/null
+        echo $?
+    ) -eq 0 ]] && echo success || echo failed
 }
 
 print_args() {
-  local idx=1
-  local i
-  for i do
-    echo "arg[$idx] = $i"
-    ((idx++))
-  done
+    local idx=1
+    local i
+
+    for i; do
+        echo "arg[$idx] = $i"
+        ((idx++))
+    done
 }
 
-
-
 help() {
-  echo_log ${FUNCNAME} "$@"
+    echo_log ${FUNCNAME} "$@"
 
-cat <<HELP
+    cat <<HELP
 $(basename $0) Usage:
-           -h        help.
-           -q        rest rquest.
-           -t        time.
-           -u        set utc time when using with -t.
+    -h        help.
+    -q        rest rquest.
+    -t        time.
+    -u        set utc time when using with -t.
 HELP
 }
 
+readp_tests() {
+    echo_log ${FUNCNAME} "$@"
+
+    read -p "Do you want print Hello World? Are you sure? (y/n) " -n 1
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        echo_log "Hello World"
+        echo_success "Hello World"
+        echo_failed "Hello World"
+    else
+        echo $REPLY
+    fi
+}
+
+readr_tests() {
+    echo_log ${FUNCNAME} "$@"
+
+    IFS='|' read -r var1 var2 var3 <<<"1|2|3"
+    echo ${var1}
+    echo ${var2}
+    echo ${var3}
+}
 
 gettime() {
-  echo_log ${FUNCNAME} "$@"
+    echo_log ${FUNCNAME} "$@"
 
-  ## override VMODE_TIMEUTC only in ion
-  #local VMODE_TIMEUTC="yes"
-  if [[ "${VMODE_TIMEUTC}" == "yes" ]]; then
-    echo 'UTC::'
-    while :; do date -u --rfc-3339=ns; sleep 0.1; done;
-  else
-    echo 'LOCAL::'
-    while :; do date --rfc-3339=ns; sleep 0.1; done;
-  fi
-}
-
-
-rest_request() {
-  echo_log ${FUNCNAME} "$@"
-
-  RESP_FILE=\/tmp\/$(uuidgen | tr -d '-')$(date -u +%Y%m%d%H%M%S%N)
-  REQ_TIMEOUT=2
-  if [[ -z $1 ]]; then
-    HTTP_URL='http://www.google.com'
-  else
-    HTTP_URL=$1
-  fi
-   
-  HTTP_CODE=$(curl -fksSL --connect-timeout ${REQ_TIMEOUT} -w "%{response_code}" -o ${RESP_FILE} ${HTTP_URL})
-  CURL_RET=$?
-  if [[ ${CURL_RET} -eq 0 ]]; then
-    if [[ "${HTTP_CODE}" == "200" ]]; then
-      ## do something with ${RESP_FILE}
-      echo ${RESP_FILE}; cat ${RESP_FILE};
+    ## override VMODE_TIMEUTC only in ion
+    #local VMODE_TIMEUTC="yes"
+    if [[ "${VMODE_TIMEUTC}" == "yes" ]]; then
+        echo 'UTC::'
+        while :; do
+            date -u --rfc-3339=ns
+            sleep 0.1
+        done
     else
-      echo ${TPTRED}warning${TPTNORM}: httpcode is ${TPTRED}${HTTP_CODE}${TPTNORM} >&2
+        echo 'LOCAL::'
+        while :; do
+            date --rfc-3339=ns
+            sleep 0.1
+        done
     fi
-  else
-    echo ${TPTRED}error${TPTNORM}: curl returns ${TPTRED}${CURL_RET}${TPTNORM} >&2
-  fi
-
-  [[ -f ${RESP_FILE} ]] && (rm -f ${RESP_FILE} &>/dev/null)
 }
 
+is_exist_cmd() {
+    echo_log ${FUNCNAME} "$@"
+
+    local cmd=${1:-ls}
+
+    if command -v ${cmd} &>/dev/null; then
+        return 0
+    else
+        return 255
+    fi
+}
 
 retry_cmd() {
-  local retry_count=1
-  local max_retry=${1:-10}
-  local sleep_interval=${2:-1}
-  local funct=${3:-false}
+    echo_log ${FUNCNAME} "$@"
 
-  while :; do
-    if [[ ${retry_count} -gt ${max_retry} ]]; then
-      ## TODO: finally failed
-      echo_log "max retries exceeded."
-      return 1
+    local max_retry=${1:-10}
+    local sleep_interval=${2:-1}
+    local funct=${3:-false}
+
+    local retry_count=1
+
+    while :; do
+        if [[ ${retry_count} -gt ${max_retry} ]]; then
+            ## TODO: finally failed
+            echo_log "max retries exceeded."
+            return 1
+        fi
+
+        $(${funct})
+        if [[ $? -eq 0 ]]; then
+            ## TODO: success
+            echo_success ${FUNCNAME}
+            return
+        fi
+
+        ## TODO: failed nth try
+        echo "[${retry_count}] ${funct} result is failed"
+        ((retry_count++))
+        sleep ${sleep_interval}
+    done
+}
+
+##############
+# parse config file
+##############
+parse-config-test() {
+    # config with key and value
+    local version_config="version=1.0.23"
+    local test_version=$(echo $version_config | grep -oP '(?<=^version=)[.\d]+(?=\s*$)')
+    echo $test_version
+
+    local word_config="word=helloworld"
+    local test_word=$(echo $word_config | grep -oP '(?<=^word=)\w+(?=\s*$)')
+    echo $test_word
+
+    # config with delimiter
+    local db_config="rdb-oltp|127.0.0.1|9999"
+    local test_port=$(echo $db_config | awk -F '|' '{print $3}')
+    echo $test_port
+}
+
+##############
+# generate automatically git message with time
+##############
+git-repo-push() {
+    if [ -n "${GIT_REPO_PATH}" ]; then
+        echo "GIT_REPO_PATH=${GIT_REPO_PATH}"
+        pushd ${GIT_REPO_PATH} &>/dev/null
+        if git st &>/dev/null; then
+            git add .
+            git commit --allow-empty-message -m "$(date -u --rfc-3339=ns)"
+            git push
+        else
+            echo "GIT_REPO_PATH is NOT git repository"
+        fi
+        popd &>/dev/null
+    else
+        echo "GIT_REPO_PATH is empty"
+    fi
+}
+
+git-repo-pull() {
+    if [ -n "${GIT_REPO_PATH}" ]; then
+        echo "GIT_REPO_PATH=${GIT_REPO_PATH}"
+        pushd ${GIT_REPO_PATH} &>/dev/null
+        if git status &>/dev/null; then
+            git pull
+        else
+            echo "GIT_REPO_PATH is NOT git repository"
+        fi
+        popd &>/dev/null
+    else
+        echo "GIT_REPO_PATH is empty"
+    fi
+}
+
+##############
+# http handling
+##############
+http_conn_test() {
+    echo_log ${FUNCNAME} "$@"
+
+    local http_url=${1:-'https://www.example.com'}
+    local req_timeout=2
+
+    echo_log "try to connect ${http_url}"
+    local http_code=$(curl -fksSLo /dev/null --connect-timeout ${req_timeout} -w "%{response_code}" ${http_url})
+    local curl_ret=$?
+    if [[ ${curl_ret} -eq 0 ]]; then
+        echo_log "resp: ${http_code}"
+        echo
+        if [[ "${http_code}" == "200" || "${http_code}" == "202" ]]; then
+            return 0
+        else
+            return 201 #curl ok, http nok
+        fi
+    else
+        echo_error "curl connection failed to ${http_url}"
+        return 202 # curl nok
+    fi
+    return 255
+}
+
+http_rest_request() {
+    echo_log ${FUNCNAME} "$@"
+
+    local http_url=${1:-'http://www.google.com'}
+    local resp_file=\/tmp\/$(uuidgen | tr -d '-')$(date -u +%Y%m%d%H%M%S%N)
+    local req_timeout=2
+
+    local http_code=$(curl -fksSLo ${resp_file} --connect-timeout ${req_timeout} -w "%{response_code}" ${http_url})
+    local curl_ret=$?
+    if [[ ${curl_ret} -eq 0 ]]; then
+        if [[ "${http_code}" == "200" || "${http_code}" == "202" ]]; then
+            ## do something with ${RESP_FILE}
+            echo ${resp_file}
+            cat ${resp_file}
+        else
+            echo WARNING: httpcode is ${http_code} >&2
+        fi
+    else
+        echo ERROR: curl returns ${curl_ret} >&2
     fi
 
-    $(${funct})
-    if [[ $? -eq 0 ]]; then
-      ## TODO: success
-      echo_success ${FUNCNAME}
-      return
+    [[ -f ${resp_file} ]] && (rm -f ${resp_file} &>/dev/null)
+}
+
+##############
+# file handling
+##############
+# remove lines has pattern in files
+FILE_PATH="test.txt"
+PATTERN="^fs\.inotify\.max_user_watches"
+remove_pattern_line_in_files() {
+    if grep -qE "${PATTERN}" "${FILE_PATH}"; then
+        sed -i "/${PATTERN}/d" "${FILE_PATH}"
     fi
-
-    ## TODO: failed nth try
-    echo "[${retry_count}] ${funct} result is failed"
-    ((retry_count++))
-    sleep ${sleep_interval}
-  done
 }
 
-
-tests() {
-  echo_log ${FUNCNAME} "$@"
-
-  read -p "Do you want print Hello World? Are you sure? (y/n) " -n 1;
-  echo ""
-  if [[ $REPLY =~ ^[Yy]$ ]]; then
-    echo ${TPTRED}Hello World${TPTNORM}
-    echo ${TPTGREEN}Hello World${TPTNORM}
-    echo ${TPTYELLOW}Hello World${TPTNORM}
-    echo ${TPTBLUE}Hello World${TPTNORM}
-    echo ${TPTPURPLE}Hello World${TPTNORM}
-    echo ${TPTCYAN}Hello World${TPTNORM}
-    echo ${TPTWHITE}Hello World${TPTNORM}
-  else
-    echo $REPLY
-  fi
-}
-
-
-_is_sourced() {
-  # https://unix.stackexchange.com/a/215279
-  [ "${#FUNCNAME[@]}" -ge 2 ] \
-    && [ "${FUNCNAME[0]}" = '_is_sourced' ] \
-    && [ "${FUNCNAME[1]}" = 'source' ] && echo sourced
-}
-
+##############
+# main
+##############
+# Usage: ./script.sh -h
 _main() {
+    # IMODE(instruction) option is to seclect start function
+    # VMODE(variable) option is to set flag variable of this script
+    while getopts "thuq\?" opt; do
+        case ${opt} in
+        h | \?) IMODE="imod.help" ;;
+        t) IMODE="imod.time" ;;
+        q) IMODE="imod.rest" ;;
+        u)
+            echo "turn on UTC mode"
+            VMODE_TIMEUTC="yes"
+            ;;
+        esac
+    done
 
+    #echo "IMODE=${IMODE}"
+    case $IMODE in
+    "imod.help") help ;;
+    "imod.test") tests ;;
+    "imod.time") gettime ;;
+    "imod.rest") rest_request ;;
+    *) exit 1 ;;
+    esac
+}
 
-   ##############
-   # INIT
-   ##############
-   # IMODE(instruction) option is to seclect start function 
-   # VMODE(variable) option is to set flag variable of this script
-   while getopts "thuq\?" opt
-   do
-     case ${opt} in
-     h|\?) IMODE="imod.help" ;;
-     t) IMODE="imod.time" ;;
-     q) IMODE="imod.rest" ;;
-     u) echo "turn on UTC mode"
-         VMODE_TIMEUTC="yes" ;;
-     esac
-   done
-   
-   #echo "IMODE=${IMODE}"
-   case $IMODE in
-     "imod.help") help ;;
-     "imod.test") tests ;;
-     "imod.time") gettime ;;
-     "imod.rest") rest_request;;
-     *) exit 1 ;;
-   esac
+# check this script is excuted with source or not
+_is_sourced() {
+    # https://unix.stackexchange.com/a/215279
+    local executed_script=$(basename ${0#-})
+    local this_script=$(basename ${BASH_SOURCE})
+    if [[ ${executed_script} = ${this_script} ]]; then
+        # echo "this script is executed independently"
+        return 1
+    fi
+
+    # echo "this script is sourced by executed_script"
+    return 0
 }
 
 if ! _is_sourced; then
-  # print args 
-  print_args "$@"
+    # print args
+    print_args "$@"
 
-  # pass positional param from $1 to $N
-  _main "$@"
+    # pass positional param from $1 to $N
+    _main "$@"
 fi
 
 exit 0
+

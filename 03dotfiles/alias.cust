@@ -236,6 +236,28 @@ curlstats() {
     curl -fksSL -o /dev/null --connect-timeout 2 -w "%{json}" $@ | jq .
 }
 
+http_conn_test() {
+    local http_url=${1:-'https://www.example.com'}
+    local req_timeout=2
+
+    echo "try to connect ${http_url}"
+    local http_code=$(curl -fksSLo /dev/null --connect-timeout ${req_timeout} -w "%{response_code}" ${http_url})
+    local curl_ret=$?
+    if [[ ${curl_ret} -eq 0 ]]; then
+        echo "resp: ${http_code}"
+        echo
+        if [[ "${http_code}" == "200" || "${http_code}" == "202" ]]; then
+            return 0
+        else
+            return 201 #curl ok, http nok
+        fi
+    else
+        echo "Error: curl connection failed to ${http_url}"
+        return 202 # curl nok
+    fi
+    return 255
+}
+
 
 ##############################################
 # WATCH SW
