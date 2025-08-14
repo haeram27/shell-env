@@ -11,7 +11,9 @@ if (( $EUID != 0 )); then
 fi
 
 if [[ -z "$NORUNSH" ]];then
-    echo 'please run with NORUNSH=norun_envsetup_XXX.sh'; exit -1;
+    echo 'Usage:';
+    echo '    sudo -E NORUNSH=norun_envsetup_XXX.sh ./_sudorun_install.sh';
+    exit -1;
 else
     echo 'NORUNSH = ' $NORUNSH
 fi
