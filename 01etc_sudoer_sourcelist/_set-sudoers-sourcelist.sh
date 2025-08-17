@@ -32,7 +32,7 @@ EOF
         sed -i -s -r -e 's/\/archive.ubuntu.com/\/mirror.kakao.com/g' /etc/apt/sources.list.d/ubuntu.sources
         sed -i -s -r -e 's/\/security.ubuntu.com/\/mirror.kakao.com/g' /etc/apt/sources.list.d/ubuntu.sources
     fi
-    apt-get install -y git input-remapper wev tree
+    apt-get update && apt-get install -y git input-remapper wev tree
 fi
 
 

@@ -108,3 +108,12 @@ fi
 if [[ -f ~/.p10k.zsh ]]; then
     # POWERLEVEL9K_DISABLE_GITSTATUS=true
 fi
+
+#################################
+# SET WINTEMR TITLE
+#################################
+setwintermtitle(){
+local WINTEMR_TITLE=$1
+echo -ne '\033]0;'"${WINTEMR_TITLE:-$(lsb_release -ds)}"'\a'
+}
+#[[ $- = *i* ]] && setwintermtitle 'wsl'
