@@ -163,6 +163,7 @@ sed -u \
 -e "s/\(\balert\w*\b\)/\o033[1;31m\1\o033[0;m/gi" \
 -e "s/\(\bcritical\w*\b\)/\o033[1;31m\1\o033[0;m/gi" \
 -e "s/\(\berror\w*\b\)/\o033[1;31m\1\o033[0;m/gi" \
+-e "s/\(\bcause\w*\b\)/\o033[1;31m\1\o033[0;m/gi" \
 -e "s/\(\bwarn\w*\)/\o033[1;33m\1\o033[0;m/gi" \
 -e "s/\(\bnotice\w*\b\)/\o033[1;33m\1\o033[0;m/gi" \
 -e "s/\(\binfo\w*\b\)/\o033[1;33m\1\o033[0;m/gi" \
