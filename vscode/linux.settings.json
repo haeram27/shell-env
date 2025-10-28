@@ -38,8 +38,33 @@
         "**/.project": true,
         "**/.settings": true,
         "**/target": true,
-        "**/*.d": true,
-        "**/*.o": true,
+        "**/*.png": true,
+        "**/*.jpg": true,
+        "**/*.jpeg": true,
+        "**/*.gif": true,
+        "**/*.ico": true,
+        "**/*.webp": true,
+        "**/*.mp3": true,
+        "**/*.mp4": true,
+        "**/*.avi": true,
+        "**/*.mov": true,
+        "**/*.wmv": true,
+        "**/*.flac": true,
+        "**/*.wav": true,
+        "**/*.pdf": true,
+        "**/*.epub": true,
+        "**/*.doc": true,
+        "**/*.docx": true,
+        "**/*.xls": true,
+        "**/*.xlsx": true,
+        "**/*.ppt": true,
+        "**/*.pptx": true,
+        "**/*.zip": true,
+        "**/*.gz": true,
+        "**/*.bz2": true,
+        "**/*.7z": true,
+        "**/*.xz": true,
+        "**/*.rar": true,
         "**/*.tar": true,
         "**/*.tar.bz": true,
         "**/*.tar.bz2": true,
@@ -48,9 +73,17 @@
         "**/*.tgz": true,
         "**/*.tar.xz": true,
         "**/*.txz": true,
-        "**/*.zip": true,
-        "**/*.png": true,
-        "**/*.jpeg": true
+        "**/*.iso": true,
+        "**/*.dmg": true,
+        "**/*.exe": true,
+        "**/*.dll": true,
+        "**/*.bin": true,
+        "**/*.so": true,
+        "**/*.o": true,
+        "**/*.a": true,
+        "**/*.d": true,
+        "**/*.jar": true,
+        "**/*.class": true,
         // "**/*.c": true,
         // "**/*.cc": true,
         // "**/*.cpp": true,
@@ -162,4 +195,35 @@
     "gradle.allowParallelRun": true,
     // :: LANGUAGE SERVER 4 JAVA (REDHAT)
     "redhat.telemetry.enabled": false
+    // git
+    "git.autofetch": true,
+    "git.openRepositoryInParentFolders": "always",
+    "git.blame.editorDecoration.enabled": true,
+    "git.blame.statusBarItem.enabled": false,
+    // EXTENSIONS
+    // makrdown All in one
+    "markdown.extension.toc.orderedList": false,
+    "markdown.extension.toc.updateOnSave": true,
+    "workbench.externalBrowser": "edge",
+    "workbench.editor.empty.hint": "hidden",
+    "docker.extension.enableComposeLanguageServer": false,
+    "bashIde.shfmt.simplifyCode": true,
+    "makefile.configureOnOpen": true,
+    "workbench.secondarySideBar.defaultVisibility": "hidden",
+    "mdb.mcp.server": "prompt",
+    // copilot
+    "remote.extensionKind": {
+        "github.copilot": [
+            "ui"
+        ],
+        "github.copilot-chat": [
+            "ui"
+        ]
+    },
+    "github.copilot.selectedCompletionModel": "",
+    "github.copilot.chat.localeOverride": "ko",
+    "terminal.integrated.sendKeybindingsToShell": true,
+    "terminal.integrated.commandsToSkipShell": [
+        ""
+    ]
 }
