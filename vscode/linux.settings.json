@@ -83,7 +83,7 @@
         "**/*.a": true,
         "**/*.d": true,
         "**/*.jar": true,
-        "**/*.class": true,
+        "**/*.class": true
         // "**/*.c": true,
         // "**/*.cc": true,
         // "**/*.cpp": true,
@@ -96,11 +96,11 @@
         "**/bower_components": true,
         "**/*.code-search": true,
         "**/*.lst": true,
+        "**/*.css": true,
         "**/*.htm": true,
-        "**/*.html": false,
+        "**/*.html": true,
         "**/*.map": true,
         "**/*.min.*": true,
-        "**/vendors-*.js": true,
         "**/*.js": true
     },
     "search.followSymlinks": false,
@@ -137,6 +137,7 @@
     "workbench.colorCustomizations": {
         "editorRuler.foreground": "#ff4081",
     },
+    // ## C++
     "[cpp]": {
         "editor.defaultFormatter": "ms-vscode.cpptools",
         "editor.formatOnSave": true,
@@ -149,6 +150,7 @@
     "C_Cpp.default.cppStandard": "c++17",
     "C_Cpp.default.intelliSenseMode": "linux-gcc-x64",
     "C_Cpp.errorSquiggles": "enabled",
+    // ## JAVA
     "[java]": {
         "editor.defaultFormatter": "redhat.java",
         "editor.formatOnSave": false,
@@ -175,7 +177,7 @@
     "java.project.referencedLibraries": [
         "lib/**/*.jar"
     ],
-    // :: MAVEN
+    // ## MAVEN
     // MANDATORY) maven settings file - IMPORTANT: maven refer setting.xml file to find not-default repository urls
     "java.configuration.maven.userSettings": "~/.m2/settings.xml",
     "java.configuration.maven.globalSettings": "/opt/maven/apache-maven-3.5.0/conf/settings.xml",
@@ -187,21 +189,19 @@
             "value": "/opt/jdk/jdk-17.0.2"
         }
     ],
-    // :: GRADLE
+    // ## GRADLE
     "java.import.gradle.home": "/opt/gradle/gradle-8.6",
     "java.import.gradle.wrapper.enabled": false,
     "gradle.debug": true,
     "gradle.javaDebug.cleanOutput": true,
     "gradle.allowParallelRun": true,
-    // :: LANGUAGE SERVER 4 JAVA (REDHAT)
+    // ## LANGUAGE SERVER 4 JAVA (REDHAT)
     "redhat.telemetry.enabled": false
-    // git
+    // # GIT
     "git.autofetch": true,
     "git.openRepositoryInParentFolders": "always",
-    "git.blame.editorDecoration.enabled": true,
-    "git.blame.statusBarItem.enabled": false,
-    // EXTENSIONS
-    // makrdown All in one
+    // # EXTENSIONS
+    // ## MARKDOWN All IN ONE
     "markdown.extension.toc.orderedList": false,
     "markdown.extension.toc.updateOnSave": true,
     "workbench.externalBrowser": "edge",
@@ -211,7 +211,7 @@
     "makefile.configureOnOpen": true,
     "workbench.secondarySideBar.defaultVisibility": "hidden",
     "mdb.mcp.server": "prompt",
-    // copilot
+    // ## GITHUB COPILOT
     "remote.extensionKind": {
         "github.copilot": [
             "ui"
