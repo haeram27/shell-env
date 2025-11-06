@@ -135,7 +135,7 @@
     "workbench.panel.defaultLocation": "right",
     "workbench.colorTheme": "Default Dark+",
     "workbench.colorCustomizations": {
-        "editorRuler.foreground": "#ff4081",
+        "editorRuler.foreground": "#ff4081"
     },
     // ## C++
     "[cpp]": {
