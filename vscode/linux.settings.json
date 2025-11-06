@@ -196,7 +196,7 @@
     "gradle.javaDebug.cleanOutput": true,
     "gradle.allowParallelRun": true,
     // ## LANGUAGE SERVER 4 JAVA (REDHAT)
-    "redhat.telemetry.enabled": false
+    "redhat.telemetry.enabled": false,
     // # GIT
     "git.autofetch": true,
     "git.openRepositoryInParentFolders": "always",
