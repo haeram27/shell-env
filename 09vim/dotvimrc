@@ -185,13 +185,12 @@ set smartindent
 "set copyindent
 "set preserveindent
 
-set expandtab
-set nosmarttab
-
-"set tabstop=4
-set softtabstop=-1
-set shiftwidth=4
-
+set expandtab                   " switch tab(\t) to space when input tab key
+set softtabstop=4               " width(number of space) of Tab/Backspace key input, use with expandtab
+set "smarttab                    " smarttab
+set tabstop=4                   " Tab(\t) display, width of space when tab character display
+set shiftwidth=4                " width(number of space) of indent(<<, >>) input
+        
 set backspace=indent,eol,start  " Makes backspace key more powerful.
 
 set noshowmode                  " We show the mode with airline or lightline

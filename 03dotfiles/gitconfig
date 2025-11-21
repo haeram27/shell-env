@@ -1,58 +1,62 @@
 [user]
-	name = haeram27
-	email = haeram27@gmail.com
+    name = haeram27
+    email = haeram27@gmail.com
 [diff]
-	tool = bc3
+    tool = bc3
 [difftool "bc3"]
-	trustExitCode = true
+    trustExitCode = true
 [merge]
-	tool = bc3
+    tool = bc3
 [mergetool "bc3"]
-	trustExitCode = true
+    trustExitCode = true
 [branch] 
-        autosetuprebase = always
+    autosetuprebase = always
 [alias] 
-        br = branch
-	cf = config
-	cfl = config -l
-	cl = clone --recurse-submodules
- 	cln = clean -ffdxn
-	clnx = clean -ffdx
-        clear = !git restore :/ && git clnx && git submodule update
-	cm = commit
-	cma = commit --amend
-	cmm = commit --allow-empty-message -m
-	cmmd = !git commit -m \"$(date --rfc-3339=seconds)\"
-	co = checkout
-	cp = cherry-pick
-	df = diff --color=always --word-diff=plain
-	dfh = diff HEAD --color=always --word-diff=plain
-	dfs = diff --staged --color=always --word-diff=plain
-	dt = difftool -y
-	lo = "!sh -c 'clear; git log -20 --graph --pretty=format:\" %C(auto)%h%d (%ar : %an) %s\"'"
-	lon = log --name-only
-	mt = mergetool -y
-	sh = stash
-	shl = stash list
-	st = status
-	sub = submodule
-	subu = !git submodule sync && git submodule update --remote --recursive
-	subui = git submodule update --init --remote --recursive
-	pl = pull --recurse-submodules=yes --rebase=true --autostash
-        purge=!git reset --hard && git clnx
-	ps = push
-	psf = push -f
-	reb = rebase
-	reba = rebase --autostash
-	rebc = rebase --continue
-	rebi = rebase -i
-	rebia = rebase -i --autostash
-	res = restore
-	rst = reset
-	rsts = reset --soft
-	rsth = reset --hard
+    br = branch
+    cf = config
+    cfl = config -l
+    cl = clone --recurse-submodules
+    cln = clean -ffdxn
+    clnx = clean -ffdx
+    clear = !git restore :/ && git clnx && git submodule update
+    cm = commit
+    cma = commit --amend
+    cmm = commit --allow-empty-message -m
+    cmmd = !git commit -m \"$(date --rfc-3339=seconds)\"
+    co = checkout
+    cp = cherry-pick
+    df = diff --color=always --word-diff=plain
+    dfh = diff HEAD --color=always --word-diff=plain
+    dfs = diff --staged --color=always --word-diff=plain
+    dt = difftool -y
+    lo = "!sh -c 'clear; git log -20 --graph --pretty=format:\" %C(auto)%h%d (%ar : %an) %s\"'"
+    lon = log --name-only
+    mt = mergetool -y
+    sh = stash
+    shl = stash list
+    shm = stash -m
+    sho = stash pop
+    sha = stash apply
+    shl = stash list
+    st = status
+    sub = submodule
+    subu = !git submodule sync && git submodule update --remote --recursive
+    subui = git submodule update --init --remote --recursive
+    pl = pull --recurse-submodules=yes --rebase=true --autostash
+    purge=!git reset --hard && git clnx
+    ps = push
+    psf = push -f
+    reb = rebase
+    reba = rebase --autostash
+    rebc = rebase --continue
+    rebi = rebase -i
+    rebia = rebase -i --autostash
+    res = restore
+    rst = reset
+    rsts = reset --soft
+    rsth = reset --hard
 [core]
-	editor = vim
+    editor = vim
 
 
 # using https instead ssh-git protocol
@@ -66,14 +70,14 @@
 # global proxy settings
 # socks5 proxy
 #[http]
-#	proxy = socks5h://localhost:1080
+#   proxy = socks5h://localhost:1080
 # domain specific proxy settings
 #[http "http://my-remote-domain.com"]
-#	proxy = socks5h://localhost:1080
+#   proxy = socks5h://localhost:1080
 
 # http proxy
 #[http]
-#	proxy = http://1.2.3.4:3128
+#   proxy = http://1.2.3.4:3128
 # domain specific proxy settings
 #[http "http://my-remote-domain.com"]
-#	proxy = http://1.2.3.4:3128
+#   proxy = http://1.2.3.4:3128
