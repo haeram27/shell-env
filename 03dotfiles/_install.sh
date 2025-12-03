@@ -12,6 +12,7 @@
     cp -fb ./env.cust ~/.env.cust
     cp -fb ./gitconfig ~/.gitconfig
     cp -fb ./tmux.conf ~/.tmux.conf
+    cp -fb ./ripgreprc ~/.ripgreprc
     [[ ! -d ~/.config ]] && mkdir ~/.config
     cp -fr ./config/* ~/.config
     

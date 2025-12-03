@@ -35,6 +35,7 @@
 --glob !**/*.min.*   # 거대한 단일 라인 파일
 --glob !**/.DS_Store
 --glob !**/Thumbs.db
+# --glob !**/.cache/**
 
 # ---------------------
 # TYPE BUNDLE
@@ -52,6 +53,9 @@
 # 의도를 명확히 하고 싶다면 -I(바이너리 무시)를 사용할 수도 있어요.
 # -I
 
+# java backend
+--type-add be:ext:java,sql,xml,json,yml,properties,sh,cpp
+
 # web
 --type-add web:ext:html,css,scss,js,jsx,ts,tsx,vue,svelte,astro
 --type-add cfg:ext:json,yml,yaml,toml,ini
@@ -60,5 +64,4 @@
 # 예) 평소엔 전체 검색, 가끔 웹 코드만 보고 싶을 땐 커맨드에서 `-t web`
 # rg -t web 'pattern'
 
-# --glob !**/.cache/**
 
