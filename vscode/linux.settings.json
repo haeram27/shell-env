@@ -83,13 +83,13 @@
         "**/*.a": true,
         "**/*.d": true,
         "**/*.jar": true,
-        "**/*.class": true
-        // "**/*.c": true,
-        // "**/*.cc": true,
-        // "**/*.cpp": true,
-        // "**/*.h": true,
-        // "**/*.hh": true,
-        // "**/*.hpp": true
+        "**/*.class": true,
+        "**/*.c": false,
+        "**/*.cc": false,
+        "**/*.cpp": false,
+        "**/*.h": false,
+        "**/*.hh": false,
+        "**/*.hpp": false
     },
     "search.exclude": {
         "**/node_modules": true,
@@ -107,9 +107,23 @@
     "search.ripgrep.maxThreads": 8,
     // OPTIONAL) "http.proxy":"http://user:pass@proxy.com:8080",
     "http.proxyStrictSSL": false,
+    // ## telemetry
     "telemetry.telemetryLevel": "off",
+    // ## terminal integration - make vscode terminal configuration consistent across OS
+    "terminal.integrated.shellIntegration.enabled": true, // default: true
+    "terminal.integrated.fontSize": 12,
+    "terminal.integrated.shellIntegration.decorationsEnabled": "both",
+    "terminal.integrated.sendKeybindingsToShell": true,
+    "terminal.integrated.commandsToSkipShell": [],
+    "terminal.integrated.defaultProfile.windows": "Admin PowerShell",
     "terminal.external.windowsExec": "C:\\WINDOWS\\System32\\wsl.exe",
     "terminal.integrated.profiles.windows": {
+        "Admin PowerShell": {
+            "source": "PowerShell",
+            "icon": "terminal-powershell",
+            "args": [],
+            "overrideName": true
+        },
         "Ubuntu-22.04 (WSL)": {
             "path": "C:\\WINDOWS\\System32\\wsl.exe",
             "args": [
@@ -118,16 +132,22 @@
             ]
         }
     },
+    "terminal.integrated.defaultProfile.linux": "zsh",
     "terminal.integrated.profiles.linux": {
-        "zsh (login)": {
+        "bash": {
+            "path": "bash",
+            "args": [
+                "-l"
+            ]
+        },
+        "zsh": {
             "path": "zsh",
             "args": [
                 "-l"
             ]
         }
     },
-    "terminal.integrated.fontSize": 12,
-    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    // ## window title
     "window.title": "${dirty}${rootName}${separator}${activeFolderMedium}${separator}${activeEditorShort}",
     "window.zoomLevel": 0,
     "workbench.editor.enablePreviewFromQuickOpen": false,
@@ -222,9 +242,5 @@
         ]
     },
     "github.copilot.selectedCompletionModel": "",
-    "github.copilot.chat.localeOverride": "ko",
-    "terminal.integrated.sendKeybindingsToShell": true,
-    "terminal.integrated.commandsToSkipShell": [
-        ""
-    ]
+    "github.copilot.chat.localeOverride": "ko"
 }
