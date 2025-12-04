@@ -1,67 +1,70 @@
 # ---------------------
 # OUTPUT READABILITY
 # ---------------------
---heading           # 파일별 블록 헤더
---line-number       # 줄 번호
---column            # 칼럼 번호
---smart-case        # 대소문자 자동 판단(대문자 포함 시 대소문자 구분)
+# no file block header
+--no-heading
+# no line number
+#--no-line-number
+# show column number
+--column
+#--ignore-case
 
 
 # ---------------------
 # PERFORMANCE AND SECURITY
 # ---------------------
---max-filesize 20M  # 20MB 초과 파일은 건너뜀(원하는 크기로 변경)
---no-follow       # 심볼릭 링크를 따라가지 않음
-# --hidden          # 숨김 파일/폴더도 검색(필요할 때만)
-# --no-ignore       # .gitignore 등 무시 규칙을 무시(강력하니 신중히)
+# jump files exceeding max-filesize
+#--max-filesize 20M
+# do NOT follow symbolic-link
+#--no-follow
+# search hidden file/folder
+#--hidden
+# do NOT use ignore rules(.gitignore etc)
+#--no-ignore
 
-# 검색 엔진(정규식)이 느릴 때 PCRE2 끄거나 켜보기
-# --engine=default
-# --engine=pcre2
+# select engine - use default when pcre2 is significantly slow
+#--engine=default
+#--engine=pcre2
 
 
 # ---------------------
 # IGNORE-GLOB
 # ---------------------
---glob !**/node_modules/**
---glob !**/dist/**
---glob !**/build/**
---glob !**/.git/**
---glob !**/.svn/**
---glob !**/.hg/**
---glob !**/CVS/**
---glob !**/coverage/**
---glob !**/*.log
---glob !**/*.min.*   # 거대한 단일 라인 파일
---glob !**/.DS_Store
---glob !**/Thumbs.db
-# --glob !**/.cache/**
+--glob=!**/node_modules/**
+--glob=!**/dist/**
+--glob=!**/build/**
+--glob=!**/.git/**
+--glob=!**/.svn/**
+--glob=!**/.hg/**
+--glob=!**/CVS/**
+--glob=!**/coverage/**
+--glob=!**/*.log
+# min - huge size single line file
+--glob=!**/*.min.*   
+--glob=!**/.DS_Store
+--glob=!**/Thumbs.db
+# --glob=!**/.cache/**
+
 
 # ---------------------
 # TYPE BUNDLE
 # ---------------------
+# include type '-t=web'
+# exclude type '-T=web'
+
 # define bundle of ext of binary/archive/media
---type-add bin:ext:png,jpg,jpeg,gif,ico,webp,mp3,mp4,avi,mov,wmv,flac,wav
---type-add bin:ext:pdf,epub,doc,docx,xls,xlsx,ppt,pptx
---type-add bin:ext:zip,gz,bz2,7z,xz,rar,tar,tar.bz,tar.gz,tar.xz,iso,dmg
---type-add bin:ext:exe,dll,bin,so,o,a,jar,class
+--type-add=bin:*.{png,jpg,jpeg,gif,ico,webp,mp3,mp4,avi,mov,wmv,flac,wav}
+--type-add=bin:*.{pdfepub,doc,docx,xls,xlsx,ppt,pptx}
+--type-add=bin:*.{zip,gz,bz2,7z,xz,rar,tar,tar.bz,tar.gz,tar.xz,iso,dmg}
+--type-add=bin:*.{exe,dll,bin,so,o,a,jar,class}
 
-# always exclude bin type defined above
--T bin
-
-# 참고: rg 기본은 이미 바이너리 파일을 건너뜁니다.
-# 의도를 명확히 하고 싶다면 -I(바이너리 무시)를 사용할 수도 있어요.
-# -I
+# exclude binary/archive/media files from search
+-T=bin
 
 # java backend
---type-add be:ext:java,sql,xml,json,yml,properties,sh,cpp
+--type-add=jbe:*.{java,sql,xml,json,yml,properties,sh,cpp}
 
 # web
---type-add web:ext:html,css,scss,js,jsx,ts,tsx,vue,svelte,astro
---type-add cfg:ext:json,yml,yaml,toml,ini
---type-add script:ext:sh,zsh,ps1,bat,cmd,py,rb,pl,php,rs,go
-
-# 예) 평소엔 전체 검색, 가끔 웹 코드만 보고 싶을 땐 커맨드에서 `-t web`
-# rg -t web 'pattern'
-
-
+--type-add=web:*.{html,css,scss,js,jsx,ts,tsx,vue,svelte,astro}
+--type-add=cfg:*.{json,yml,yaml,toml,ini}
+--type-add=script:*.{sh,zsh,ps1,bat,cmd,py,rb,pl,php,rs,go}
