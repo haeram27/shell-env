@@ -117,12 +117,3 @@ local WINTEMR_TITLE=$1
 echo -ne '\033]0;'"${WINTEMR_TITLE:-$(lsb_release -ds)}"'\a'
 }
 #[[ $- = *i* ]] && setwintermtitle 'wsl'
-
-#################################
-# VS Code Shell Integration - make vscode coworks with shell
-# check whether enabled shell integration using command "echo $VSCODE_SHELL_INTEGRATION" returns 1
-#################################
-# this make vscode(github copilot - agent) runs shell command and collect result from shell
-if [[ "$TERM_PROGRAM" == "vscode" ]]; then
-    . "$(code --locate-shell-integration-path zsh)"
-fi
