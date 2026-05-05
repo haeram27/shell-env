@@ -1,0 +1,62 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            // --- 필수 기본 설정 ---
+            "type": "java", // 디버거 타입 (Java 필수)
+            "name": "Spring Boot Launch", // 사이드바에 표시될 이름
+            "request": "launch", // 실행 방식 (launch 또는 attach)
+            // --- 실행 대상 및 환경 설정 ---
+            "mainClass": "com.example.httpclient.SpringApplication", // 메인 클래스 경로
+            "projectName": "spring-httpclient", // 다중 모듈 프로젝트 시 특정 모듈 지정
+            "args": [
+                "--arg1=value1"
+            ], // 프로그램 실행 시 전달할 인자
+            "vmArgs": [ // JVM 실행 옵션 (메모리, 프로파일 등)
+                "-Dspring.profiles.active=dev",
+                "-Xmx512m"
+            ],
+            "env": { // 환경 변수 설정
+                "VAR_HELLO": "hello",
+                "SPRING_PROFILES_ACTIVE": "dev"
+            },
+            "envFile": "${workspaceFolder}/.env", // 환경 변수가 담긴 파일 경로
+            "cwd": "${workspaceFolder}", // 작업 디렉토리 설정
+            // --- 디버깅 및 실행 제어 ---
+            "preLaunchTask": "Gradle Build", // 실행 전 실행할 task 이름 (tasks.json의 label)
+            "stopOnEntry": false, // default(false) 시작하자마자 첫 줄에서 멈출지 여부
+            "console": "integratedTerminal", // 출력 콘솔 (internalConsole, integratedTerminal, externalTerminal)
+            "internalConsoleOptions": "openOnSessionStart", // 디버그 콘솔 자동 열기 여부
+            "presentation": {
+                "clear": true
+            },
+            // --- 고급 설정 (클래스패스 및 소스) ---
+            "classPaths": [], // 추가할 클래스패스 (자동 탐색 실패 시 사용)
+            "modulePaths": [], // 자바 9 이상 모듈 시스템 경로
+            "sourcePaths": [], // 소스 코드 위치 수동 지정
+            // --- Spring Boot 특화 기능 ---
+            "shortenCommandLine": "auto", // Windows 등에서 경로가 길어 실행 안 될 때 사용 (none, jarmanifest, argfile)
+            "stepFilters": { // 디버깅 시 건너뛸 패키지 설정
+                "skipClasses": [
+                    "$JDK",
+                    "org.springframework.*",
+                    "java.*"
+                ],
+                "skipSynthetics": true // 컴파일러 자동 생성 코드 건너 뛰기
+            }
+        },
+        {
+            // --- JVM remote debugging(Attach) ---
+            // how to run jvm with debug port:
+            // java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -jar my-app.jar
+            "type": "java",
+            "name": "JVM Remote Debug (Attach)",
+            "request": "attach",
+            "hostName": "localhost",
+            "port": 5005
+        }
+    ]
+}

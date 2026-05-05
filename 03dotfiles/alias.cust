@@ -1,0 +1,535 @@
+##############################################
+# COLORS
+##############################################
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+
+##############################################
+# ETC
+##############################################
+user_confirm() {
+    # Zsh handles -p differently.
+    # Use 'echo -n' for the message and then 'read' the response.
+    echo -n "${1:-Are you sure?} [y/N]: "
+    read -r response
+
+    if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
+        return 0
+    else
+        return 1
+    fi
+}
+## Usage
+# if user_confirm "Do you want to delete the file?"; then
+#     echo "Deleting..."
+# else
+#     echo "Skipped."
+# fi
+
+
+# vim
+alias vi='vim'
+
+# sudovi
+alias suvi='sudo vi'
+
+# sudosu
+alias susu='sudo su'
+
+# remove first line of stdin or file
+alias rmtitle='tail -n +2 '
+
+# add logfile
+alias tlog='tee -a "log-$$-$(date +%s%N)"'
+
+# change default terminal
+alias chterm='sudo update-alternatives --config x-terminal-emulator'
+
+# build(make) and grep  errors
+alias mage='make -j12 2>&1 | greps error'
+
+# batcat
+if ! type bat &>/dev/null; then
+    alias bat='batcat'
+fi
+
+
+#obsidian
+# env.cust:: export OBSIDIAN_VAULT_PATH="/path/to/obsidian/vault/git/local/repo"
+obsidian_pull() {
+    if [ -n "${OBSIDIAN_VAULT_PATH}" ]; then
+        echo "OBSIDIAN_VALUT_PATH=${OBSIDIAN_VAULT_PATH}"
+        pushd ${OBSIDIAN_VAULT_PATH} &>/dev/null
+        if git st &>/dev/null ; then
+            git pull
+        else
+            echo "OBSIDIAN_VALUT_PATH is NOT git repository"
+        fi
+        popd &>/dev/null
+    else
+        echo "OBSIDIAN_VALUT_PATH is empty"
+    fi
+}
+
+obsidian_push() {
+    if [ -n "${OBSIDIAN_VAULT_PATH}" ]; then
+        echo "OBSIDIAN_VALUT_PATH=${OBSIDIAN_VAULT_PATH}"
+        pushd ${OBSIDIAN_VAULT_PATH} &>/dev/null
+        if git st &>/dev/null ; then
+            git add .
+            git cmm "$(date -u --rfc-3339=ns)"
+            git ps
+        else
+            echo "OBSIDIAN_VALUT_PATH is NOT git repository"
+        fi
+        popd &>/dev/null
+    else
+        echo "OBSIDIAN_VALUT_PATH is empty"
+    fi
+}
+
+##############################################
+# HISTORY
+##############################################
+alias his='history'
+
+
+##############################################
+# LS
+##############################################
+alias l='ls -lZ'
+alias la='ls -AFZ'
+alias ll='ls -AhlFZ'
+alias lz='ls -AlZ'
+alias lss='du -hd2 | sort -hr'
+
+abspath() {
+    # $1 : relative filenam
+    echo "$(cd "$(dirname "$1")" && pwd)/$(basename "$1")"
+}
+
+
+##############################################
+# CHMOD 
+##############################################
+chmodall() {
+    find . -type f \( -name "*.txt" -o -name "*.tgz" -o -name "*.tar.gz" -o -name "*.txz" \) -exec chmod 644 {} \;
+    find . -type f -name "*.sh" -exec chmod 755 {} \;
+    find . -type d -exec chmod 775 {} \;
+}
+
+chmodsh() {
+    find . -type f -name "*.sh" -exec chmod 755 {} \;
+}
+
+chmoddir() {
+    find . -type d -exec chmod 775 {} \;
+}
+
+
+##############################################
+# COPY AND MOVE
+##############################################
+ensure_dir_slash() {
+    local dir="$1"
+
+    # 1. Check if the variable is not empty (-n: string length is non-zero)
+    if [[ -n "$dir" ]]; then
+        # 2. Squeeze multiple slashes (e.g., //, ///) into a single slash (/)
+        dir=$(echo "$dir" | tr -s '/')
+
+        # 3. Remove trailing slash if exists, then append exactly one slash
+        dir="${dir%/}/"
+
+        echo -n "$dir"
+    fi
+}
+
+copyd() {
+    for dir in "$1" "$2"; do
+        if [ ! -d "$dir" ]; then
+            echo "Directory NOT exists: $dir"
+          return 1
+        fi
+    done
+
+    if user_confirm "Do you want to overwrite files?"; then
+        # cp -rf a/* b
+        cp -rf $(ensure_dir_slash "$1")* "$2"
+    else
+        echo "cancelled."
+    fi
+}
+
+syncd() {
+    for dir in "$1" "$2"; do
+        if [ ! -d "$dir" ]; then
+            echo "Directory NOT exists: $dir"
+          return 1
+        fi
+    done
+
+    if user_confirm "Files can be removed in $2"; then
+        # rsync -av --delete a/ b
+        rsync -av --delete $(ensure_dir_slash "$1") "$2"
+    else
+        echo "cancelled."
+    fi
+
+
+##############################################
+# FIND
+############################################## 
+# findn: name-specific
+# USAGE: $ findn . "*cust"
+function findn() {
+    find "$1" -name "$2" 2>/dev/null
+}
+
+# findl: follow symboliclink
+function findl() {
+    find -L "$1" -name "$2" 2>/dev/null
+}
+
+
+##############################################
+# GREP
+##############################################
+# grepp: grep for pipe
+# USAGE: $ ll | grepp ".alias_cust"
+alias grepp='grep -in $1 $2 2>/dev/null'
+
+# grepr: grep for recursive searching
+# USAGE: $ grepr "alias grepr" .
+alias grepr='grep -RinI $1 2>/dev/null'
+
+# search in src directory
+alias grepsrc='grep -rnI --exclude-dir={.git,.svn,target}'
+alias grepsrcjbe='grep -rnI --exclude-dir={.git,.svn,target} --include={\*.properties,\*.yaml,\*.yml,\*.java,\*.xml,\*.sql}'
+
+
+##############################################
+# HIGHLIGHT LINE
+##############################################
+# USAGE:
+# $ tail -F /var/log/syslog | hh
+# $ cat /var/log/syslog | hh
+
+function hh() {
+    sed -u \
+    -e "s/\(\b[0-9]\+\b\)/\o033[1;92m\1\o033[0;m/gi" \
+    -e "s/\(\bexception\w*\b\)/\o033[1;31m\1\o033[0;m/gi" \
+    -e "s/\(\bemerg\w*\b\)/\o033[1;31m\1\o033[0;m/gi" \
+    -e "s/\(\balert\w*\b\)/\o033[1;31m\1\o033[0;m/gi" \
+    -e "s/\(\bcritical\w*\b\)/\o033[1;31m\1\o033[0;m/gi" \
+    -e "s/\(\berror\w*\b\)/\o033[1;31m\1\o033[0;m/gi" \
+    -e "s/\(\bcause\w*\b\)/\o033[1;31m\1\o033[0;m/gi" \
+    -e "s/\(\bwarn\w*\)/\o033[1;33m\1\o033[0;m/gi" \
+    -e "s/\(\bnotice\w*\b\)/\o033[1;33m\1\o033[0;m/gi" \
+    -e "s/\(\binfo\w*\b\)/\o033[1;33m\1\o033[0;m/gi" \
+    -e "s/\(\bdebug\w*\b\)/\o033[1;33m\1\o033[0;m/gi" \
+    -e "s/\(\bsuccess\w*\b\)/\o033[1;42m\1\o033[0;m/gi" \
+    -e "s/\(\bfail\w*\b\)/\o033[1;41m\1\o033[0;m/gi" \
+    -e "s/\(\btrue\w*\b\)/\o033[1;46m\1\o033[0;m/gi" \
+    -e "s/\(\bfalse\w*\b\)/\o033[1;46m\1\o033[0;m/gi" \
+    -e "s/\(\bstart\w*\b\)/\o033[1;46m\1\o033[0;m/gi" \
+    -e "s/\(\bstop\w*\b\)/\o033[1;46m\1\o033[0;m/gi" \
+    -e "s/\(\benable\w*\b\)/\o033[1;46m\1\o033[0;m/gi" \
+    -e "s/\(\bdisable\w*\b\)/\o033[1;46m\1\o033[0;m/gi" \
+    -e "s/\(\bswtest\w*\b\)/\o033[1;37;101m\1\o033[0;m/gi"
+}
+
+# USAGE:
+# $ cat myfile | hhh make
+function hhh() {
+    sed -u -e "s/\($1\)/\o033[1;6;30;103m\1\o033[0;m/gi"
+}
+
+# USAGE:
+# $ tailf myfile
+function tailf() {
+    tail -f $1 | hh
+}
+
+function tailfgrep() {
+    tail -f $1 | hh | grep $2
+}
+
+# USAGE:
+# $ tailF myfile
+function tailF() {
+    tail -F $1 | hh
+}
+
+function tailFgrep() {
+    tail -F $1 | hh | grep $2
+}
+
+# USAGE:
+# $ cats myfile
+function cats() {
+    cat $1 | hh
+}
+
+
+##############################################
+# ps
+##############################################
+alias psgrep='ps -ef | grep'
+
+
+##############################################
+# SSH
+##############################################
+check_ssh_tunnel(){
+    echo "==== internet socket files"
+    lsof -i -n -P | grep ssh | grep LISTEN
+    # -i: internet socket files
+    # -n: host ip instead name
+    # -P: port number instead name
+    echo
+
+    echo "==== ssh listen port"
+    ss -ntlp | grep ssh
+    echo
+
+    echo "==== command"
+    ps -ef | grep ssh | grep -E "\-L|\-R|\-D"
+    echo
+}
+
+
+##############################################
+# STRACE
+##############################################
+# USAGE: 
+# $ sstrace <command> or <.sh file>
+# $ sstrace -p <pid>
+alias sstrace='strace -s 65535 -f -tt -o strace.$(date +%Y%m%d-%H%M%S).dump'
+
+
+##############################################
+# CURL
+##############################################
+alias curld='curl -fksvL -o /dev/null --connect-timeout 2 -w "%{response_code}"'
+alias curlp='curl -fksSL --connect-timeout 2 -x socks5://localhost:$1 $2'
+
+curlstats() {
+    curl -fksSL -o /dev/null --connect-timeout 2 -w "%{json}" $@ | jq .
+}
+
+http_conn_test() {
+    local http_url=${1:-'https://www.example.com'}
+    local req_timeout=2
+
+    echo "try to connect ${http_url}"
+    local http_code=$(curl -fksSLo /dev/null --connect-timeout ${req_timeout} -w "%{response_code}" ${http_url})
+    local curl_ret=$?
+    if [[ ${curl_ret} -eq 0 ]]; then
+        echo "resp: ${http_code}"
+        echo
+        if [[ "${http_code}" == "200" || "${http_code}" == "202" ]]; then
+            return 0
+        else
+            return 201 #curl ok, http nok
+        fi
+    else
+        echo "Error: curl connection failed to ${http_url}"
+        return 202 # curl nok
+    fi
+    return 255
+}
+
+
+##############################################
+# WATCH SW
+##############################################
+# USAGE: 
+# $ watchsw <command> <interval#second>
+function watchsw() {
+    if [[ -z $1 || -z $2 ]]; then echo 'wrong arguments...'; fi
+    while :; do $1; sleep $2; done;
+}
+
+function watchswclr() {
+    if [[ -z $1 || -z $2 ]]; then echo 'wrong arguments...'; fi
+    while clear; do $1; sleep $2; done;
+}
+
+
+##############################################
+# SYSTEMD
+##############################################
+alias jct='journalctl'
+alias sct='systemctl'
+
+
+##############################################
+# TCPDUMP
+##############################################
+# USAGE: $ tdump "host 1.2.3.4 and port 8080"
+function tdump() {
+    sudo tcpdump -U -i eno1 $1 -w - | tee "tcpdump.$(date +%Y%m%d-%H%M%S).pcap" | tcpdump -qns 0 -A -r -
+}
+
+
+##############################################
+# XARGS
+##############################################
+# xargsp: xargs runs with multiple process
+alias xargsp='xargs -P`nproc` -i bash -c'
+ 
+
+##############################################
+# XCLIP
+##############################################
+# USAGE: $ xclips ~/ssh/id_rsa.pub
+alias xclips='xclip -selection clipboard <'
+
+
+##############################################
+# VIRSH
+##############################################
+alias virq='virsh -c qemu:///system'
+#alias virqs='virsh -c qemu+ssh://$(LIBVIRTD_SERVER)/system'
+alias virqdl='virsh -c qemu:///system list --all'
+alias virqdd='virsh -c qemu:///system dumpxml'
+alias virqnl='virsh -c qemu:///system net-list'
+alias virqnd='virsh -c qemu:///system net-dumpxml'
+alias virqdhcp='virsh -c qemu:///system net-dhcp-leases default'
+
+
+#############################################
+# GIT
+#############################################
+gitrmlb()
+    git br -D "$1"
+}
+
+gitrmrb() {
+    git push origin :"$1"
+}
+
+
+#############################################
+# SVN
+#############################################
+svn_reset() {
+    ls .svn >/dev/null 2>&1
+    if [ $? -eq 0 ]; then
+        echo "### status before reset ----------------------------------------"
+        svn st
+        svn revert -R .
+        svn st | grep '^?' | awk '{print $2}' | xargs rm -rf
+        svn up
+        echo "### status after reset ----------------------------------------"
+        svn st
+    else
+        echo "warning: '$(pwd)' is not a working copy"
+
+    fi
+}
+
+svn_log_user() {
+    svn log -l 1000 --search $1
+}
+
+# create changelist only using changed targets
+svncl() {
+    svn st | grep '^A\|^D\|^M\|^R' | cut -c 9- > /tmp/svncl
+    vi /tmp/svncl
+}
+
+# svn commit using changelist
+alias svnci='svn ci --targets /tmp/svncl'
+
+# create rollback commit, $1 SHOULD be revision to be HEAD after merge
+alias svnrollbackmerge="svn merge -r HEAD:$1 ."
+
+
+#############################################
+# AWS
+#############################################
+alias awsg='aws --profile=god'
+
+
+##############################################
+# DOCKER
+##############################################
+#alias docker='podman'
+alias d='docker'
+alias dps='docker ps -a --format "table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Command}}"'
+alias dpsa='docker ps -a'
+alias dpsc='docker ps -a --no-trunc --format "table {{.Names}}\t{{.Status}}\t{{.Command}}"'
+alias dpsi='docker ps -a --format "table {{.ID}}\t{{.Names}}\t{{.Image}}"'
+alias dpsp='docker ps -a --format "table {{.ID}}\t{{.Image}}\t{{.Ports}}"'
+alias dpsx='docker ps -a --format "table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Image}}\t{{.Command}}" --filter "status=exited"'
+alias dst='docker stats --no-stream'
+alias dsts='docker stats'
+alias dri='docker run -it --rm'
+alias driu='docker run -it --rm -u0'
+alias driw='docker run -it --rm -u0 -v ${PWD}:${PWD} -w ${PWD}'
+alias drihostnet='docker run -it --rm --network=host'
+alias driuhostnetsh='docker run -it --rm -u0 --network=host'
+alias drma='docker ps -a --format "{{.ID}}"|xargs -rxi docker rm {}'
+alias dcreate='docker run -dit --name $1 -v ${PWD}:${PWD} -w ${PWD} $2'
+alias dmake='docker exec -t $1 make -j16'
+alias wdps='watch -n1 docker ps -a --format \"table {{.ID}}\\t{{.Names}}\\t{{.Status}}\\t{{.Command}}\"'
+function dtags() {
+    listUri="https://registry.hub.docker.com/v2/repositories/library/$1/tags?page_size=1024"
+    result="$(curl --silent --get $listUri | jq -r '.results[].name' | sort)"
+    echo $result
+}
+function dpull() {
+    local image
+    local tag
+
+    if [[ -z $1 ]]; then
+        echo 'error: no given image name'
+        return -1
+    else
+        image=$1
+    fi
+
+    if [[ -n $2 ]]; then
+        tag=':'$2
+    fi
+
+    docker pull $image$tag
+}
+
+
+##############################################
+# DOCKER COMPOSE
+##############################################
+alias dc='docker compose'
+alias wdcps='watch -n1 docker compose ps -a --format \"table {{.ID}}\\t{{.Names}}\\t{{.Status}}\\t{{.Command}}\"'
+alias wdcpsp='watch -n1 docker compose ps -a --format \"table {{.ID}}\\t{{.Image}}\\t{{.Status}}\\t{{.Ports}}\"'
+
+
+#############################################
+# KUBECTL
+#############################################
+alias kk='kubectl'
+alias ik='minikube'
+alias ikp='minikube -p'
+alias ikk='minikube kubectl'
+alias rk='rancher'
+alias rkk='rancher kubectl'
+
+
+#############################################
+# HELM
+#############################################
+alias h='helm'
+

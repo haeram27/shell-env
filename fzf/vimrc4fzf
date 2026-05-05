@@ -1,0 +1,8 @@
+call plug#begin('~/.vim/plugged')
+
+" fuzzy finder
+" fzf.cli should be installed before use fzf.vim
+Plug '~/.fzf'
+
+call plug#end()
+
