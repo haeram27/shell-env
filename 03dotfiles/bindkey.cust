@@ -1,4 +1,9 @@
-## please use 'showkey -a' command to check what is keycode of which you're pushing key combination
+# bindkey supports keymap on command line(prompt) in zsh zle(zsh line editor), please check 'manzshzle' and search bindkey 
+# please use 'showkey -a' command to check what is keycode of which you're pushing key combination
+
+# SPECIAL KEY: Ctrl(^) ALT(^[) Ctrl+ALT(^[^)
+# Ctrl is case-insensitive ^J == ^j, Ctrl handles key as UPPERCASE basically
+# Alt is case-sensitive ^[j = Alt+j, ^[J = Alt+Shift+j
 
 ## autosuggest-accept? autocomplete command from history
 ## autosuggest-execute? autocomplete + execute
@@ -8,9 +13,9 @@ bindkey "^[^J" autosuggest-accept  # default: bindkey "^[^J" self-insert-unmeta
 bindkey "^[[1;5D" backward-word   # Ctrl + ← : option + ← ; default
 bindkey "^[[1;5C" forward-word    # Ctrl + → : option + → ; default
 
-bindkey "^H" backward-kill-word   # Ctrl + Backspace  : option + Backspace  ## same with Ctrl + Alt + h
+bindkey "^H" backward-kill-word   # Ctrl + Backspace : option + Backspace  ## same with Ctrl + Alt + h
 bindkey "^[^H" kill-whole-line    # Ctrl + Alt + Backspace : command + Backspace ## same with Ctrl + u
 
-#bindkey "^[[1;7D" beginning-of-line    # Ctrl + Alt + ← : command + ←
-#bindkey "^[[1;7C" end-of-line          # Ctrl + Alt + → : command + →
+#bindkey "^[[1;7D" beginning-of-line    # Ctrl + Alt + ← : command + ←; default Ctrl+A
+#bindkey "^[[1;7C" end-of-line          # Ctrl + Alt + → : command + →; default Ctrl+E
 

@@ -1,6 +1,7 @@
 {
     "[json]": {
-        "editor.formatOnSave": true
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "vscode.json-language-features"
     },
     "[html]": {
         "editor.formatOnSave": true
@@ -14,7 +15,7 @@
     "editor.codeActionsOnSave": {
         "source.organizeImports": "never"
     },
-    "editor.fontFamily": "'D2Coding'",
+    "editor.fontFamily": "'Noto Sans Mono', 'Noto Sans CJK KR', 'Noto Color Emoji', monospace",
     "editor.fontSize": 12,
     "editor.mouseWheelZoom": true,
     "editor.renderControlCharacters": true,
@@ -114,9 +115,11 @@
     "terminal.integrated.fontSize": 12,
     "terminal.integrated.shellIntegration.decorationsEnabled": "both",
     "terminal.integrated.sendKeybindingsToShell": true,
-    "terminal.integrated.commandsToSkipShell": [],
-    "terminal.integrated.defaultProfile.windows": "Admin PowerShell",
+    "terminal.integrated.commandsToSkipShell": [
+        ""
+    ],
     "terminal.external.windowsExec": "C:\\WINDOWS\\System32\\wsl.exe",
+    "terminal.integrated.defaultProfile.windows": "Admin PowerShell",
     "terminal.integrated.profiles.windows": {
         "Admin PowerShell": {
             "source": "PowerShell",
@@ -134,12 +137,6 @@
     },
     "terminal.integrated.defaultProfile.linux": "zsh",
     "terminal.integrated.profiles.linux": {
-        "bash": {
-            "path": "bash",
-            "args": [
-                "-l"
-            ]
-        },
         "zsh": {
             "path": "zsh",
             "args": [
@@ -192,6 +189,12 @@
             "default": true
         }
     ],
+    // ## KOTLIN
+    "[kotlin]": {
+        "editor.formatOnSave": false,
+        "editor.insertSpaces": true,
+        "editor.detectIndentation": false
+    },
     // MANDATORY) javahome path for "language-server(language-support for java by redhat)" extension
     "java.jdt.ls.java.home": "/opt/jdk/25.0.2",
     "java.project.referencedLibraries": [
@@ -200,7 +203,7 @@
     // ## MAVEN
     // MANDATORY) maven settings file - IMPORTANT: maven refer setting.xml file to find not-default repository urls
     "java.configuration.maven.userSettings": "~/.m2/settings.xml",
-    // "java.configuration.maven.globalSettings": "/opt/maven/3.9.14/conf/settings.xml",
+    "java.configuration.maven.globalSettings": "/opt/maven/3.9.14/conf/settings.xml",
     // OPTIONAL) "maven.executable.options": "-Dcheckstyle.skip -Dpmd.skip=true -Dcpd.skip=true -Dmaven.test.skip=true",
     // MANDATORY) javahome path for "maven for java" extension - maven use this jdk for build java projects
     "maven.terminal.customEnv": [
@@ -209,29 +212,29 @@
             "value": "/opt/jdk/25.0.2"
         }
     ],
+
     // ## GRADLE
-    "java.import.gradle.home": "/opt/gradle/gradle-8.6",
+    "java.import.gradle.home":"/opt/gradle/gradle-9.4.1",
     "java.import.gradle.wrapper.enabled": false,
     "gradle.debug": true,
     "gradle.javaDebug.cleanOutput": true,
     "gradle.allowParallelRun": true,
+
     // ## LANGUAGE SERVER 4 JAVA (REDHAT)
     "redhat.telemetry.enabled": false,
+
     // # GIT
     "git.autofetch": true,
     "git.blame.editorDecoration.enabled": true,
     "git.openRepositoryInParentFolders": "always",
+
     // # EXTENSIONS
     // ## MARKDOWN All IN ONE
     "markdown.extension.toc.orderedList": false,
     "markdown.extension.toc.updateOnSave": true,
-    "workbench.externalBrowser": "edge",
     "workbench.editor.empty.hint": "hidden",
-    "docker.extension.enableComposeLanguageServer": false,
-    "bashIde.shfmt.simplifyCode": true,
-    "makefile.configureOnOpen": true,
     "workbench.secondarySideBar.defaultVisibility": "hidden",
-    "mdb.mcp.server": "prompt",
+
     // ## GITHUB COPILOT
     "remote.extensionKind": {
         "github.copilot": [
@@ -242,5 +245,10 @@
         ]
     },
     "github.copilot.selectedCompletionModel": "",
-    "github.copilot.chat.localeOverride": "ko"
+    "github.copilot.chat.localeOverride": "ko",
+    "chat.viewSessions.orientation": "stacked",
+    // ## ETC
+    "extensions.ignoreRecommendations": true,
+    "security.workspace.trust.untrustedFiles": "open"
 }
+

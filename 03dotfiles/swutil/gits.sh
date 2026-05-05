@@ -21,6 +21,7 @@ git_pull() {
         return 127
     fi
 
+    echo
     echo "## git pull $path"
     if [[ ! -d $path ]]; then
         echo "invalid path"
@@ -37,6 +38,7 @@ git_push() {
         return 127
     fi
 
+    echo
     echo "## git push $path"
     if [[ ! -d $path ]]; then
         echo "invalid path"
