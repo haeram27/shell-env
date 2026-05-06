@@ -57,9 +57,8 @@ launch_all() {
 
 help() {
     cat <<HELP
-$(basename $0) Usage: [SRC_PATH=/path/to/source/root] codesw.sh project-group-name
+Usage: [SRC_PATH=/path/to/source/root] $(basename $0) project-group-name
     all
-    beconsole 
 HELP
 }
 

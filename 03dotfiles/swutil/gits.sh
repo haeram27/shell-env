@@ -7,20 +7,43 @@ readonly SCRIPT_NAME="$(basename "$REAL_PATH")"
 
 : ${SRC_PATH:=${HOME}/src}
 
-readonly DEVLOG_PATH="${SRC_PATH}/devlog"
-readonly SHELL_ENV_PATH="${SRC_PATH}/shell-env"
-readonly DEVLANG_SAMPLE_PATH="${SRC_PATH}/dev-lang-sample"
-readonly SPRING_VANILA_PATH="${SRC_PATH}/spring-msa-vanila"
-readonly THE_READER_PATH="${SRC_PATH}/the-reader"
+readonly REPOS_PREFIX="ssh://git@github.com:haeram27"
+readonly DEVLOG_PATH="devlog"
+readonly SHELL_ENV_PATH="shell-env"
+readonly DEVLANG_SAMPLE_PATH="dev-lang-sample"
+readonly SPRING_VANILA_PATH="spring-msa-vanila"
+readonly THE_READER_PATH="the-reader"
 
-repos=("${DEVLOG_PATH}" "${SHELL_ENV_PATH}" "${DEVLANG_SAMPLE_PATH}" "${SPRING_VANILA_PATH}" "${THE_READER_PATH}")
+projects=("${DEVLOG_PATH}" "${SHELL_ENV_PATH}" "${DEVLANG_SAMPLE_PATH}" "${SPRING_VANILA_PATH}" "${THE_READER_PATH}")
 
-git_pull() {
-    local path=${1}
-    if [[ -z $path ]]; then
+git_clone() {
+    local project=${1}
+
+    if [[ -z $project ]]; then
         return 127
     fi
 
+    local path="${SRC_PATH}"/"${project}"
+    if [[ -d $path ]]; then
+        echo "$path is already existed"
+        return 127
+    fi
+
+    local repo="${REPOS_PREFIX}"/"${project}"
+    echo "## git clone $repo"
+
+    git clone "${repo}" "$path"
+}
+
+
+git_pull() {
+    local project=${1}
+
+    if [[ -z $project ]]; then
+        return 127
+    fi
+
+    local path="${SRC_PATH}"/"${project}"
     echo
     echo "## git pull $path"
     if [[ ! -d $path ]]; then
@@ -33,11 +56,13 @@ git_pull() {
 }
 
 git_push() {
-    local path=${1}
-    if [[ -z $path ]]; then
+    local project=${1}
+
+    if [[ -z $project ]]; then
         return 127
     fi
 
+    local path="${SRC_PATH}"/"${project}"
     echo
     echo "## git push $path"
     if [[ ! -d $path ]]; then
@@ -51,29 +76,37 @@ git_push() {
     git push
 }
 
-pull_all() {
-    for path in "${repos[@]}"; do 
-        git_pull ${path} || :
+clone_all() {
+    for project in "${projects[@]}"; do 
+        git_clone ${project} || :
     done
-} 
+}
 
 push_all() {
-    for path in "${repos[@]}"; do 
+    for path in "${projects[@]}"; do
         git_push ${path} || :
     done 
 }
 
+pull_all() {
+    for path in "${projects[@]}"; do 
+        git_pull ${path} || :
+    done
+}
+
 help() {
     cat <<HELP
-$(basename $0) Usage: SRC_PATH=/path/to/source/root gitsw.sh pull
+Usage: SRC_PATH=/path/to/source/root $(basename $0) pull
+    clone
     push
     pull
 HELP
 }
 
 _main() {
-    local arg=${1:=empty}
+    local arg=${1:-empty}
     case ${arg} in
+        "clone") clone_all ;;
         "push") push_all ;;
         "pull") pull_all ;;
         *) help ;;
@@ -81,6 +114,7 @@ _main() {
 }
 
 _is_sourced() {
+
     local executed_script=$(basename ${0#-})
     local this_script=$(basename ${BASH_SOURCE})
     if [[ ${executed_script} = ${this_script} ]]; then
