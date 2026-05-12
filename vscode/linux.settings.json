@@ -90,7 +90,7 @@
         "**/*.cpp": false,
         "**/*.h": false,
         "**/*.hh": false,
-        "**/*.hpp": false
+        "**/*.hpp": false,
         "**/.trunk/*actions/": true,
         "**/.trunk/*logs/": true,
         "**/.trunk/*notifications/": true,
