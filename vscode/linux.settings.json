@@ -27,7 +27,7 @@
     "extensions.autoUpdate": false,
     "files.eol": "\n",
     "files.exclude": {
-        "**/.vscode": true,
+        "**/.vscode": false,
         "**/.git": true,
         "**/.svn": true,
         "**/.hg": true,
@@ -91,6 +91,18 @@
         "**/*.h": false,
         "**/*.hh": false,
         "**/*.hpp": false
+        "**/.trunk/*actions/": true,
+        "**/.trunk/*logs/": true,
+        "**/.trunk/*notifications/": true,
+        "**/.trunk/*out/": true,
+        "**/.trunk/*plugins/": true
+    },
+    "files.watcherExclude": {
+        "**/.trunk/*actions/": true,
+        "**/.trunk/*logs/": true,
+        "**/.trunk/*notifications/": true,
+        "**/.trunk/*out/": true,
+        "**/.trunk/*plugins/": true
     },
     "search.exclude": {
         "**/node_modules": true,
@@ -147,6 +159,7 @@
     // ## window title
     "window.title": "${dirty}${rootName}${separator}${activeFolderMedium}${separator}${activeEditorShort}",
     "window.zoomLevel": 0,
+    "workbench.browser.enableChatTools" : true,
     "workbench.editor.enablePreviewFromQuickOpen": false,
     "workbench.iconTheme": "vscode-icons",
     "workbench.panel.defaultLocation": "right",
@@ -247,6 +260,7 @@
     "github.copilot.selectedCompletionModel": "",
     "github.copilot.chat.localeOverride": "ko",
     "chat.viewSessions.orientation": "stacked",
+    "chat.permissions.default": "autoApprove",
     // ## ETC
     "extensions.ignoreRecommendations": true,
     "security.workspace.trust.untrustedFiles": "open"
