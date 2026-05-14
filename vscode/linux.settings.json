@@ -1,17 +1,8 @@
 {
-    "[json]": {
-        "editor.formatOnSave": true,
-        "editor.defaultFormatter": "vscode.json-language-features"
-    },
-    "[html]": {
-        "editor.formatOnSave": true
-    },
-    "[yaml]": {
-        "editor.formatOnSave": true
-    },
     "debug.console.collapseIdenticalLines": false,
     "debug.console.fontSize": 12,
     "diffEditor.ignoreTrimWhitespace": false,
+    // ## editor start
     "editor.codeActionsOnSave": {
         "source.organizeImports": "never"
     },
@@ -24,6 +15,34 @@
         120
     ],
     "editor.suggestSelection": "first",
+    "[json]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[html]": {
+        "editor.formatOnSave": true
+    },
+    "[yaml]": {
+        "editor.formatOnSave": true
+    },
+    "[cpp]": {
+        "editor.defaultFormatter": "ms-vscode.cpptools",
+        "editor.formatOnSave": true,
+        "editor.insertSpaces": true,
+        "editor.detectIndentation": false
+    },
+    "[java]": {
+        "editor.defaultFormatter": "redhat.java",
+        "editor.formatOnSave": false,
+        "editor.insertSpaces": true,
+        "editor.detectIndentation": false
+    },
+    "[shellscript]": {
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true,
+        "editor.detectIndentation": false
+    }
+    // ## editor end
     "extensions.autoUpdate": false,
     "files.eol": "\n",
     "files.exclude": {
@@ -168,12 +187,6 @@
         "editorRuler.foreground": "#ff4081"
     },
     // ## C++
-    "[cpp]": {
-        "editor.defaultFormatter": "ms-vscode.cpptools",
-        "editor.formatOnSave": true,
-        "editor.insertSpaces": true,
-        "editor.detectIndentation": false
-    },
     "C_Cpp.clang_format_style": "{ BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 0}",
     "C_Cpp.clang_format_fallbackStyle": "Google",
     "C_Cpp.default.compilerPath": "/usr/bin/gcc",
@@ -181,12 +194,6 @@
     "C_Cpp.default.intelliSenseMode": "linux-gcc-x64",
     "C_Cpp.errorSquiggles": "enabled",
     // ## JAVA
-    "[java]": {
-        "editor.defaultFormatter": "redhat.java",
-        "editor.formatOnSave": false,
-        "editor.insertSpaces": true,
-        "editor.detectIndentation": false
-    },
     "java.saveActions.organizeImports": false,
     "java.format.enabled": true,
     "java.format.comments.enabled": false,
