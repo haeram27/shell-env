@@ -1,0 +1,92 @@
+nvm 설치
+
+먼저 WSL2 패키지 목록을 업데이트하고 필요한 필수 도구를 설치한다.
+
+sudo apt update && sudo apt upgrade -y
+sudo apt install -y curl git build-essential
+
+설치가 완료되면, 공식 스크립트를 이용해서 nvm을 설치한다.
+
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
+
+설치가 완료되면 Shell 설정을 반영하고 (본인이 사용하는 Shell에 맞춰서 사용)
+
+source ~/.bashrc
+# 또는
+source ~/.zshrc
+
+아래 명령어로 nvm이 정상적으로 설치되었는지 확인한다.
+
+nvm --version
+
+만약, 알 수 없는 명령어라는 오류가 발생하면, Shell 설정 파일을 열어서 정상적으로 nvm 초기화 구문이 추가되었는지 확인한다. 추가되어 있지 않다면, 아래 내용을 추가한다.
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+이후 다시 Shell 설정을 반영하고 nvm 버전을 확인한다. 정상적으로 버전이 출력되면 성공한 것이다.
+
+
+Node.js 설치
+nvm 설치가 완료되면, nvm을 이용해서 Node.js를 설치한다.
+아래 명령어로 설치 가능한 Node.js의 버전을 확인한다.
+
+nvm ls-remote
+# 또는 최신 버전 일부만 확인하고 싶은 경우
+nvm ls-remote | tail -n 20
+
+최신 LTS 버전을 설치할 때에는 아래 명령어로 설치한다.
+
+nvm install --lts
+
+특정 버전을 설치하고 싶을 때에는 아래와 같이 설치할 수 있다.
+
+nvm install version
+
+# ex. nvm install 20
+# ex. nvm install 20.19.0
+설치가 완료되면, 설치된 Node.js 버전은 아래 명령어로 확인할 수 있다. npm 버전도 함께 확인하면 좋다.
+
+node -v
+npm -v
+
+nvm으로 Node.js의 버전을 관리하기 때문에 여러 버전의 Node.js가 설치되어 있을 수 있고, 설치된 모든 Node.js의 버전을 확인하고 싶을 때에는 아래 명령어를 사용하면 된다.
+
+nvm ls
+
+주요 명령어
+설치된 Node.js 목록 확인
+설치된 전체 Node.js 목록을 확인할 때에는 아래 명령어로 확인한다.
+
+nvm ls
+
+Node.js 버전 전환
+설치된 여러 버전 중 원하는 버전으로는 아래 명령어로 바꿀 수 있다.
+
+nvm use version
+
+# ex. nvm use 20
+기본(default) 버전 지정
+새 터미널을 열 때마다 특정 버전을 기본으로 사용하고 싶을 때에는 아래 명령어로 지정할 수 있다.
+
+nvm alias default version
+
+# ex. nvm alias default 20
+Node.js 버전 제거
+더 이상 사용하지 않는 버전은 아래 명령어로 제거할 수 있다.
+
+nvm uninstall version
+
+# ex. nvm uninstall 16
+현재 사용중인 버전 확인
+nvm이 현재 활성화한 버전을 확인하고 싶을 때에는 아래 명령어로 확인한다.
+
+nvm current
+
+프로젝트별 버전 관리
+프로젝트마다 다른 Node.js를 사용하면, .nvmrc 파일을 통해 관리하는 것이 유용하다.
+프로젝트 루트에 .nvmrc 파일을 생성하고 아래와 같이 작성하고
+
+echo "20" > .nvmrc
+해당 디렉토리에서 nvm use 명령어를 사용하면 .nvmrc 파일을 읽어 지정된 버전으로 전환한다.
