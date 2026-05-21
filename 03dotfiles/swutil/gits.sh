@@ -7,7 +7,7 @@ readonly SCRIPT_NAME="$(basename "$REAL_PATH")"
 
 : ${SRC_PATH:=${HOME}/src}
 
-readonly REPOS_PREFIX="ssh://git@github.com:haeram27"
+readonly REPOS_PREFIX="git@github.com:haeram27"
 readonly DEVLOG_PATH="devlog"
 readonly SHELL_ENV_PATH="shell-env"
 readonly DEVLANG_SAMPLE_PATH="dev-lang-sample"
