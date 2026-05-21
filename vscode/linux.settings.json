@@ -256,14 +256,6 @@
     "workbench.secondarySideBar.defaultVisibility": "hidden",
 
     // ## GITHUB COPILOT
-    "remote.extensionKind": {
-        "github.copilot": [
-            "ui"
-        ],
-        "github.copilot-chat": [
-            "ui"
-        ]
-    },
     "github.copilot.selectedCompletionModel": "",
     "github.copilot.chat.localeOverride": "ko",
     "chat.viewSessions.orientation": "stacked",
