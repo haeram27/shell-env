@@ -57,8 +57,9 @@ launch_all() {
 
 help() {
     cat <<HELP
-Usage: [SRC_PATH=/path/to/source/root] $(basename $0) project-group-name
+$(basename $0) Usage: [SRC_PATH=/path/to/source/root] codes.sh project-group-name
     all
+    beconsole 
 HELP
 }
 

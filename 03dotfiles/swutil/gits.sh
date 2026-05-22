@@ -8,13 +8,14 @@ readonly SCRIPT_NAME="$(basename "$REAL_PATH")"
 : ${SRC_PATH:=${HOME}/src}
 
 readonly REPOS_PREFIX="git@github.com:haeram27"
-readonly DEVLOG_PATH="devlog"
-readonly SHELL_ENV_PATH="shell-env"
-readonly DEVLANG_SAMPLE_PATH="dev-lang-sample"
-readonly SPRING_VANILA_PATH="spring-msa-vanila"
-readonly THE_READER_PATH="the-reader"
+readonly REPO_DEVLOG="devlog"
+readonly REPO_DEVLANG_SAMPLE="dev-lang-sample"
+readonly REPO_SHELL_ENV="shell-env"
+readonly REPO_SPRING_VANILA="spring-msa-vanila"
+readonly REPO_THE_READER="the-reader"
+readonly REPO_WEBHOOK_GO="webhook-go"
 
-projects=("${DEVLOG_PATH}" "${SHELL_ENV_PATH}" "${DEVLANG_SAMPLE_PATH}" "${SPRING_VANILA_PATH}" "${THE_READER_PATH}")
+projects=("${REPO_DEVLOG}" "${REPO_DEVLANG_SAMPLE}" "${REPO_SHELL_ENV}" "${REPO_SPRING_VANILA}" "${REPO_THE_READER}" "${REPO_WEBHOOK_GO}")
 
 git_clone() {
     local project=${1}

@@ -458,6 +458,12 @@ alias svnrollbackmerge="svn merge -r HEAD:$1 ."
 
 
 #############################################
+# Github Copilot
+#############################################
+alias cop.auto='copilot --autopilot --yolo'
+
+
+#############################################
 # AWS
 #############################################
 alias awsg='aws --profile=god'
