@@ -22,18 +22,15 @@ if [ -f /etc/os-release ]; then
 
     else
         echo "Unsupported distribution: $ID"
-        tar xvf acinema.txz
         tar xvf noto.txz
 
         find . -type d -exec sudo chmod 755 {} \;
         find . -type f -name "*.tt[cf]" -exec sudo chmod 644 {} \;
 
-        cp -rf acinema /usr/share/fonts/truetype
         cp -rf noto  /usr/share/fonts/truetype
 
         fc-cache -vf
 
-        rm -rf ./acinema
         rm -rf ./noto
     fi
 fi

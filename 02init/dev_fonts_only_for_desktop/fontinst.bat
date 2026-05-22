@@ -9,10 +9,12 @@ set DIRSYSFONT=%windir%\fonts
 set REG_KEY="HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts"
 
 set DIRACMA=acinema
+set DIRD2=d2coding
 set DIRNOTO=noto
-set ALL=%DIRACMA% %DIRNOTO%
+set ALL=%DIRACMA% %DIRD2% %DIRNOTO%
 
 xcopy %DIRACMA%\* %DIRSYSFONT% 
+xcopy %DIRD2%\* %DIRSYSFONT% 
 xcopy %DIRNOTO%\* %DIRSYSFONT% 
 
 FOR /F "tokens=* usebackq" %%F IN (`dir /b %ALL%`) DO (
