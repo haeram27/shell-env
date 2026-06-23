@@ -5,23 +5,23 @@ readonly REAL_PATH="$(readlink -f "${BASH_SOURCE[0]:-$0}")"
 readonly SCRIPT_DIR="$(dirname "$REAL_PATH")"
 readonly SCRIPT_NAME="$(basename "$REAL_PATH")"
 
-: ${SRC_PATH:=${HOME}/src}
+: ${SRC_ROOT:=${HOME}/src}
 
-readonly PROJECT_DEVLOG="devlog"
-readonly PROJECT_DEVLANG_JAVA="dev-lang-sample/java"
-readonly PROJECT_DEVLANG_KOTLIN="dev-lang-sample/kotlin"
+readonly PROJECT_DEV_LOG="${HOME}/src/devlog"
 
-projects_all=("${PROJECT_DEVLOG}" "${PROJECT_DEVLANG_JAVA}" "${PROJECT_DEVLANG_KOTLIN}")
+projects_all=(\
+"dev-lang-sample/java" \
+"devlog"
+)
 
+launch_path() {
+    local path=${1}
 
-launch() {
-    local project=${1}
-
-    if [[ -z $project ]]; then
+    if [[ -z $path ]]; then
+        echo "path is NOT defined"
         return 127
     fi
 
-    local path="${SRC_PATH}"/"${project}"
     echo launch path: $path
 
     if [[ ! -d $path ]]; then
@@ -32,34 +32,53 @@ launch() {
     code $path || :
 }
 
-
-launch_all() {
-    local group=("$@")
+launch_paths() {
+    local paths=("$@")
 
     # 1. check is array (index array 'a' or associate array 'A')
-    if [[ ! ${group@a} =~ [aA] ]]; then
-        echo "Error: $group is NOT array"
+    if [[ ! ${paths@a} =~ [aA] ]]; then
+        echo "Error: $paths is NOT array"
         return 1
     fi
 
     # 2. check array is empty 
     # ${#array[@]} returns the number of elements of array
-    if [[ ${#group[@]} -eq 0 ]]; then
-        echo "$group is empty"
+    if [[ ${#paths[@]} -eq 0 ]]; then
+        echo "$paths is empty"
         return 0
     fi
 
-    for p in "${group[@]}"; do
-        launch ${p} || :
+    for p in "${paths[@]}"; do 
+        launch_path ${p} || :
+    done
+}
+
+launch_with_src_root() {
+    local projects=("$@")
+
+    # 1. check is array (index array 'a' or associate array 'A')
+    if [[ ! ${projects@a} =~ [aA] ]]; then
+        echo "Error: $projects is NOT array"
+        return 1
+    fi
+
+    # 2. check array is empty 
+    # ${#array[@]} returns the number of elements of array
+    if [[ ${#projects[@]} -eq 0 ]]; then
+        echo "$projects is empty"
+        return 0
+    fi
+
+    for p in "${projects[@]}"; do 
+        launch_path ${SRC_ROOT}/${p} || :
     done
 }
 
 
 help() {
     cat <<HELP
-$(basename $0) Usage: [SRC_PATH=/path/to/source/root] codes.sh project-group-name
-    all
-    beconsole 
+Usage: [SRC_ROOT=/path/to/source/root] $(basename $0) project-group-name
+    all 
 HELP
 }
 
@@ -67,7 +86,7 @@ HELP
 _main() {
     local arg=${1:-empty}
     case ${arg} in
-        "all") launch_all "${projects_all[@]}" ;;
+        "all") launch_with_src_root "${projects_all[@]}" ;;
         *) help ;;
     esac
 }

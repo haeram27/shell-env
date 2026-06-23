@@ -33,9 +33,9 @@
     lo = "!sh -c 'clear; git log -20 --graph --pretty=format:\" %C(auto)%h%d (%ar : %an) %s\"'"
     lon = log --name-only
     mt = mergetool -y
-    sh = stash
+    sh = stash -u
     shl = stash list
-    shm = stash -m
+    shm = stash -u -m
     sho = stash pop
     sha = stash apply
     shc = stash clear
