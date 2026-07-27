@@ -291,6 +291,8 @@ alias psgrep='ps -ef | grep'
 ##############################################
 # SSH
 ##############################################
+# ensure pseudo-terminal. To allow any additional confirm prompt from executing command
+# ex: ssh -t user@remote_server "sudo apt update"
 alias ssht='ssh -t'
 check_ssh_tunnel(){
     echo "==== internet socket files"
