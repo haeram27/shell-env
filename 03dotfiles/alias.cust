@@ -185,7 +185,7 @@ syncd() {
     else
         echo "cancelled."
     fi
-
+}
 
 ##############################################
 # FIND
@@ -291,6 +291,7 @@ alias psgrep='ps -ef | grep'
 ##############################################
 # SSH
 ##############################################
+alias ssht='ssh -t'
 check_ssh_tunnel(){
     echo "==== internet socket files"
     lsof -i -n -P | grep ssh | grep LISTEN
@@ -412,7 +413,7 @@ alias virqdhcp='virsh -c qemu:///system net-dhcp-leases default'
 #############################################
 # GIT
 #############################################
-gitrmlb()
+gitrmlb() {
     git br -D "$1"
 }
 
