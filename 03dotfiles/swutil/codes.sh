@@ -7,21 +7,21 @@ readonly SCRIPT_NAME="$(basename "$REAL_PATH")"
 
 : ${SRC_ROOT:=${HOME}/src}
 
-readonly PROJECT_DEV_LOG="${HOME}/src/devlog"
+readonly PROJECT_DEVLOG="devlog"
+readonly PROJECT_DEVLANG_JAVA="dev-lang-sample/java"
+readonly PROJECT_DEVLANG_KOTLIN="dev-lang-sample/kotlin"
 
-projects_all=(\
-"dev-lang-sample/java" \
-"devlog"
-)
+projects_all=("${PROJECT_DEVLOG}" "${PROJECT_DEVLANG_JAVA}" "${PROJECT_DEVLANG_KOTLIN}")
 
-launch_path() {
-    local path=${1}
 
-    if [[ -z $path ]]; then
-        echo "path is NOT defined"
+launch() {
+    local project=${1}
+
+    if [[ -z $project ]]; then
         return 127
     fi
 
+    local path="${SRC_ROOT}"/"${project}"
     echo launch path: $path
 
     if [[ ! -d $path ]]; then
@@ -32,28 +32,8 @@ launch_path() {
     code $path || :
 }
 
-launch_paths() {
-    local paths=("$@")
 
-    # 1. check is array (index array 'a' or associate array 'A')
-    if [[ ! ${paths@a} =~ [aA] ]]; then
-        echo "Error: $paths is NOT array"
-        return 1
-    fi
-
-    # 2. check array is empty 
-    # ${#array[@]} returns the number of elements of array
-    if [[ ${#paths[@]} -eq 0 ]]; then
-        echo "$paths is empty"
-        return 0
-    fi
-
-    for p in "${paths[@]}"; do 
-        launch_path ${p} || :
-    done
-}
-
-launch_with_src_root() {
+launch_all() {
     local projects=("$@")
 
     # 1. check is array (index array 'a' or associate array 'A')
@@ -69,16 +49,17 @@ launch_with_src_root() {
         return 0
     fi
 
-    for p in "${projects[@]}"; do 
-        launch_path ${SRC_ROOT}/${p} || :
+    for p in "${projects[@]}"; do
+        launch ${p} || :
     done
 }
 
 
 help() {
     cat <<HELP
-Usage: [SRC_ROOT=/path/to/source/root] $(basename $0) project-group-name
-    all 
+$(basename $0) Usage: [SRC_ROOT=/path/to/source/root] $(basename $0) <target>
+    all
+    devlog
 HELP
 }
 
@@ -86,7 +67,8 @@ HELP
 _main() {
     local arg=${1:-empty}
     case ${arg} in
-        "all") launch_with_src_root "${projects_all[@]}" ;;
+        "all") launch_all "${projects_all[@]}" ;;
+        "devlog") launch "${PROJECT_DEVLOG}" ;;
         *) help ;;
     esac
 }
