@@ -22,6 +22,25 @@ setopt shwordsplit
 [[ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && . ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 
+########################################
+# Import User Script Profile (.cust)
+########################################
+# Create a dedicated directory for your custom scripts
+script_folder="$HOME/.init/scripts"
+
+# 1. Check if the directory exists
+if [ -d "$script_folder" ]; then
+    # 2. Loop through all .cust script files inside the directory
+    for script in "$script_folder"/*.cust; do
+        # 3. Guard against empty globs (if no .cust script files exist)
+        if [ -f "$script" ]; then
+            # 4. Dot-source the file
+            . "$script"
+        fi
+    done
+fi
+
+
 #################################
 # HISTORY
 #################################
