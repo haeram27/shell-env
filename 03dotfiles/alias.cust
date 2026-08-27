@@ -17,6 +17,26 @@ fi
 ##############################################
 # ETC
 ##############################################
+user-confirm() {
+    # Zsh handles -p differently.
+    # Use 'echo -n' for the message and then 'read' the response.
+    echo -n "${1:-Are you sure?} [y/N]: "
+    read -r response
+
+    if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
+        return 0
+    else
+        return 1
+    fi
+}
+## Usage
+# if user_confirm "Do you want to delete the file?"; then
+#     echo "Deleting..."
+# else
+#     echo "Skipped."
+# fi
+
+
 # vim
 alias vi='vim'
 
@@ -38,8 +58,20 @@ alias chterm='sudo update-alternatives --config x-terminal-emulator'
 # build(make) and grep  errors
 alias mage='make -j12 2>&1 | greps error'
 
+# gnome-text-editor
+if command -v gnome-text-editor &>/dev/null; then
+    gte() { gnome-text-editor "$@" &>/dev/null & }
+fi
+
+# notepadqq
+if command -v notepadqq &>/dev/null; then
+    npp() { notepadqq "$@" &>/dev/null & }
+elif command -v notepad.exe &>/dev/null; then
+    npp() { notepad.exe "$@" &>/dev/null & }
+fi
+
 # batcat
-if ! type bat &>/dev/null; then
+if command -v bat &>/dev/null; then
     alias bat='batcat'
 fi
 
@@ -100,17 +132,85 @@ abspath() {
 
 
 ##############################################
+# CHMOD 
+##############################################
+chmodall() {
+    find . -type f \( -name "*.txt" -o -name "*.tgz" -o -name "*.tar.gz" -o -name "*.txz" \) -exec chmod 644 {} \;
+    find . -type f -name "*.sh" -exec chmod 755 {} \;
+    find . -type d -exec chmod 775 {} \;
+}
+
+chmodsh() {
+    find . -type f -name "*.sh" -exec chmod 755 {} \;
+}
+
+chmoddir() {
+    find . -type d -exec chmod 775 {} \;
+}
+
+
+##############################################
+# COPY AND MOVE
+##############################################
+ensure-dir-slash() {
+    local dir="$1"
+
+    # 1. Check if the variable is not empty (-n: string length is non-zero)
+    if [[ -n "$dir" ]]; then
+        # 2. Squeeze multiple slashes (e.g., //, ///) into a single slash (/)
+        dir=$(echo "$dir" | tr -s '/')
+
+        # 3. Remove trailing slash if exists, then append exactly one slash
+        dir="${dir%/}/"
+
+        echo -n "$dir"
+    fi
+}
+
+copyd() {
+    for dir in "$1" "$2"; do
+        if [ ! -d "$dir" ]; then
+            echo "Directory NOT exists: $dir"
+          return 1
+        fi
+    done
+
+    if user_confirm "Do you want to overwrite files?"; then
+        # cp -rf a/* b
+        cp -rf $(ensure-dir-slash "$1")* "$2"
+    else
+        echo "cancelled."
+    fi
+}
+
+syncd() {
+    for dir in "$1" "$2"; do
+        if [ ! -d "$dir" ]; then
+            echo "Directory NOT exists: $dir"
+          return 1
+        fi
+    done
+
+    if user_confirm "Files can be removed in $2"; then
+        # rsync -av --delete a/ b
+        rsync -av --delete $(ensure-dir-slash "$1") "$2"
+    else
+        echo "cancelled."
+    fi
+}
+
+##############################################
 # FIND
 ############################################## 
 # findn: name-specific
 # USAGE: $ findn . "*cust"
 function findn() {
-        find "$1" -name "$2" 2>/dev/null
+    find "$1" -name "$2" 2>/dev/null
 }
 
 # findl: follow symboliclink
 function findl() {
-        find -L "$1" -name "$2" 2>/dev/null
+    find -L "$1" -name "$2" 2>/dev/null
 }
 
 
@@ -131,7 +231,7 @@ alias grepsrcjbe='grep -rnI --exclude-dir={.git,.svn,target} --include={\*.prope
 
 
 ##############################################
-# HIGHLIGHT LINE
+# chmod
 ##############################################
 chmodall() {
     find . -type f \( -name "*.txt" -o -name "*.tgz" -o -name "*.tar.gz" -o -name "*.txz" \) -exec chmod 644 {} \;
@@ -156,66 +256,174 @@ chmoddir() {
 # $ cat /var/log/syslog | hh
 
 function hh() {
-sed -u \
--e "s/\(\b[0-9]\+\b\)/\o033[1;92m\1\o033[0;m/gi" \
--e "s/\(\bexception\w*\b\)/\o033[1;31m\1\o033[0;m/gi" \
--e "s/\(\bemerg\w*\b\)/\o033[1;31m\1\o033[0;m/gi" \
--e "s/\(\balert\w*\b\)/\o033[1;31m\1\o033[0;m/gi" \
--e "s/\(\bcritical\w*\b\)/\o033[1;31m\1\o033[0;m/gi" \
--e "s/\(\berror\w*\b\)/\o033[1;31m\1\o033[0;m/gi" \
--e "s/\(\bcause\w*\b\)/\o033[1;31m\1\o033[0;m/gi" \
--e "s/\(\bwarn\w*\)/\o033[1;33m\1\o033[0;m/gi" \
--e "s/\(\bnotice\w*\b\)/\o033[1;33m\1\o033[0;m/gi" \
--e "s/\(\binfo\w*\b\)/\o033[1;33m\1\o033[0;m/gi" \
--e "s/\(\bdebug\w*\b\)/\o033[1;33m\1\o033[0;m/gi" \
--e "s/\(\bsuccess\w*\b\)/\o033[1;42m\1\o033[0;m/gi" \
--e "s/\(\bfail\w*\b\)/\o033[1;41m\1\o033[0;m/gi" \
--e "s/\(\btrue\w*\b\)/\o033[1;46m\1\o033[0;m/gi" \
--e "s/\(\bfalse\w*\b\)/\o033[1;46m\1\o033[0;m/gi" \
--e "s/\(\bstart\w*\b\)/\o033[1;46m\1\o033[0;m/gi" \
--e "s/\(\bstop\w*\b\)/\o033[1;46m\1\o033[0;m/gi" \
--e "s/\(\benable\w*\b\)/\o033[1;46m\1\o033[0;m/gi" \
--e "s/\(\bdisable\w*\b\)/\o033[1;46m\1\o033[0;m/gi" \
--e "s/\(\bswtest\w*\b\)/\o033[1;37;101m\1\o033[0;m/gi"
+    sed -u \
+    -e "s/\(\b[0-9]\+\b\)/\o033[1;92m\1\o033[0;m/gi" \
+    -e "s/\(\bexception\w*\b\)/\o033[1;31m\1\o033[0;m/gi" \
+    -e "s/\(\bemerg\w*\b\)/\o033[1;31m\1\o033[0;m/gi" \
+    -e "s/\(\balert\w*\b\)/\o033[1;31m\1\o033[0;m/gi" \
+    -e "s/\(\bcritical\w*\b\)/\o033[1;31m\1\o033[0;m/gi" \
+    -e "s/\(\berror\w*\b\)/\o033[1;31m\1\o033[0;m/gi" \
+    -e "s/\(\bcause\w*\b\)/\o033[1;31m\1\o033[0;m/gi" \
+    -e "s/\(\bwarn\w*\)/\o033[1;33m\1\o033[0;m/gi" \
+    -e "s/\(\bnotice\w*\b\)/\o033[1;33m\1\o033[0;m/gi" \
+    -e "s/\(\binfo\w*\b\)/\o033[1;33m\1\o033[0;m/gi" \
+    -e "s/\(\bdebug\w*\b\)/\o033[1;33m\1\o033[0;m/gi" \
+    -e "s/\(\bsuccess\w*\b\)/\o033[1;42m\1\o033[0;m/gi" \
+    -e "s/\(\bfail\w*\b\)/\o033[1;41m\1\o033[0;m/gi" \
+    -e "s/\(\btrue\w*\b\)/\o033[1;46m\1\o033[0;m/gi" \
+    -e "s/\(\bfalse\w*\b\)/\o033[1;46m\1\o033[0;m/gi" \
+    -e "s/\(\bstart\w*\b\)/\o033[1;46m\1\o033[0;m/gi" \
+    -e "s/\(\bstop\w*\b\)/\o033[1;46m\1\o033[0;m/gi" \
+    -e "s/\(\benable\w*\b\)/\o033[1;46m\1\o033[0;m/gi" \
+    -e "s/\(\bdisable\w*\b\)/\o033[1;46m\1\o033[0;m/gi" \
+    -e "s/\(\bswtest\w*\b\)/\o033[1;37;101m\1\o033[0;m/gi"
 }
 
 # USAGE:
 # $ cat myfile | hhh make
 function hhh() {
-sed -u \
--e "s/\($1\)/\o033[1;6;30;103m\1\o033[0;m/gi"
+    sed -u -e "s/\($1\)/\o033[1;6;30;103m\1\o033[0;m/gi"
 }
 
 # USAGE:
 # $ tailf myfile
 function tailf() {
-tail -f $1 | hh
+    tail -f $1 | hh
 }
 
 function tailfgrep() {
-tail -f $1 | hh | grep $2
+    tail -f $1 | hh | grep $2
 }
 
 # USAGE:
 # $ tailF myfile
 function tailF() {
-tail -F $1 | hh
+    tail -F $1 | hh
 }
 
 function tailFgrep() {
-tail -F $1 | hh | grep $2
+    tail -F $1 | hh | grep $2
 }
 
 # USAGE:
 # $ cats myfile
 function cats() {
-cat $1 | hh
+    cat $1 | hh
 }
+
+
+##############################################
+# fzf
+##############################################
+# change directory using fzf
+alias fcd='cd $(fd --type d --hidden --exclude .git | fzf)'
+
+# ff - find files and print list
+ff() {
+    # 1. 입력받은 경로 설정 (인자가 없으면 현재 디렉토리 '.' 사용)
+    local search_path="${1:-.}"
+
+    # [추가] 존재하지 않는 경로이거나 디렉토리가 아니면 경고 후 종료
+    if [ ! -e "$search_path" ]; then
+        echo "Error: '$search_path' 경로가 존재하지 않습니다." >&2
+        return 1
+    elif [ ! -d "$search_path" ]; then
+        echo "Error: '$search_path'는 디렉토리가 아닙니다." >&2
+        return 1
+    fi
+
+    # 2. bat 또는 cat 미리보기 명령어 세팅
+    local preview_cmd="cat {}"
+    if command -v bat &>/dev/null; then
+        preview_cmd="bat --style=numbers --color=always --line-range :500 {}"
+    fi
+
+    # 3. 파일 목록 생성 방식 결정 (fd가 있으면 fd, 없으면 find)
+    local list_cmd
+    if command -v fd &>/dev/null; then
+        list_cmd="fd --type file . \"$search_path\""
+    elif command -v fde &>/dev/null; then
+        list_cmd="fde --type file . \"$search_path\""
+    else
+        list_cmd="find \"$search_path\" -type f"
+    fi
+
+    # 4. 검증된 임시 파일 방식 실행
+    local tmp_file
+    tmp_file=$(mktemp)
+
+    # 목록 명령어를 실행하여 fzf로 전달
+    eval "$list_cmd" | fzf -m --marker='▶ ' --preview "$preview_cmd" > "$tmp_file"
+
+    # 5. fzf 종료 후 선택한 파일 리스트가 있으면 프롬프트에 나열
+    if [ -s "$tmp_file" ]; then
+        cat "$tmp_file"
+    fi
+
+    # 임시 파일 삭제
+    rm -f "$tmp_file"
+}
+
+
+# fe - Find files and open them in Vim
+fe() {
+    local file
+    # Uses Ubuntu's 'batcat' with syntax-highlighted preview capped at 500 lines
+    file=$(fzf --preview 'batcat --style=numbers --color=always --line-range :500 {}')
+    # run vim when only files are selected (cancel allowed by ESC)
+    [ -n "$file" ] && ${EDITOR:-vim} "$file"
+}
+
+# fat - cat file
+fat() {
+    local file
+    # Uses Ubuntu's 'batcat' with syntax-highlighted preview capped at 500 lines
+    file=$(fzf --preview 'batcat --style=numbers --color=always --line-range :500 {}')
+    # run vim when only files are selected (cancel allowed by ESC)
+    [ -n "$file" ] && batcat --style=header "$file"
+}
+
+# frm - Remove files
+frm() {
+    local files
+    files=$(fd --type f | fzf -m)
+
+    # Only run rm if files were actually selected
+    if [ -n "$files" ]; then
+        # Safe execution via xargs with TTY enabled
+        echo "$files" | xargs -ro -d '\n' rm -i
+    fi
+}
+
 
 ##############################################
 # ps
 ##############################################
 alias psgrep='ps -ef | grep'
+
+
+##############################################
+# SSH
+##############################################
+# ensure pseudo-terminal. To allow any additional confirm prompt from executing command
+# ex: ssh -t user@remote_server "sudo apt update"
+alias ssht='ssh -t'
+check_ssh_tunnel(){
+    echo "==== internet socket files"
+    lsof -i -n -P | grep ssh | grep LISTEN
+    # -i: internet socket files
+    # -n: host ip instead name
+    # -P: port number instead name
+    echo
+
+    echo "==== ssh listen port"
+    ss -ntlp | grep ssh
+    echo
+
+    echo "==== command"
+    ps -ef | grep ssh | grep -E "\-L|\-R|\-D"
+    echo
+}
 
 
 ##############################################
@@ -266,13 +474,13 @@ http_conn_test() {
 # USAGE: 
 # $ watchsw <command> <interval#second>
 function watchsw() {
-  if [[ -z $1 || -z $2 ]]; then echo 'wrong arguments...'; fi
-  while :; do $1; sleep $2; done;
+    if [[ -z $1 || -z $2 ]]; then echo 'wrong arguments...'; fi
+    while :; do $1; sleep $2; done;
 }
 
 function watchswclr() {
-  if [[ -z $1 || -z $2 ]]; then echo 'wrong arguments...'; fi
-  while clear; do $1; sleep $2; done;
+    if [[ -z $1 || -z $2 ]]; then echo 'wrong arguments...'; fi
+    while clear; do $1; sleep $2; done;
 }
 
 
@@ -288,7 +496,7 @@ alias sct='systemctl'
 ##############################################
 # USAGE: $ tdump "host 1.2.3.4 and port 8080"
 function tdump() {
-  sudo tcpdump -U -i eno1 $1 -w - | tee "tcpdump.$(date +%Y%m%d-%H%M%S).pcap" | tcpdump -qns 0 -A -r -
+    sudo tcpdump -U -i eno1 $1 -w - | tee "tcpdump.$(date +%Y%m%d-%H%M%S).pcap" | tcpdump -qns 0 -A -r -
 }
 
 
@@ -321,7 +529,13 @@ alias virqdhcp='virsh -c qemu:///system net-dhcp-leases default'
 #############################################
 # GIT
 #############################################
-#alias g='git'
+gitrmlb() {
+    git br -D "$1"
+}
+
+gitrmrb() {
+    git push origin :"$1"
+}
 
 
 #############################################
@@ -358,6 +572,12 @@ alias svnci='svn ci --targets /tmp/svncl'
 
 # create rollback commit, $1 SHOULD be revision to be HEAD after merge
 alias svnrollbackmerge="svn merge -r HEAD:$1 ."
+
+
+#############################################
+# Github Copilot
+#############################################
+alias cop.auto='copilot --autopilot --yolo'
 
 
 #############################################
