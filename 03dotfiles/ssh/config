@@ -1,0 +1,16 @@
+Host github.com
+    IdentityFile ~/.ssh/id_rsa.private.key
+    ProxyJump pub.nat.proxy.sshd
+    StrictHostKeyChecking no
+
+
+Host pub.nat.proxy.sshd
+    HostName 1.2.3.4
+    User user 
+#PW password
+    IdentityFile ~/.ssh/id_rsa.private.key
+    StrictHostKeyChecking no
+    ExitOnForwardFailure yes
+    ServerAliveInterval 60
+    ServerAliveCountMax 10
+    TCPKeepAlive no

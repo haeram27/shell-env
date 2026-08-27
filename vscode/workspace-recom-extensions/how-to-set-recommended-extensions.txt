@@ -1,0 +1,9 @@
+# reference 
+https://code.visualstudio.com/docs/editor/extension-marketplace#_workspace-recommended-extensions
+
+# how to use
+add extensions.recommed.XXX.json into {workspace}/.vscode/extensions.json
+load workspace from visual studio code
+select "Extensions: Show Recommended Extensions" from Command Palette (Ctrl+Shift+P)
+filter with "@recommended" in Extensions tab (Ctrl+Shift+X)
+check "WORKSPACE RECOMMENDATAIONS" pannel

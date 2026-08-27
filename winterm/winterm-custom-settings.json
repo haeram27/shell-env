@@ -1,0 +1,146 @@
+{
+    "$help": "https://aka.ms/terminal-documentation",
+    "$schema": "https://aka.ms/terminal-profiles-schema",
+    "actions": [
+        {
+            "command": {
+                "action": "copy",
+                "singleLine": false
+            }
+        },
+        {
+            "command": "find",
+            "keys": "ctrl+shift+f"
+        },
+        {
+            "command": "togglePaneZoom",
+            "keys": "ctrl+shift+z"
+        },
+        {
+            "command": {
+                "action": "resizePane",
+                "direction": "up"
+            },
+            "keys": "ctrl+shift+up"
+        },
+        {
+            "command": {
+                "action": "resizePane",
+                "direction": "down"
+            },
+            "keys": "ctrl+shift+down"
+        },
+        {
+            "command": {
+                "action": "resizePane",
+                "direction": "left"
+            },
+            "keys": "ctrl+shift+left"
+        },
+        {
+            "command": {
+                "action": "resizePane",
+                "direction": "right"
+            },
+            "keys": "ctrl+shift+right"
+        },
+        {
+            "command": {
+                "action": "splitPane",
+                "split": "auto",
+                "splitMode": "duplicate"
+            },
+            "keys": "alt+shift+d"
+        },
+        {
+            "command": {
+                "action": "splitPane",
+                "split": "right"
+            },
+            "keys": "ctrl+shift+e"
+        },
+        {
+            "command": {
+                "action": "splitPane",
+                "split": "down"
+            },
+            "keys": "ctrl+shift+o"
+        },
+        {
+            "command": "unbound",
+            "keys": "alt+shift+minus"
+        },
+        {
+            "command": "unbound",
+            "keys": "alt+shift+plus"
+        },
+        {
+            "command": "unbound",
+            "keys": "alt+shift+down"
+        },
+        {
+            "command": "unbound",
+            "keys": "alt+shift+up"
+        },
+        {
+            "command": "unbound",
+            "keys": "alt+shift+right"
+        },
+        {
+            "command": "unbound",
+            "keys": "alt+shift+left"
+        },
+        {
+            "command": "unbound",
+            "keys": "ctrl+c"
+        },
+        {
+            "command": "unbound",
+            "keys": "ctrl+v"
+        }
+    ],
+    "copyFormatting": "none",
+    "copyOnSelect": false,
+    "newTabMenu": [
+        {
+            "type": "remainingProfiles"
+        }
+    ],
+    "profiles": {
+        "defaults": {
+            "antialiasingMode": "cleartype",
+            "colorScheme": "80s Retrowave",
+            "experimental.retroTerminalEffect": false,
+            "opacity": 80,
+            "useAcrylic": true,
+            "font": {
+                "face": "D2Coding"
+            }
+        }
+    },
+    "schemes": [
+        {
+            "background": "#220036",
+            "black": "#580051",
+            "blue": "#743ECA",
+            "brightBlack": "#59C2FF",
+            "brightBlue": "#00D9FF",
+            "brightCyan": "#E7FFFF",
+            "brightGreen": "#F949FF",
+            "brightPurple": "#FF00BF",
+            "brightRed": "#FF4D00",
+            "brightWhite": "#FDF6E3",
+            "brightYellow": "#C20092",
+            "cursorColor": "#F949FF",
+            "cyan": "#2AA198",
+            "foreground": "#FFA600",
+            "green": "#FF00F2",
+            "name": "80s Retrowave",
+            "purple": "#D33682",
+            "red": "#DC322F",
+            "selectionBackground": "#C20092",
+            "white": "#6A008A",
+            "yellow": "#FF5E00"
+        }
+    ]
+}

@@ -1,0 +1,40 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "sw: printVariables",
+            "type": "shell",
+            "linux": {
+                "command": "echo",
+                "args": [
+                    " \n",
+                    "userHome = ${userHome}\n",
+                    "workspaceFolder = ${workspaceFolder}\n",
+                    "workspaceFolderBasename = ${workspaceFolderBasename}\n",
+                    "file = ${file}\n",
+                    "fileWorkspaceFolder = ${fileWorkspaceFolder}\n",
+                    "relativeFile = ${relativeFile}\n",
+                    "relativeFileDirname = ${relativeFileDirname}\n",
+                    "fileBasename = ${fileBasename}\n",
+                    "fileBasenameNoExtension = ${fileBasenameNoExtension}\n",
+                    "fileExtname = ${fileExtname}\n",
+                    "fileDirname = ${fileDirname}\n",
+                    "fileDirnameBasename = ${fileDirnameBasename}\n",
+                    "cwd = ${cwd}\n",
+                    "lineNumber = ${lineNumber}",
+                    //"selectedText = ${selectedText}\n",
+                    "execPath = ${execPath}\n",
+                    //"defaultBuildTask = ${defaultBuildTask}\n",
+                    "pathSeparator = ${pathSeparator}\n",
+                    "/ = ${/}\n"
+                ]
+            },
+            "problemMatcher": [],
+            "presentation": {
+                "echo": false
+            }
+        }
+    ]
+}

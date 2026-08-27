@@ -1,0 +1,16 @@
+## please use 'showkey -a' command to check what is keycode of which you're pushing key combination
+
+## autosuggest-accept? autocomplete command from history
+## autosuggest-execute? autocomplete + execute
+bindkey "^J" autosuggest-execute   # default: bindkey "^J" accept-line
+bindkey "^[^J" autosuggest-accept  # default: bindkey "^[^J" self-insert-unmeta
+
+bindkey "^[[1;5D" backward-word   # Ctrl + ← : option + ← ; default
+bindkey "^[[1;5C" forward-word    # Ctrl + → : option + → ; default
+
+bindkey "^H" backward-kill-word   # Ctrl + Backspace  : option + Backspace  ## same with Ctrl + Alt + h
+bindkey "^[^H" kill-whole-line    # Ctrl + Alt + Backspace : command + Backspace ## same with Ctrl + u
+
+#bindkey "^[[1;7D" beginning-of-line    # Ctrl + Alt + ← : command + ←
+#bindkey "^[[1;7C" end-of-line          # Ctrl + Alt + → : command + →
+

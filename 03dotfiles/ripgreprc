@@ -1,0 +1,70 @@
+# ---------------------
+# OUTPUT READABILITY
+# ---------------------
+# no file block header
+--no-heading
+# no line number
+#--no-line-number
+# show column number
+--column
+#--ignore-case
+
+
+# ---------------------
+# PERFORMANCE AND SECURITY
+# ---------------------
+# jump files exceeding max-filesize
+#--max-filesize 20M
+# do NOT follow symbolic-link
+#--no-follow
+# search hidden file/folder
+#--hidden
+# do NOT use ignore rules(.gitignore etc)
+#--no-ignore
+
+# select engine - use default when pcre2 is significantly slow
+#--engine=default
+#--engine=pcre2
+
+
+# ---------------------
+# IGNORE-GLOB
+# ---------------------
+--glob=!**/node_modules/**
+--glob=!**/dist/**
+--glob=!**/build/**
+--glob=!**/.git/**
+--glob=!**/.svn/**
+--glob=!**/.hg/**
+--glob=!**/CVS/**
+--glob=!**/coverage/**
+--glob=!**/*.log
+# min - huge size single line file
+--glob=!**/*.min.*   
+--glob=!**/.DS_Store
+--glob=!**/Thumbs.db
+# --glob=!**/.cache/**
+
+
+# ---------------------
+# TYPE BUNDLE
+# ---------------------
+# include type '-t=web'
+# exclude type '-T=web'
+
+# define bundle of ext of binary/archive/media
+--type-add=bin:*.{png,jpg,jpeg,gif,ico,webp,mp3,mp4,avi,mov,wmv,flac,wav}
+--type-add=bin:*.{pdfepub,doc,docx,xls,xlsx,ppt,pptx}
+--type-add=bin:*.{zip,gz,bz2,7z,xz,rar,tar,tar.bz,tar.gz,tar.xz,iso,dmg}
+--type-add=bin:*.{exe,dll,bin,so,o,a,jar,class}
+
+# exclude binary/archive/media files from search
+-T=bin
+
+# java backend
+--type-add=jbe:*.{java,sql,xml,json,yml,properties,sh,cpp}
+
+# web
+--type-add=web:*.{html,css,scss,js,jsx,ts,tsx,vue,svelte,astro}
+--type-add=cfg:*.{json,yml,yaml,toml,ini}
+--type-add=script:*.{sh,zsh,ps1,bat,cmd,py,rb,pl,php,rs,go}
