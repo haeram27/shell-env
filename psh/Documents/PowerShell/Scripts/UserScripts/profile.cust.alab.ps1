@@ -14,3 +14,9 @@ function clean-java-cache {
         Write-Host "✔ Maven 로컬 라이브러리를 삭제했습니다." -ForegroundColor Cyan
     }
 }
+
+function gradle-stop {
+    gradle --stop *> $null
+    ./gradlew --stop *> $null
+}
+
