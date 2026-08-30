@@ -38,7 +38,6 @@ fi
 [[ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && . ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 
-
 #################################
 # HISTORY
 #################################
