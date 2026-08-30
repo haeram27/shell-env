@@ -30,7 +30,7 @@ user-confirm() {
     fi
 }
 ## Usage
-# if user_confirm "Do you want to delete the file?"; then
+# if user-confirm "Do you want to delete the file?"; then
 #     echo "Deleting..."
 # else
 #     echo "Skipped."
@@ -58,6 +58,11 @@ alias chterm='sudo update-alternatives --config x-terminal-emulator'
 # build(make) and grep  errors
 alias mage='make -j12 2>&1 | greps error'
 
+# batcat
+if command -v bat &>/dev/null; then
+    alias bat='batcat'
+fi
+
 # gnome-text-editor
 if command -v gnome-text-editor &>/dev/null; then
     gte() { gnome-text-editor "$@" &>/dev/null & }
@@ -70,9 +75,11 @@ elif command -v notepad.exe &>/dev/null; then
     npp() { notepad.exe "$@" &>/dev/null & }
 fi
 
-# batcat
-if command -v bat &>/dev/null; then
-    alias bat='batcat'
+# beyond compare
+if command -v Bcomp.exe &>/dev/null; then
+    bcomp() {
+        "$(which Bcomp.exe)" "$@"
+    }
 fi
 
 
