@@ -1,9 +1,16 @@
-## please use 'showkey -a' command to check what is keycode of which you're pushing key combination
+## check keycode
+## showkey -a
+
+## Ctrl+j ^J
+## Alt+j ^[j
+## Ctrl+Alt+j ^[^J
 
 ## autosuggest-accept? autocomplete command from history
 ## autosuggest-execute? autocomplete + execute
-bindkey "^J" autosuggest-execute   # default: bindkey "^J" accept-line
-bindkey "^[^J" autosuggest-accept  # default: bindkey "^[^J" self-insert-unmeta
+bindkey "^J" autosuggest-accept  # default: bindkey "^[^J" self-insert-unmeta
+bindkey "^[^J" autosuggest-execute   # default: bindkey "^J" accept-line
+bindkey "^L" autosuggest-accept  # default: bindkey "^[^L" clear-screen
+bindkey "^[^L" autosuggest-execute   # default: bindkey "^L" clear-screen
 
 bindkey "^[[1;5D" backward-word   # Ctrl + ← : option + ← ; default
 bindkey "^[[1;5C" forward-word    # Ctrl + → : option + → ; default
