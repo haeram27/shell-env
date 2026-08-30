@@ -17,7 +17,7 @@
 # list of key bindings: Get-PSReadLineKeyHandler
 # list of unbound keys: Get-PSReadLineKeyHandler -Unbound
 Set-PSReadLineKeyHandler -Chord 'Ctrl+l' -Function AcceptSuggestion
-Set-PSReadLineKeyHandler -Chord 'Ctrl+Shift+l' -ScriptBlock {
+Set-PSReadLineKeyHandler -Chord 'Ctrl+Alt+l' -ScriptBlock {
     [Microsoft.PowerShell.PSConsoleReadLine]::AcceptSuggestion()
     [Microsoft.PowerShell.PSConsoleReadLine]::AcceptLine()
 }
