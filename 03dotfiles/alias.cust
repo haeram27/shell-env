@@ -77,11 +77,10 @@ fi
 
 # beyond compare
 if command -v Bcomp.exe &>/dev/null; then
-    bcomp() {
+    bcompare() {
         "$(which Bcomp.exe)" "$@"
     }
 fi
-
 
 #obsidian
 # env.cust:: export OBSIDIAN_VAULT_PATH="/path/to/obsidian/vault/git/local/repo"
