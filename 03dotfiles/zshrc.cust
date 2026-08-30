@@ -6,8 +6,9 @@
 # use 'setopt' command without options to check currently enabled shell options
 # use 'unsetopt' command with options to disable given option
 
-# autopushd : use cd with directory stack so popd can be used to go back previous directory
-setopt autopushd
+setopt autopushd         # cd works as pushd 
+setopt pushd_ignore_dups # pushd do NOT stack dupliated path
+setopt pushd_silent      # pushd/popd do NOT print stack list
 setopt shwordsplit
 
 #################################
