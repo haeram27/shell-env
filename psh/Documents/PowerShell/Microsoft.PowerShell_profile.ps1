@@ -44,9 +44,9 @@ function Copilot-Auto {
 }
 
 # eza
-function l  { eza --icons }
-function ll { eza -la --git --icons }
-function lt { eza --tree --level=2 --icons }
+function l  { eza $args --icons }
+function ll { eza -la $args --git --icons }
+function lt { eza $args --tree --level=2 --icons }
 
 
 ########################################
