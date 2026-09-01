@@ -374,17 +374,49 @@ ff() {
 # fe - Find files and open them in Vim
 fe() {
     local file
-    # Uses Ubuntu's 'batcat' with syntax-highlighted preview capped at 500 lines
-    file=$(fzf --preview 'batcat --style=numbers --color=always --line-range :500 {}')
-    # run vim when only files are selected (cancel allowed by ESC)
-    [ -n "$file" ] && ${EDITOR:-vim} "$file"
+    local preview_cmd
+
+    # 1. 구문 강조 도구(batcat 또는 bat) 확인
+    if command -v batcat >/dev/null 2>&1; then
+        preview_cmd='batcat --style=numbers --color=always --line-range :500 {}'
+    elif command -v bat >/dev/null 2>&1; then
+        preview_cmd='bat --style=numbers --color=always --line-range :500 {}'
+    else
+        preview_cmd='cat {}'
+    fi
+
+    # 2. fd 설치 여부에 따라 파일 목록 생성 및 fzf 실행
+    if command -v fd >/dev/null 2>&1; then
+        file=$(fd --type f --hidden --exclude .git . | fzf --preview "$preview_cmd")
+    else
+        file=$(fzf --preview "$preview_cmd" .)
+    fi
+
+    # 3. 파일이 정상 선택되었을 때만 에디터 실행
+    [ -n "$file" ] && "${EDITOR:-vim}" "$file"
 }
 
 # fat - cat file
 fat() {
     local file
-    # Uses Ubuntu's 'batcat' with syntax-highlighted preview capped at 500 lines
-    file=$(fzf --preview 'batcat --style=numbers --color=always --line-range :500 {}')
+    local preview_cmd
+
+    # 1. 구문 강조 도구(batcat 또는 bat) 확인
+    if command -v batcat >/dev/null 2>&1; then
+        preview_cmd='batcat --style=numbers --color=always --line-range :500 {}'
+    elif command -v bat >/dev/null 2>&1; then
+        preview_cmd='bat --style=numbers --color=always --line-range :500 {}'
+    else
+        preview_cmd='cat {}'
+    fi
+
+    # 2. fd 설치 여부에 따라 파일 목록 생성 및 fzf 실행
+    if command -v fd >/dev/null 2>&1; then
+        file=$(fd --type f --hidden --exclude .git . | fzf --preview "$preview_cmd")
+    else
+        file=$(fzf --preview "$preview_cmd" .)
+    fi
+
     # run vim when only files are selected (cancel allowed by ESC)
     [ -n "$file" ] && batcat --style=header "$file"
 }

@@ -195,7 +195,7 @@ if (Get-Command fzf -ErrorAction SilentlyContinue) {
         }
     }
 
-    # fat: fzf로 파일을 찾아 Vim(또는 기본 에디터)으로 열기
+    # fat: fzf로 파일을 찾아 내용 출력
     function fat {
         # Windows 환경(winget/scoop 설치 등)에 맞춰 'bat' 명령어가 있는지 확인, 없으면 기본 'type'으로 대체
         $batCmd = if (Get-Command bat -ErrorAction SilentlyContinue) { "bat" } else { "type" }
