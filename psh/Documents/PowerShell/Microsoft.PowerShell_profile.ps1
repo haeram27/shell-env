@@ -44,9 +44,9 @@ function Copilot-Auto {
 }
 
 # eza
-function l  { eza $args --icons }
-function ll { eza -la $args --git --icons }
-function lt { eza $args --tree --level=2 --icons }
+function l  { eza $args }
+function ll { eza -la $args --git }
+function lt { eza $args --tree --level=2 }
 
 
 ########################################
@@ -183,14 +183,15 @@ if (Get-Command fzf -ErrorAction SilentlyContinue) {
         # bat가 설치되어 있지 않다면 프리뷰 옵션을 제외하고 실행됩니다.
         $previewCmd = if (Get-Command bat -ErrorAction SilentlyContinue) { "bat --style=numbers --color=always --line-range :500 {}" } else { "type {}" }
 
-        # fzf 실행 후 선택된 파일 경로 저장
-        $file = fzf --preview $previewCmd
+        # 명시적으로 현재 디렉토리(.)에서 fd를 실행하여 fzf로 전달 (HOME 디렉토리 이동 버그 해결)
+        $file = fd --type f --hidden --exclude .git . | fzf --preview $previewCmd
 
         # 사용자가 취소(ESC)하지 않고 파일을 정상 선택한 경우에만 에러 없이 에디터 실행
         if ($file) {
             # 환경변수 $env:EDITOR가 있으면 해당 에디터로, 없으면 기본 vim으로 실행
             $editor = if ($env:EDITOR) { $env:EDITOR } else { "vim" }
-            Start-Process $editor -ArgumentList (Protect-String $file) -NoNewWindow -Wait
+            
+            Start-Process $editor -ArgumentList $file -NoNewWindow -Wait
         }
     }
 
