@@ -72,13 +72,6 @@ if (Get-Command zoxide -ErrorAction SilentlyContinue) {
     Invoke-Expression (& { (zoxide init powershell | Out-String) })
 }
 
-# PSFzf
-<#
-Import-Module PSFzf
-Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' `
-                       -PSReadlineChordReverseHistory 'Ctrl+r' `
-                       -PSReadlineChordChangeDirectory 'Alt+c'
-#>
 # fzf 프로그램 본체가 설치되어 있는지 확인
 if (Get-Command fzf -ErrorAction SilentlyContinue) {
     Import-Module PSFzf
@@ -115,7 +108,7 @@ if (Get-Command fzf -ErrorAction SilentlyContinue) {
     # --------------------------------------------------
     # Ctrl+T (파일 검색), Ctrl+R (히스토리)
     Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' `
-                           -PSReadlineChordReverseHistory 'Ctrl+r'
+                    -PSReadlineChordReverseHistory 'Ctrl+r'
 
     # Alt+C (디렉터리 전용 탐색 및 이동 강제)
     Set-PSReadLineKeyHandler -Key 'Alt+c' `

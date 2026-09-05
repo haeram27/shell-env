@@ -162,10 +162,40 @@ if ($psfzfInstalled) {
     }
 }
 
-
 ## Print All installed apps checked by winget
 #Write-Host "`n[Summary] Displaying current Winget Installed List:" -ForegroundColor Cyan
 #winget list --accept-source-agreements
+
+
+## =========================================================================
+# 6. Configure Home Directory
+## =========================================================================
+
+$Source = Join-Path $PSScriptRoot "home"
+$Destination = $HOME
+
+# 2. Display info
+Write-Host "Source: $Source"
+Write-Host "Target: $Destination"
+Write-Host "Warning: Do you want to configure your Home Directory?`nThis will overwrite your Home Directory." -ForegroundColor Yellow
+
+# 3. Prompt for choice
+$Title   = "Confirm Copy"
+$Message = "Do you want to proceed?"
+$Choices = @(
+    New-Object System.Management.Automation.Host.ChoiceDescription "&Yes", "Proceed"
+    New-Object System.Management.Automation.Host.ChoiceDescription "&No", "Cancel"
+)
+$Decision = $Host.UI.PromptForChoice($Title, $Message, $Choices, 1)
+
+# 4. Execute
+if ($Decision -eq 0) {
+    Write-Host "`nStarting copy..." -ForegroundColor Green
+    robocopy $Source $Destination /E /IS /IT
+} else {
+    Write-Host "`nCancelled." -ForegroundColor Red
+}
+
 
 ## Keep the window open to check the final log
 Read-Host -Prompt "Press Enter to exit"
