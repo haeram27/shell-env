@@ -1,17 +1,5 @@
 ## =========================================================================
-# 1. Administrator Privilege Check & Auto-Elevation
-## =========================================================================
-$isAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
-
-if (-not $isAdmin) {
-    Write-Host "[Info] This script requires Administrator privileges." -ForegroundColor Yellow
-    Write-Host "[Info] Relaunching in a new Administrator PowerShell window..." -ForegroundColor Cyan
-    Start-Process powershell -ArgumentList "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs
-    Exit
-}
-
-## =========================================================================
-# 2. Register Environment Variable
+# Register Environment Variable
 ## =========================================================================
 
 # 1. 대상 디렉토리 및 환경 변수 정의
@@ -20,6 +8,7 @@ $Vars = @(
     @{ Name = "JAVA_HOME";   Path = "$HOME\.env\jdk\25.0.4" }
     @{ Name = "CLASSPATH";   Value = ".;%JAVA_HOME%\lib"; CheckPath = "$HOME\jdk\25.0.4" } # CLASSPATH는 디렉토리가 아니므로 JAVA_HOME 기준으로 체크
     @{ Name = "BCOMP_HOME";  Path = "C:\Program Files\Beyond Compare 4" }
+    @{ Name = "VIM_HOME"; Path = "$HOME\AppData\Local\Programs\Vim" }    
 )
 
 # 2. 사용자 변수(User Environment Variables) 생성 및 등록
@@ -41,6 +30,7 @@ foreach ($Var in $Vars) {
 
 # 3. Path에 추가할 항목 정의
 $PathEntries = @(
+    "%VIM_HOME%"
     "%BCOMP_HOME%"
     "%JAVA_HOME%\bin"
     "%GRADLE_HOME%\bin"
@@ -73,4 +63,4 @@ if ($PathChanged) {
     Write-Host "No changes made to Path." -ForegroundColor White
 }
 
-Write-Host "`n* Please restart your PowerShell/Command Prompt to apply changes." -ForegroundColor Any
+Write-Host "`n* Please restart your PowerShell/Command Prompt to apply changes." -ForegroundColor Green
