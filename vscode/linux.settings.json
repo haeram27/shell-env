@@ -187,30 +187,36 @@
     "java.configuration.updateBuildConfiguration": "automatic",
     "java.configuration.runtimes": [
         {
-            "name": "JavaSE-17",
-            "path": "/opt/jdk/jdk-17.0.2",
+            "name": "JavaSE-25",
+            "path": "/opt/jdk/25.0.2",
             "default": true
         }
     ],
+    // ## KOTLIN
+    "[kotlin]": {
+        "editor.formatOnSave": false,
+        "editor.insertSpaces": true,
+        "editor.detectIndentation": false
+    },
     // MANDATORY) javahome path for "language-server(language-support for java by redhat)" extension
-    "java.jdt.ls.java.home": "/opt/jdk/jdk-17.0.2",
+    "java.jdt.ls.java.home": "/opt/jdk/25.0.2",
     "java.project.referencedLibraries": [
         "lib/**/*.jar"
     ],
     // ## MAVEN
     // MANDATORY) maven settings file - IMPORTANT: maven refer setting.xml file to find not-default repository urls
     "java.configuration.maven.userSettings": "~/.m2/settings.xml",
-    "java.configuration.maven.globalSettings": "/opt/maven/apache-maven-3.5.0/conf/settings.xml",
+    "java.configuration.maven.globalSettings": "/opt/maven/3.9.14/conf/settings.xml",
     // OPTIONAL) "maven.executable.options": "-Dcheckstyle.skip -Dpmd.skip=true -Dcpd.skip=true -Dmaven.test.skip=true",
     // MANDATORY) javahome path for "maven for java" extension - maven use this jdk for build java projects
     "maven.terminal.customEnv": [
         {
             "environmentVariable": "JAVA_HOME",
-            "value": "/opt/jdk/jdk-17.0.2"
+            "value": "/opt/jdk/25.0.2"
         }
     ],
     // ## GRADLE
-    "java.import.gradle.home": "/opt/gradle/gradle-8.6",
+    "java.import.gradle.home": "/opt/gradle/gradle-9.6.1",
     "java.import.gradle.wrapper.enabled": false,
     "gradle.debug": true,
     "gradle.javaDebug.cleanOutput": true,
@@ -225,22 +231,16 @@
     // ## MARKDOWN All IN ONE
     "markdown.extension.toc.orderedList": false,
     "markdown.extension.toc.updateOnSave": true,
-    "workbench.externalBrowser": "edge",
     "workbench.editor.empty.hint": "hidden",
-    "docker.extension.enableComposeLanguageServer": false,
-    "bashIde.shfmt.simplifyCode": true,
-    "makefile.configureOnOpen": true,
     "workbench.secondarySideBar.defaultVisibility": "hidden",
-    "mdb.mcp.server": "prompt",
     // ## GITHUB COPILOT
-    "remote.extensionKind": {
-        "github.copilot": [
-            "ui"
-        ],
-        "github.copilot-chat": [
-            "ui"
-        ]
-    },
     "github.copilot.selectedCompletionModel": "",
-    "github.copilot.chat.localeOverride": "ko"
+    "github.copilot.chat.localeOverride": "ko",
+    "chat.viewSessions.orientation": "stacked",
+    "chat.permissions.default": "autoApprove",
+    // ## ETC
+    "extensions.ignoreRecommendations": true,
+    "security.workspace.trust.untrustedFiles": "open",
+    "terminal.integrated.mouseWheelScrollSensitivity": 3,
+    "terminal.integrated.gpuAcceleration": "off"
 }
