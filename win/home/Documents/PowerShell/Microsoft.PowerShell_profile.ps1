@@ -2,6 +2,19 @@
 # Edit: vi $PROFILE
 # UserHome: ~ or $env:USERPROFILE or %USERPROFILE%
 
+
+########################################
+# Console Input/Output Encoding as UTF-8
+########################################
+# 콘솔 입출력 인코딩 UTF-8로 지정
+## 콘솔 호스트의 코드페이지를 UTF-8로 변경
+chcp 65001 | Out-Null
+## PowerShell 런타임이 콘솔 입출력을 다룰 때 쓰는 .NET 인코딩 지정
+[Console]::InputEncoding  = [System.Text.UTF8Encoding]::new($false)
+[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false)
+## PowerShell 파이프/외부 프로세스와 문자열 주고받을 때 사용하는 인코딩 지정
+$OutputEncoding           = [System.Text.UTF8Encoding]::new($false)
+
 ########################################
 # List all commands
 ########################################
