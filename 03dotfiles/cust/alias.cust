@@ -619,6 +619,12 @@ alias cop.auto='copilot --autopilot --yolo'
 
 
 #############################################
+# Claude Code
+#############################################
+alias claude.auto='claude --permission-mode auto'
+
+
+#############################################
 # AWS
 #############################################
 alias awsg='aws --profile=god'
