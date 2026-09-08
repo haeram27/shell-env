@@ -43,6 +43,10 @@ let g:ctrlp_show_hidden = 1
 " <<<<<<<< Ctrlp Configs <<<<<<<<
 
 " >>>>>>>> vim-airline Configs >>>>>>>>
+" install vim-airline
+"     mkdir ~/vimfiles/pack/plugins/start
+"     git clone https://github.com/vim-airline/vim-airline.git ~/vimfiles/pack/plugins/start/vim-airline
+
 let g:airline_powerline_fonts = 1
 
 if !exists('g:airline_symbols')
@@ -154,6 +158,7 @@ filetype off                    " Reset filetype detection first ...
 filetype plugin indent on       " ... and enable filetype detection
 
 set nocompatible                " Enables us Vim specific features
+"set mouse=                      " disable mouse input(click/drag) in windows
 
 "set visualbell
 set noerrorbells                " No beeps
@@ -165,7 +170,7 @@ set termencoding=utf-8
 set ttyfast                     " Indicate fast terminal conn for faster redraw
 set ttymouse=xterm2             " Indicate terminal type for mouse codes
 set ttyscroll=3                 " Speedup scrolling
-set laststatus=2                " Show status line always
+set laststatus=2                " Show status line always, mandatory for airline plugin
 set splitright                  " Vertical windows should be split to right
 set splitbelow                  " Horizontal windows should split to bottom
 set autowrite                   " Automatically save before :next, :make etc.
@@ -194,7 +199,7 @@ set smartindent
 
 set expandtab                   " switch tab(\t) to space when input tab key
 set softtabstop=4               " width(number of space) of Tab/Backspace key input, use with expandtab
-set "smarttab                    " smarttab
+"set smarttab                    " smarttab
 set tabstop=4                   " Tab(\t) display, width of space when tab character display
 set shiftwidth=4                " width(number of space) of indent(<<, >>) input
         
@@ -225,6 +230,8 @@ set history=500
 " 1) :color[scheme] <Ctrl-D>
 " 2) /usr/share/vim/vim8x/colors/
 " 3) ~/.vim/color
+"
+" Download molokai: https://github.com/tomasr/molokai/blob/master/colors/molokai.vim
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "syntax on          "set syntax as vim default over user settings
 syntax enable       "keep user's current color settings. :help syntax

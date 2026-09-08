@@ -70,6 +70,10 @@ Set-Alias ls eza
 Set-Alias vi vim
 Set-Alias gvi gvim
 Set-Alias cop.auto Copilot-Auto
+function claude.auto {
+    claude --permission-mode auto @args
+}
+
 
 ########################################
 # utils - init

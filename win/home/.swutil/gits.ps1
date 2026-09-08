@@ -1,15 +1,20 @@
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
-if ([string]::IsNullOrWhiteSpace($env:SRC_PATH)) {
-    $script:SrcPath = Join-Path $HOME "src"
-}
-else {
-    $script:SrcPath = $env:SRC_PATH
+$script:SrcPath = ""
+
+if ([string]::IsNullOrWhiteSpace($script:SrcPath)) {
+    if ([string]::IsNullOrWhiteSpace($env:SRC_PATH)) {
+        $script:SrcPath = Join-Path $HOME "src"
+    }
+    else {
+        $script:SrcPath = $env:SRC_PATH
+    }
 }
 
 $script:ReposPrefix = "git@github.com:haeram27"
 $script:Projects = @(
+    "dev-lang-sample"
     "devlog"
     "dev-lang-sample"
     "shell-env"
