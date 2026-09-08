@@ -11,7 +11,9 @@ else {
 $script:ReposPrefix = "git@github.com:haeram27"
 $script:Projects = @(
     "devlog"
+    "dev-lang-sample"
     "shell-env"
+    "spring-msa-vanila"
 )
 
 function Invoke-GitClone {
