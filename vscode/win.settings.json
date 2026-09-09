@@ -1,0 +1,266 @@
+{
+    "debug.console.collapseIdenticalLines": false,
+    "debug.console.fontSize": 12,
+    "diffEditor.ignoreTrimWhitespace": false,
+    // ## editor start
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": "never"
+    },
+    "editor.fontSize": 12,
+    "editor.mouseWheelZoom": true,
+    "editor.renderControlCharacters": true,
+    "editor.renderWhitespace": "none",
+    "editor.rulers": [
+        120
+    ],
+    "editor.suggestSelection": "first",
+    "[json]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[html]": {
+        "editor.formatOnSave": true
+    },
+    "[yaml]": {
+        "editor.formatOnSave": true
+    },
+    "[cpp]": {
+        "editor.defaultFormatter": "ms-vscode.cpptools",
+        "editor.formatOnSave": true,
+        "editor.insertSpaces": true,
+        "editor.detectIndentation": false
+    },
+    "[java]": {
+        "editor.defaultFormatter": "redhat.java",
+        "editor.formatOnSave": false,
+        "editor.insertSpaces": true,
+        "editor.detectIndentation": false
+    },
+    "[kotlin]": {
+        "editor.formatOnSave": false,
+        "editor.insertSpaces": true,
+        "editor.detectIndentation": false
+    },
+    "[shellscript]": {
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true,
+        "editor.detectIndentation": false
+    },
+    // ## editor end
+    "extensions.autoUpdate": "off",
+    "files.eol": "\n",
+    "files.exclude": {
+        "**/.vscode": false,
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "**/.classpath": true,
+        "**/.factorypath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/target": true,
+        "**/*.png": true,
+        "**/*.jpg": true,
+        "**/*.jpeg": true,
+        "**/*.gif": true,
+        "**/*.ico": true,
+        "**/*.webp": true,
+        "**/*.mp3": true,
+        "**/*.mp4": true,
+        "**/*.avi": true,
+        "**/*.mov": true,
+        "**/*.wmv": true,
+        "**/*.flac": true,
+        "**/*.wav": true,
+        "**/*.pdf": true,
+        "**/*.epub": true,
+        "**/*.doc": true,
+        "**/*.docx": true,
+        "**/*.xls": true,
+        "**/*.xlsx": true,
+        "**/*.ppt": true,
+        "**/*.pptx": true,
+        "**/*.zip": true,
+        "**/*.gz": true,
+        "**/*.bz2": true,
+        "**/*.7z": true,
+        "**/*.xz": true,
+        "**/*.rar": true,
+        "**/*.tar": true,
+        "**/*.tar.bz": true,
+        "**/*.tar.bz2": true,
+        "**/*.tbz": true,
+        "**/*.tar.gz": true,
+        "**/*.tgz": true,
+        "**/*.tar.xz": true,
+        "**/*.txz": true,
+        "**/*.iso": true,
+        "**/*.dmg": true,
+        "**/*.exe": true,
+        "**/*.dll": true,
+        "**/*.bin": true,
+        "**/*.so": true,
+        "**/*.o": true,
+        "**/*.a": true,
+        "**/*.d": true,
+        "**/*.jar": true,
+        "**/*.class": true,
+        "**/*.c": false,
+        "**/*.cc": false,
+        "**/*.cpp": false,
+        "**/*.h": false,
+        "**/*.hh": false,
+        "**/*.hpp": false,
+        "**/.trunk/*actions/": true,
+        "**/.trunk/*logs/": true,
+        "**/.trunk/*notifications/": true,
+        "**/.trunk/*out/": true,
+        "**/.trunk/*plugins/": true
+    },
+    "files.watcherExclude": {
+        "**/.trunk/*actions/": true,
+        "**/.trunk/*logs/": true,
+        "**/.trunk/*notifications/": true,
+        "**/.trunk/*out/": true,
+        "**/.trunk/*plugins/": true
+    },
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/bower_components": true,
+        "**/*.code-search": true,
+        "**/*.lst": true,
+        "**/*.css": true,
+        "**/*.htm": true,
+        "**/*.html": true,
+        "**/*.map": true,
+        "**/*.min.*": true,
+        "**/*.js": true
+    },
+    "search.followSymlinks": false,
+    "search.ripgrep.maxThreads": 8,
+    // OPTIONAL) "http.proxy":"http://user:pass@proxy.com:8080",
+    "http.proxyStrictSSL": false,
+    // ## telemetry
+    "telemetry.telemetryLevel": "off",
+    // ## terminal integration - make vscode terminal configuration consistent across OS
+    "terminal.integrated.shellIntegration.enabled": true, // default: true
+    "terminal.integrated.fontSize": 12,
+    "terminal.integrated.shellIntegration.decorationsEnabled": "both",
+    "terminal.integrated.sendKeybindingsToShell": true,
+    "terminal.integrated.commandsToSkipShell": [
+        ""
+    ],
+    "terminal.external.windowsExec": "C:/WINDOWS/System32/wsl.exe",
+    "terminal.integrated.defaultProfile.windows": "PowerShell7",
+    "terminal.integrated.profiles.windows": {
+        "PowerShell": {
+            "source": "PowerShell",
+            "icon": "terminal-powershell",
+            "args": [],
+            "overrideName": true
+        },
+        "PowerShell7": {
+            "path": "C:/Program Files/PowerShell/7/pwsh.exe",
+            "args": [
+                "-NoExit",
+                "-Command",
+                ". $HOME/Documents/PowerShell/Microsoft.PowerShell_profile.ps1"
+            ]
+        },
+        "Ubuntu-22.04 (WSL)": {
+            "path": "C:/WINDOWS/System32/wsl.exe",
+            "args": [
+                "-d",
+                "Ubuntu-22.04"
+            ]
+        }
+    },
+    "terminal.integrated.defaultProfile.linux": "zsh",
+    "terminal.integrated.profiles.linux": {
+        "zsh": {
+            "path": "zsh",
+            "args": [
+                "-l"
+            ]
+        }
+    },
+    // ## window title
+    "window.title": "${dirty}${rootName}${separator}${activeFolderMedium}${separator}${activeEditorShort}",
+    "window.zoomLevel": 0,
+    "workbench.browser.enableChatTools": true,
+    "workbench.editor.enablePreviewFromQuickOpen": false,
+    "workbench.iconTheme": "vscode-icons",
+    "workbench.panel.defaultLocation": "right",
+    "workbench.colorTheme": "Abyss",
+    "workbench.colorCustomizations": {
+        "editorRuler.foreground": "#ff4081"
+    },
+    // ## JAVA
+    "java.saveActions.organizeImports": false,
+    "java.format.enabled": true,
+    "java.format.comments.enabled": false,
+    // "java.format.settings.url": "file:///D:/swperm/dev/ref/google-styleguide/eclipse-java-google-style.indentation.as.intellij.xml",
+    "java.format.settings.profile": "GoogleStyle",
+    "java.compile.nullAnalysis.mode": "automatic",
+    // set JRE for run java in this project - path SHOULD be EXIST, if not remove item in this list
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.configuration.runtimes": [
+        {
+            "name": "JavaSE-25",
+            "path": "C:/Users/haeram27/.env/jdk/25.0.4_8",
+            "default": true
+        }
+    ],
+    // MANDATORY) javahome path for "language-server(language-support for java by redhat)" extension
+    "java.jdt.ls.java.home": "C:/Users/haeram27/.env/jdk/25.0.4_8",
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar"
+    ],
+    // ## MAVEN
+    // MANDATORY) maven settings file - IMPORTANT: maven refer setting.xml file to find not-default repository urls
+    "java.configuration.maven.globalSettings": "C:/Users/haeram27/.env/mvn/3.9.16/conf/settings.xml",
+    "java.configuration.maven.userSettings": "C:/Users/haeram27/.m2/settings.xml",
+    // OPTIONAL) "maven.executable.options": "-Dcheckstyle.skip -Dpmd.skip=true -Dcpd.skip=true -Dmaven.test.skip=true",
+    // MANDATORY) javahome path for "maven for java" extension - maven use this jdk for build java projects
+    "maven.terminal.customEnv": [
+        {
+            "environmentVariable": "JAVA_HOME",
+            "value": "C:/Users/haeram27/.env/jdk/25.0.4_8"
+        }
+    ],
+    // ## GRADLE
+    "java.import.gradle.home": "C:/Users/haeram27/.env/gradle/9.6.1",
+    "java.import.gradle.wrapper.enabled": false,
+    "gradle.debug": true,
+    "gradle.javaDebug.cleanOutput": true,
+    "gradle.allowParallelRun": true,
+    // ## LANGUAGE SERVER 4 JAVA (REDHAT)
+    "redhat.telemetry.enabled": false,
+    // # GIT
+    "git.autofetch": true,
+    "git.blame.editorDecoration.enabled": true,
+    "git.openRepositoryInParentFolders": "always",
+    // # EXTENSIONS
+    // ## MARKDOWN All IN ONE
+    "markdown.extension.toc.orderedList": false,
+    "markdown.extension.toc.updateOnSave": true,
+    "workbench.editor.empty.hint": "hidden",
+    "workbench.secondarySideBar.defaultVisibility": "hidden",
+    // ## GITHUB COPILOT
+    "github.copilot.selectedCompletionModel": "",
+    "github.copilot.chat.localeOverride": "ko",
+    "chat.viewSessions.orientation": "stacked",
+    "chat.permissions.default": "autoApprove",
+    // ## ETC
+    "extensions.ignoreRecommendations": true,
+    "security.workspace.trust.untrustedFiles": "open",
+    "editor.unicodeHighlight.nonBasicASCII": false,
+    "chat.tools.terminal.terminalProfile.windows": {},
+    "terminal.integrated.fontFamily": "monospace",
+    "editor.fontFamily": "'JetBrainsMonoHangulNL NFM Regular'",
+    "intellij.region": "apac",
+    "intellij.dataSharing": "none"
+}
