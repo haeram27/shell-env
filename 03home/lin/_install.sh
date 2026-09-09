@@ -3,18 +3,10 @@
 install() {
     sudo apt-get install -y zsh
 
-    cp -fb ./bashrc.cust ~/.bashrc.cust
-    cp -fb ./p10k.zsh ~/.p10k.zsh
-    cp -fb ./zshrc ~/.zshrc
-    cp -fb ./zshrc.cust ~/.zshrc.cust
-    cp -fb ./gitconfig ~/.gitconfig
-    cp -fb ./tmux.conf ~/.tmux.conf
-    cp -fb ./ripgreprc ~/.ripgreprc
-    rsync -av ./cust/ ~/.cust/
-    rsync -av ./config/ ~/.config/
+    rsync -av ./home ~
     
     echo >> ~/.bashrc
-    echo '[[ -f ~/.bashrc.cust ]] && . ~/.bashrc.cust' >> ~/.bashrc
+    echo '[[ -f ~/.cust/bashrc.cust ]] && . ~/.cust/bashrc.cust' >> ~/.bashrc
     
     tar xfz ./dotzsh.tgz
     mkdir ~/.zsh; mv ./dotzsh/* ~/.zsh/
