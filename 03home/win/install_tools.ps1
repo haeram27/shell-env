@@ -50,7 +50,7 @@ Write-Host "Starting installation of development tools..." -ForegroundColor Cyan
 Write-Host "==========================================" -ForegroundColor Cyan
 
 ## =========================================================================
-# 4. List of application IDs for winget
+# 4. Install applications with winget
 ## =========================================================================
 $apps = @(
     "Microsoft.PowerShell"
@@ -63,6 +63,8 @@ $apps = @(
     "sharkdp.bat"                        # improved cat
     "ajeetdsouza.zoxide"                 # change directory, use z or zi
     "GnuPG.Gpg4win"
+    "Python.Python.3.14"                 # Python
+    "astral-sh.uv"                       # Python package manager
     "Microsoft.PowerToys"
     "7zip.7zip"
     "Microsoft.VisualStudioCode"
@@ -75,6 +77,22 @@ $apps = @(
     "PDFsam.PDFsam"
     "ShareX.ShareX"
 )
+
+Write-Host "`n==========================================" -ForegroundColor Cyan
+Write-Host "Installing applications from winget ID list..." -ForegroundColor Cyan
+Write-Host "==========================================" -ForegroundColor Cyan
+
+foreach ($appId in $apps) {
+    Write-Host "-> Installing: $appId" -ForegroundColor Cyan
+
+    winget install --id $appId --exact --silent --accept-package-agreements --accept-source-agreements
+
+    if ($LASTEXITCODE -eq 0) {
+        Write-Host "-> [$appId] Installation completed." -ForegroundColor Green
+    } else {
+        Write-Host "-> [$appId] Installation failed with exit code: $LASTEXITCODE" -ForegroundColor Yellow
+    }
+}
 
 
 ## =========================================================================
