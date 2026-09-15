@@ -54,7 +54,8 @@
     sub = submodule
     subu = !git submodule sync && git submodule update --remote --recursive
     subui = git submodule update --init --remote --recursive
-    pl = pull --recurse-submodules=yes --rebase=true --autostash
+    pl = pull --recurse-submodules=yes --rebase--autostash
+    plm = pull origin main --recurse-submodules=yes --rebase --autostash
     purge=!git reset --hard && git clnx
     ps = push
     psf = push -f
