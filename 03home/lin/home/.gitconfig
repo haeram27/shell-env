@@ -41,14 +41,14 @@
     sh = stash
     shl = stash list
     shm = stash -m
-    sho = stash pop
+    shp = stash pop
     sha = stash apply
     shl = stash list
     st = status
     sub = submodule
     subu = !git submodule sync && git submodule update --remote --recursive
     subui = git submodule update --init --remote --recursive
-    pl = pull --recurse-submodules=yes --rebase--autostash
+    pl = pull --recurse-submodules=yes --rebase --autostash
     plm = pull origin main --recurse-submodules=yes --rebase --autostash
     purge=!git reset --hard && git clnx
     ps = push

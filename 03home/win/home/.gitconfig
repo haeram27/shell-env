@@ -45,7 +45,7 @@
     shd = stash drop
     shl = stash list
     shm = stash -u -m
-    sho = stash pop
+    shp = stash pop
     sha = stash apply
     shc = stash clear
     shs = stash show
@@ -54,7 +54,7 @@
     sub = submodule
     subu = !git submodule sync && git submodule update --remote --recursive
     subui = git submodule update --init --remote --recursive
-    pl = pull --recurse-submodules=yes --rebase--autostash
+    pl = pull --recurse-submodules=yes --rebase --autostash
     plm = pull origin main --recurse-submodules=yes --rebase --autostash
     purge=!git reset --hard && git clnx
     ps = push
