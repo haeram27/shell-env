@@ -65,7 +65,7 @@ fi
 
 # gnome-text-editor
 if command -v gnome-text-editor &>/dev/null; then
-    gte() { gnome-text-editor "$@" &>/dev/null & }
+    gedit() { gnome-text-editor "$@" &>/dev/null & }
 fi
 
 # notepadqq
