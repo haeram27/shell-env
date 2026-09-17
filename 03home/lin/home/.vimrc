@@ -226,12 +226,11 @@ set history=500
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" colorscheme :: START
+" colorscheme & highlight :: START
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" check available colorscheme 
-" 1) :color[scheme] <Ctrl-D>
-" 2) /usr/share/vim/vim8x/colors/
-" 3) ~/.vim/color
+" check available colorscheme in WINDOWS
+" 1) :colors <TAB>
+" 2) ~/vimfiles/colors
 "
 " Download molokai: https://github.com/tomasr/molokai/blob/master/colors/molokai.vim
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -252,8 +251,13 @@ let g:molokai_original = 1
 
 "color default
 color molokai
+
+
+"""""""""""""""""""""""""""
+" highlight under here - highlight SHOULD set under colorscheme
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" colorscheme :: END
+" colorscheme & highlight :: END
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 

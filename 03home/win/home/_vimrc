@@ -190,7 +190,7 @@ set history=500
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" colorscheme :: START
+" colorscheme & highlight :: START
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " check available colorscheme in WINDOWS
 " 1) :colors <TAB>
@@ -215,6 +215,11 @@ let g:molokai_original = 1
 
 "color default
 color molokai
+
+
+"""""""""""""""""""""""""""
+" highlight under here - highlight SHOULD set under colorscheme
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" colorscheme :: END
+" colorscheme & highlight :: END
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
