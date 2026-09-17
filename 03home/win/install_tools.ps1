@@ -70,6 +70,7 @@ $apps = @(
     "sharkdp.bat"                        # improved cat
     "ajeetdsouza.zoxide"                 # change directory, use z or zi
     "GnuPG.Gpg4win"
+    "aristocratos.btop4win"
     "Python.Python.3.14"                 # Python
     "astral-sh.uv"                       # Python package manager
     "Microsoft.PowerToys"
