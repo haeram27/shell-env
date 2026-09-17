@@ -116,6 +116,18 @@ obsidian-push() {
     fi
 }
 
+
+##############################################
+# date
+##############################################
+alias datel='date +%Y%m%d%H%M%S%3N'
+alias datelf='date +%FT%T.%3N'
+alias datelfz='date +%FT%T.%3N%z'
+alias dateu='date -u +%Y%m%d%H%M%S%3N'
+alias dateuf='date -u +%FT%T.%3N'
+alias dateufz='date -u +%FT%T.%3N%z'
+
+
 ##############################################
 # HISTORY
 ##############################################
@@ -182,8 +194,8 @@ copyd() {
     done
 
     if user_confirm "Do you want to overwrite files?"; then
-        # cp -rf a/* b
-        cp -rf $(ensure-dir-slash "$1")* "$2"
+        # rsync -av a/ b
+        rsync -av $(ensure-dir-slash "$1") "$2"
     else
         echo "cancelled."
     fi

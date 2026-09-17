@@ -159,6 +159,8 @@ filetype plugin indent on       " ... and enable filetype detection
 
 set nocompatible                " Enables us Vim specific features
 "set mouse=                      " disable mouse input(click/drag) in windows
+set cursorline                  " highlight cursor
+set cursorcolumn                " highlight column
 
 "set visualbell
 set noerrorbells                " No beeps

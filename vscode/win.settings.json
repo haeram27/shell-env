@@ -2,6 +2,20 @@
     "debug.console.collapseIdenticalLines": false,
     "debug.console.fontSize": 12,
     "diffEditor.ignoreTrimWhitespace": false,
+
+    // ## window and workbench
+    "window.title": "${dirty}${rootName}${separator}${activeFolderMedium}${separator}${activeEditorShort}",
+    "window.zoomLevel": 0,
+    "workbench.browser.enableChatTools": true,
+    "workbench.editor.enablePreviewFromQuickOpen": false,
+    "workbench.iconTheme": "vscode-icons",
+    "workbench.panel.defaultLocation": "right",
+    "workbench.colorTheme": "Abyss",
+    "workbench.colorCustomizations": {
+        "editorRuler.foreground": "#ff4081",
+        "editorCursor.foreground": "#FFFF00"
+        //"editor.lineHighlightBackground": "#2f2f2f"
+    },
     // ## editor start
     "editor.codeActionsOnSave": {
         "source.organizeImports": "never"
@@ -9,6 +23,7 @@
     "editor.fontSize": 12,
     "editor.mouseWheelZoom": true,
     "editor.renderControlCharacters": true,
+    "editor.renderLineHighlight": "all",
     "editor.renderWhitespace": "none",
     "editor.rulers": [
         120
@@ -187,19 +202,7 @@
             ]
         }
     },
-    // ## window title
-    "window.title": "${dirty}${rootName}${separator}${activeFolderMedium}${separator}${activeEditorShort}",
-    "window.zoomLevel": 0,
-    "workbench.browser.enableChatTools": true,
-    "workbench.editor.enablePreviewFromQuickOpen": false,
-    "workbench.iconTheme": "vscode-icons",
-    "workbench.panel.defaultLocation": "right",
-    "workbench.colorTheme": "Abyss",
-    "workbench.colorCustomizations": {
-        "editorRuler.foreground": "#ff4081"
-    },
     // ## JAVA
-    "java.saveActions.organizeImports": false,
     "java.format.enabled": true,
     "java.format.comments.enabled": false,
     // "java.format.settings.url": "file:///D:/swperm/dev/ref/google-styleguide/eclipse-java-google-style.indentation.as.intellij.xml",

@@ -43,36 +43,38 @@ Set-PSReadLineKeyHandler -Chord 'Ctrl+k' -Function KillLine
 Set-PSReadLineOption -PredictionSource History
 Set-PSReadLineOption -PredictionViewStyle InlineView
 
-########################################
-# functions
-########################################
-# bat
-function bats {
-    bat -p --paging=never @args
-}
 
-# copilot
-function Copilot-Auto {
-    copilot --autopilot --yolo
-}
+########################################
+# alias functions
+########################################
+
+# which
+Set-Alias -Name which -Value where.exe
+
+# date
+function datel {(Get-Date).ToString("yyyyMMddHHmmssfff")}
+function datelf {(Get-Date).ToString("yyyy-MM-dd'T'HH:mm:ss.fff")}
+function datelfz {(Get-Date).ToString("yyyy-MM-dd'T'HH:mm:ss.fffK")}
+function dateu {(Get-Date).ToUniversalTime().ToString("yyyyMMddHHmmssfff")}
+function dateuf {(Get-Date).ToUniversalTime().ToString("yyyy-MM-dd'T'HH:mm:ss.fff")}
+function dateufz {(Get-Date).ToUniversalTime().ToString("yyyy-MM-dd'T'HH:mm:ss.fffK")}
+
+# bat
+function bats {bat -p --paging=never @args}
 
 # eza
+Set-Alias ls eza
 function l  { eza $args }
 function ll { eza -la $args --git }
 function lt { eza $args --tree --level=2 }
 
-
-########################################
-# alias
-########################################
-Set-Alias -Name which -Value where.exe
-Set-Alias ls eza
+#vi
 Set-Alias vi vim
 Set-Alias gvi gvim
-Set-Alias cop.auto Copilot-Auto
-function claude.auto {
-    claude --permission-mode auto @args
-}
+
+# ai client
+function cop.auto {copilot --autopilot --yolo}
+function claude.auto {claude --permission-mode auto @args}
 
 
 ########################################
@@ -156,7 +158,7 @@ if (Get-Command fzf -ErrorAction SilentlyContinue) {
             "type {}"
         }
 
-        # 3. 파일 목록 생성 및 fzf 실행 (미리보기 및 다중 선택 포함)
+        # 3. 파일 목록 생성 및 fzf 실행 (미리보기 및 다중 선택(arrow and tab) 포함)
         $files = if ($null -ne $fdCmd) {
             # fd가 있을 때: fd 목록 기반 검색 + 미리보기
             &$fdCmd --type file . $Path | fzf -m --marker='▶ ' --preview $previewCmd
