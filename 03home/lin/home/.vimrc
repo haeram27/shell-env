@@ -180,8 +180,6 @@ set hidden                      " Buffer should still exist if window is closed
 set fileformats=unix,dos,mac    " Prefer Unix over Windows over OS 9 formats
 set completeopt=menu,menuone    " Show popup menu, even if there is one entry
 set pumheight=10                " Completion window max size
-set nocursorcolumn              " Do not highlight column (speeds up highlighting)
-set nocursorline                " Do not highlight cursor (speeds up highlighting)
 set lazyredraw                  " Wait to redraw
 
 set autoread                    " Automatically read changed files
@@ -228,9 +226,10 @@ set history=500
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " colorscheme & highlight :: START
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" check available colorscheme in WINDOWS
-" 1) :colors <TAB>
-" 2) ~/vimfiles/colors
+" check available colorscheme 
+" 1) :color[scheme] <Ctrl-D>
+" 2) /usr/share/vim/vim8x/colors/
+" 3) ~/.vim/color
 "
 " Download molokai: https://github.com/tomasr/molokai/blob/master/colors/molokai.vim
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
