@@ -1,4 +1,11 @@
 ## =========================================================================
+# How to Run Download Script
+# Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+# Get-ExecutionPolicy -List
+# Only in case restore policy
+# Set-ExecutionPolicy Undefined -Scope CurrentUser
+## =========================================================================
+## =========================================================================
 # 1. Administrator Privilege Check & Auto-Elevation
 ## =========================================================================
 $isAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
