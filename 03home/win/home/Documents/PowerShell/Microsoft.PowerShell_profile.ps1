@@ -68,9 +68,12 @@ function l  { eza $args }
 function ll { eza -la $args --git }
 function lt { eza $args --tree --level=2 }
 
-#vi
+# vi
 Set-Alias vi vim
 Set-Alias gvi gvim
+
+# btop
+Set-Alias btop btop4win
 
 # ai client
 function cop.auto {copilot --autopilot --yolo}
