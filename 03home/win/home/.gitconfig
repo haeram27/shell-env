@@ -1,24 +1,30 @@
 [core]
     autocrlf = true
     editor = c:/Users/haeram27/AppData/Local/Programs/Vim/vim.exe
+
 [user]
     name = haeram27
     email = haeram27@email.com
+
+# check available difftool=git difftool --tool-help
 [diff]
-    tool = bc3
+    tool = bc4
 [difftool]
     prompt = false
-[difftool "bc3"]
+[difftool "bc4"]
     path = c:/program files/beyond compare 4/bcomp.exe
+
+# check available mergetool=git mergetool --tool-help
 [merge]
-    tool = bc3
+    tool = bc4
 [mergetool]
     prompt = false
-[mergetool "bc3"]
+[mergetool "bc4"]
     path = c:/program files/beyond compare 4/bcomp.exe
     trustExitCode = true
 [branch]
     autosetuprebase = always
+
 [alias]
     br = branch
     brd = branch -D
@@ -38,10 +44,10 @@
     dfh = diff HEAD --color=always --word-diff=plain
     dfs = diff --staged --color=always --word-diff=plain
     dt = difftool -y
-    lo = log -50 --graph --pretty=format:'%C(auto)%h%d (%ar : %an) %s'
+    lo = log -20 --graph --pretty=format:'%C(auto)%h%d (%ar : %an) %s'
     lon = log --name-only
     mt = mergetool -y
-    sh = stash 
+    sh = stash
     shd = stash drop
     shl = stash list
     shm = stash -u -m
@@ -67,7 +73,7 @@
     rebi = rebase -i
     rebia = rebase -i --autostash
     res = restore
-    resall = restore :/
+    resroot = restore :/
     rst = reset
     rsts = reset --soft
     rsth = reset --hard
