@@ -5,6 +5,12 @@
 ##############
 # set shell debugging options
 # set -euvxo pipefail
+# set shell running options
+set -euo pipefail
+# how to allow error to prevent quit by set -e
+#grep "pattern" file.txt || true
+# how to set default value to prevent quit by set -u
+#VAR=${1:-"default_value"}
 
 # store last executed command
 prev_cmd="none"
@@ -28,7 +34,6 @@ VMODE_TIMEUTC="no"
 ##############
 # VAR COMMON
 ##############
-# bash
 readonly SCRIPT_PATH="$(readlink -f "${BASH_SOURCE[0]}")"
 readonly SCRIPT_DIR="$(dirname "$SCRIPT_PATH")"
 readonly SCRIPT_NAME="$(basename "$SCRIPT_PATH")"
@@ -263,6 +268,37 @@ retry_cmd() {
         sleep ${sleep_interval}
     done
 }
+
+##############
+# array test
+##############
+
+units=(a b c d e)
+
+printar() {
+    local array=("$@")
+
+    # 1. check is array (index array 'a' or associate array 'A')
+    if [[ ! ${array@a} =~ [aA] ]]; then
+        echo "Error: $array is NOT array"
+        return 1
+    fi
+
+    # 2. check array is empty
+    # ${#array[@]} returns the number of elements of array
+    if [[ ${#array[@]} -eq 0 ]]; then
+        echo "$array is empty"
+        return 0
+    fi
+
+    echo $array #${array[0]}
+    echo ${array[@]}
+    for p in "${array[@]}"; do
+        echo $p
+    done
+}
+
+printar ${units[@]}
 
 ##############
 # parse config file

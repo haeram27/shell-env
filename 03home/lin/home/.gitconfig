@@ -7,21 +7,23 @@
 
 # check available difftool=git difftool --tool-help
 [diff]
-    tool = vimdiff
+    tool = bc4
 [difftool]
     prompt = false
 [difftool "bc4"]
-    path = /mnt/c/Program Files/Beyond Compare 4/Bcomp.exe
+    path = /usr/bin/bcompare
+#    path = /mnt/c/Program Files/Beyond Compare 4/Bcomp.exe
 [difftool "meld"]
     hasvcs = true
 
 # check available mergetool=git mergetool --tool-help
 [merge]
-    tool = vimdiff
+    tool = bc4
 [mergetool]
     prompt = false
 [mergetool "bc4"]
-    path = /mnt/c/Program Files/Beyond Compare 4/Bcomp.exe
+    path = /usr/bin/bcompare
+#    path = /mnt/c/Program Files/Beyond Compare 4/Bcomp.exe
     trustExitCode = true
 [mergetool "meld"]
     hasvcs = true
