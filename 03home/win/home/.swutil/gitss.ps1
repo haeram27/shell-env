@@ -2,9 +2,9 @@
 $ErrorActionPreference = "Stop"
 
 # 스크립트 경로 및 정보 조회 (Bash의 readlink, dirname, basename 대응)
-$REAL_PATH = $MyInvocation.MyCommand.Path
-$SCRIPT_DIR = Split-Path -Parent $REAL_PATH
-$SCRIPT_NAME = Split-Path -Leaf $REAL_PATH
+$SCRIPT_PATH = $MyInvocation.MyCommand.Path
+$SCRIPT_DIR = Split-Path -Parent $SCRIPT_PATH
+$SCRIPT_NAME = Split-Path -Leaf $SCRIPT_PATH
 
 # 환경변수 SRC_PATH가 없으면 기본값인 $HOME/src/ss 사용 (Bash의 : ${SRC_PATH:=...} 대응)
 if (-not $env:SRC_PATH) {
@@ -12,13 +12,13 @@ if (-not $env:SRC_PATH) {
 }
 
 # 상수 정의
-$SAS_REPOS_PREFIX = "ssh://git@githubm.com"
-$PROJECT_TEST = "test"
+$script:REPOS_PREFIX = "ssh://git@github.com/myrepo"
+$script:PROJECT_TEST = "test"
 
 
 # 프로젝트 배열 정의
-$projects = @(
-    $PROJECT_TEST
+$script:projects = @(
+    $script:PROJECT_TEST
 )
 
 function git_clone {
@@ -35,7 +35,7 @@ function git_clone {
     }
 
     # URL 생성 시 슬래시(/) 방향 보존을 위해 직접 문자열 조인
-    $repo = "${SAS_REPOS_PREFIX}/${project}"
+    $repo = "${script:REPOS_PREFIX}/${project}"
     Write-Output "## git clone $repo"
 
     git clone $repo $path
@@ -89,19 +89,19 @@ function git_push {
 }
 
 function clone_all {
-    foreach ($project in $projects) {
+    foreach ($project in $script:projects) {
         try { git_clone $project } catch { }
     }
 }
 
 function pull_all {
-    foreach ($path in $projects) {
+    foreach ($path in $script:projects) {
         try { git_pull $path } catch { }
     }
 }
 
 function push_all {
-    foreach ($path in $projects) {
+    foreach ($path in $script:projects) {
         try { git_push $path } catch { }
     }
 }

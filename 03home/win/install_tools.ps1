@@ -194,7 +194,7 @@ if ($psfzfInstalled) {
 
 
 ## =========================================================================
-# 6. Configure Home Directory
+# 7. Configure Home Directory
 ## =========================================================================
 
 $Source = Join-Path $PSScriptRoot "home"

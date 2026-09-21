@@ -1,7 +1,7 @@
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
-$script:SrcPath = ""
+$script:SrcPath = "D:/src"
 
 if ([string]::IsNullOrWhiteSpace($script:SrcPath)) {
     if ([string]::IsNullOrWhiteSpace($env:SRC_PATH)) {
