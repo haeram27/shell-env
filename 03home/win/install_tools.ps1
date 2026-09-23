@@ -61,6 +61,8 @@ Write-Host "==========================================" -ForegroundColor Cyan
 ## =========================================================================
 $apps = @(
     "Microsoft.PowerShell"
+    "Microsoft.PowerToys"
+    "DevToys-app.DevToys"
     "Git.Git"
     "vim.vim"
     "JanDeDobbeleer.OhMyPosh"
@@ -73,7 +75,6 @@ $apps = @(
     "aristocratos.btop4win"
     "Python.Python.3.14"                 # Python
     "astral-sh.uv"                       # Python package manager
-    "Microsoft.PowerToys"
     "7zip.7zip"
     "Microsoft.VisualStudioCode"
     "Obsidian.Obsidian"
