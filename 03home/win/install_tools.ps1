@@ -1,9 +1,13 @@
 ## =========================================================================
-# How to Run Download Script
+# -- How to Run Download Script
 # Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 # Get-ExecutionPolicy -List
 # Only in case restore policy
 # Set-ExecutionPolicy Undefined -Scope CurrentUser
+# -- check ZoneIdentifier on file
+# Get-Item ./install_tools.ps1 -Stream *
+# -- remove ZoneIdentifier in directory
+# Get-ChildItem -Recurse -Filter *.ps1 | Unblock-File
 ## =========================================================================
 ## =========================================================================
 # 1. Administrator Privilege Check & Auto-Elevation
