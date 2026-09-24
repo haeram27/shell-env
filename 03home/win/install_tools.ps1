@@ -1,13 +1,14 @@
 ## =========================================================================
 # -- How to Run Download Script
-# Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
-# Get-ExecutionPolicy -List
-# Only in case restore policy
-# Set-ExecutionPolicy Undefined -Scope CurrentUser
-# -- check ZoneIdentifier on file
-# Get-Item ./install_tools.ps1 -Stream *
-# -- remove ZoneIdentifier in directory
-# Get-ChildItem -Recurse -Filter *.ps1 | Unblock-File
+#   -- Set policy to allow run downloaded .ps1 script
+#     Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+#     Get-ExecutionPolicy -List
+#   -- Only in case restore policy
+#     Set-ExecutionPolicy Undefined -Scope CurrentUser
+#   -- Remove ZoneIdentifier of .ps1 script files in directory
+#     Get-ChildItem -Recurse -Filter *.ps1 | Unblock-File
+#   -- check ZoneIdentifier on file
+#     Get-Item ./install_tools.ps1 -Stream *
 ## =========================================================================
 ## =========================================================================
 # 1. Administrator Privilege Check & Auto-Elevation
@@ -17,7 +18,8 @@ $isAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIden
 if (-not $isAdmin) {
     Write-Host "[Info] This script requires Administrator privileges." -ForegroundColor Yellow
     Write-Host "[Info] Relaunching in a new Administrator PowerShell window..." -ForegroundColor Cyan
-    Start-Process powershell -ArgumentList "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs
+    # self-elevation powershell as admin authority
+    Start-Process (Get-Process -Id $PID).Path -ArgumentList "-NoProfile -NoExit -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs
     Exit
 }
 
