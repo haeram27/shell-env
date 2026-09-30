@@ -1,3 +1,7 @@
+## =========================================================================
+# Configure Home Directory
+## =========================================================================
+
 $Source = Join-Path $PSScriptRoot "home"
 $Destination = $HOME
 
@@ -22,3 +26,7 @@ if ($Decision -eq 0) {
 } else {
     Write-Host "`nCancelled." -ForegroundColor Red
 }
+
+
+## Keep the window open to check the final log
+Read-Host -Prompt "Press Enter to exit"

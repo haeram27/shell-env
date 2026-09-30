@@ -1,11 +1,11 @@
 ## =========================================================================
 # -- How to Run Download Script
-#   -- Set policy to allow run downloaded .ps1 script
+#   -- *Set policy to allow run downloaded .ps1 script
 #     Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 #     Get-ExecutionPolicy -List
 #   -- Only in case restore policy
 #     Set-ExecutionPolicy Undefined -Scope CurrentUser
-#   -- Remove ZoneIdentifier of .ps1 script files in directory
+#   -- *Remove ZoneIdentifier of .ps1 script files in directory
 #     Get-ChildItem -Recurse -Filter *.ps1 | Unblock-File
 #   -- check ZoneIdentifier on file
 #     Get-Item ./install_tools.ps1 -Stream *
@@ -13,13 +13,33 @@
 ## =========================================================================
 # 1. Administrator Privilege Check & Auto-Elevation
 ## =========================================================================
-$isAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+$scriptPath = $PSCommandPath
+if (-not $scriptPath) { $scriptPath = $MyInvocation.MyCommand.Path }
+
+$isAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).
+    IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 
 if (-not $isAdmin) {
     Write-Host "[Info] This script requires Administrator privileges." -ForegroundColor Yellow
     Write-Host "[Info] Relaunching in a new Administrator PowerShell window..." -ForegroundColor Cyan
-    # self-elevation powershell as admin authority
-    Start-Process (Get-Process -Id $PID).Path -ArgumentList "-NoProfile -NoExit -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs
+
+    if (-not $scriptPath) {
+        Write-Host "[Error] Cannot determine script path. Please run this as a .ps1 file (e.g. .\install_tools.ps1)." -ForegroundColor Red
+        Read-Host -Prompt "Press Enter to exit"
+        Exit 1
+    }
+
+    ## "-Verb RunAs" option is used open UAC prompt for Administrator privileges
+    try {
+        Start-Process -FilePath "powershell.exe" `
+            -ArgumentList @("-NoProfile", "-NoExit", "-ExecutionPolicy", "Bypass", "-File", "`"$scriptPath`"") `
+            -Verb RunAs -ErrorAction Stop | Out-Null
+    } catch {
+        Write-Host "[Error] Failed to relaunch as Administrator: $($_.Exception.Message)" -ForegroundColor Red
+        Read-Host -Prompt "Press Enter to exit"
+        Exit 1
+    }
+
     Exit
 }
 
@@ -73,9 +93,9 @@ $apps = @(
     "vim.vim"
     "JanDeDobbeleer.OhMyPosh"
     "eza-community.eza"                  # ls like file list
+    "sharkdp.bat"                        # improved cat
     "sharkdp.fd"
     "junegunn.fzf"
-    "sharkdp.bat"                        # improved cat
     "ajeetdsouza.zoxide"                 # change directory, use z or zi
     "GnuPG.Gpg4win"
     "aristocratos.btop4win"
@@ -198,37 +218,6 @@ if ($psfzfInstalled) {
 ## Print All installed apps checked by winget
 #Write-Host "`n[Summary] Displaying current Winget Installed List:" -ForegroundColor Cyan
 #winget list --accept-source-agreements
-
-
-## =========================================================================
-# 7. Configure Home Directory
-## =========================================================================
-
-$Source = Join-Path $PSScriptRoot "home"
-$Destination = $HOME
-
-# 2. Display info
-Write-Host "Source: $Source"
-Write-Host "Target: $Destination"
-Write-Host "Warning: Do you want to configure your Home Directory?`nThis will overwrite your Home Directory." -ForegroundColor Yellow
-
-# 3. Prompt for choice
-$Title   = "Confirm Copy"
-$Message = "Do you want to proceed?"
-$Choices = @(
-    New-Object System.Management.Automation.Host.ChoiceDescription "&Yes", "Proceed"
-    New-Object System.Management.Automation.Host.ChoiceDescription "&No", "Cancel"
-)
-$Decision = $Host.UI.PromptForChoice($Title, $Message, $Choices, 1)
-
-# 4. Execute
-if ($Decision -eq 0) {
-    Write-Host "`nStarting copy..." -ForegroundColor Green
-    robocopy $Source $Destination /E /IS /IT
-} else {
-    Write-Host "`nCancelled." -ForegroundColor Red
-}
-
 
 ## Keep the window open to check the final log
 Read-Host -Prompt "Press Enter to exit"
